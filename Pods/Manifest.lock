@@ -1,0 +1,15 @@
+PODS:
+  - GCDWebServer (2.3.2):
+    - GCDWebServer/Core
+  - GCDWebServer/Core (2.3.2)
+  - ZBarSDK (1.3.1)
+
+DEPENDENCIES:
+  - GCDWebServer (~> 2.0)
+  - ZBarSDK (~> 1.3)
+
+SPEC CHECKSUMS:
+  GCDWebServer: b79038630071a8110ece267b0e490fb1f388e58e
+  ZBarSDK: cb47d922d1178f9dd696b18c30e103022cfa4cc7
+
+COCOAPODS: 0.32.1

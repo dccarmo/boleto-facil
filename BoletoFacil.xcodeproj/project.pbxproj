@@ -1,0 +1,443 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		779599EBCDF3401FAC959339 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 307233CA551D4CC58922B0B0 /* libPods.a */; };
+		D9186BE2190D84CD008B03BB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9186BE1190D84CD008B03BB /* Foundation.framework */; };
+		D9186BE4190D84CD008B03BB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9186BE3190D84CD008B03BB /* CoreGraphics.framework */; };
+		D9186BE6190D84CD008B03BB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9186BE5190D84CD008B03BB /* UIKit.framework */; };
+		D9186BEC190D84CD008B03BB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D9186BEA190D84CD008B03BB /* InfoPlist.strings */; };
+		D9186BEE190D84CD008B03BB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D9186BED190D84CD008B03BB /* main.m */; };
+		D9186BF2190D84CD008B03BB /* BFOAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D9186BF1190D84CD008B03BB /* BFOAppDelegate.m */; };
+		D9186BF4190D84CD008B03BB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9186BF3190D84CD008B03BB /* Images.xcassets */; };
+		D9186C19190D87B9008B03BB /* BFOListaBoletosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9186C18190D87B9008B03BB /* BFOListaBoletosViewController.m */; };
+		D9186C1C190D8846008B03BB /* BFOEscanearBoletoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9186C1B190D8846008B03BB /* BFOEscanearBoletoViewController.m */; };
+		D9186C1F190D8897008B03BB /* BFOMostrarBoletoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9186C1E190D8897008B03BB /* BFOMostrarBoletoViewController.m */; };
+		D9186C22190DDEC3008B03BB /* BFOEscanearBoletoView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9186C21190DDEC3008B03BB /* BFOEscanearBoletoView.m */; };
+		D9186C24190DDECD008B03BB /* BFOEscanearBoletoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9186C23190DDECD008B03BB /* BFOEscanearBoletoView.xib */; };
+		D9186C29190F1541008B03BB /* BFOMostrarBoletoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9186C28190F1541008B03BB /* BFOMostrarBoletoView.xib */; };
+		D9186C2C190F1787008B03BB /* BFOMostrarBoletoView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9186C2B190F1787008B03BB /* BFOMostrarBoletoView.m */; };
+		D9186C2F19129C87008B03BB /* BFOGerenciadorCodigoBarra.m in Sources */ = {isa = PBXBuildFile; fileRef = D9186C2E19129C87008B03BB /* BFOGerenciadorCodigoBarra.m */; };
+		D9186C321913C6C2008B03BB /* BFONavegacaoPrincipalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9186C311913C6C2008B03BB /* BFONavegacaoPrincipalViewController.m */; };
+		D9186C341913CA8B008B03BB /* BFOListaBoletosView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9186C331913CA8B008B03BB /* BFOListaBoletosView.xib */; };
+		D9186C371913CF48008B03BB /* BFOListaBoletosView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9186C361913CF48008B03BB /* BFOListaBoletosView.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		307233CA551D4CC58922B0B0 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		46B23A6EF2A64E91B016FB47 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		D9186BDE190D84CD008B03BB /* BoletoFacil.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BoletoFacil.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D9186BE1190D84CD008B03BB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		D9186BE3190D84CD008B03BB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		D9186BE5190D84CD008B03BB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		D9186BE9190D84CD008B03BB /* BoletoFacil-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BoletoFacil-Info.plist"; sourceTree = "<group>"; };
+		D9186BEB190D84CD008B03BB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D9186BED190D84CD008B03BB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		D9186BEF190D84CD008B03BB /* BoletoFacil-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BoletoFacil-Prefix.pch"; sourceTree = "<group>"; };
+		D9186BF0190D84CD008B03BB /* BFOAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BFOAppDelegate.h; sourceTree = "<group>"; };
+		D9186BF1190D84CD008B03BB /* BFOAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BFOAppDelegate.m; sourceTree = "<group>"; };
+		D9186BF3190D84CD008B03BB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		D9186BFA190D84CE008B03BB /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		D9186C17190D87B9008B03BB /* BFOListaBoletosViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFOListaBoletosViewController.h; sourceTree = "<group>"; };
+		D9186C18190D87B9008B03BB /* BFOListaBoletosViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFOListaBoletosViewController.m; sourceTree = "<group>"; };
+		D9186C1A190D8846008B03BB /* BFOEscanearBoletoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFOEscanearBoletoViewController.h; sourceTree = "<group>"; };
+		D9186C1B190D8846008B03BB /* BFOEscanearBoletoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFOEscanearBoletoViewController.m; sourceTree = "<group>"; };
+		D9186C1D190D8897008B03BB /* BFOMostrarBoletoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFOMostrarBoletoViewController.h; sourceTree = "<group>"; };
+		D9186C1E190D8897008B03BB /* BFOMostrarBoletoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFOMostrarBoletoViewController.m; sourceTree = "<group>"; };
+		D9186C20190DDEC3008B03BB /* BFOEscanearBoletoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFOEscanearBoletoView.h; sourceTree = "<group>"; };
+		D9186C21190DDEC3008B03BB /* BFOEscanearBoletoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFOEscanearBoletoView.m; sourceTree = "<group>"; };
+		D9186C23190DDECD008B03BB /* BFOEscanearBoletoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BFOEscanearBoletoView.xib; sourceTree = "<group>"; };
+		D9186C28190F1541008B03BB /* BFOMostrarBoletoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BFOMostrarBoletoView.xib; sourceTree = "<group>"; };
+		D9186C2A190F1787008B03BB /* BFOMostrarBoletoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFOMostrarBoletoView.h; sourceTree = "<group>"; };
+		D9186C2B190F1787008B03BB /* BFOMostrarBoletoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFOMostrarBoletoView.m; sourceTree = "<group>"; };
+		D9186C2D19129C87008B03BB /* BFOGerenciadorCodigoBarra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFOGerenciadorCodigoBarra.h; sourceTree = "<group>"; };
+		D9186C2E19129C87008B03BB /* BFOGerenciadorCodigoBarra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFOGerenciadorCodigoBarra.m; sourceTree = "<group>"; };
+		D9186C301913C6C2008B03BB /* BFONavegacaoPrincipalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFONavegacaoPrincipalViewController.h; sourceTree = "<group>"; };
+		D9186C311913C6C2008B03BB /* BFONavegacaoPrincipalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFONavegacaoPrincipalViewController.m; sourceTree = "<group>"; };
+		D9186C331913CA8B008B03BB /* BFOListaBoletosView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BFOListaBoletosView.xib; sourceTree = "<group>"; };
+		D9186C351913CF48008B03BB /* BFOListaBoletosView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFOListaBoletosView.h; sourceTree = "<group>"; };
+		D9186C361913CF48008B03BB /* BFOListaBoletosView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFOListaBoletosView.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D9186BDB190D84CD008B03BB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D9186BE4190D84CD008B03BB /* CoreGraphics.framework in Frameworks */,
+				D9186BE6190D84CD008B03BB /* UIKit.framework in Frameworks */,
+				D9186BE2190D84CD008B03BB /* Foundation.framework in Frameworks */,
+				779599EBCDF3401FAC959339 /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D9186BD5190D84CD008B03BB = {
+			isa = PBXGroup;
+			children = (
+				D9186BE7190D84CD008B03BB /* BoletoFacil */,
+				D9186BE0190D84CD008B03BB /* Frameworks */,
+				D9186BDF190D84CD008B03BB /* Products */,
+				46B23A6EF2A64E91B016FB47 /* Pods.xcconfig */,
+			);
+			sourceTree = "<group>";
+		};
+		D9186BDF190D84CD008B03BB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D9186BDE190D84CD008B03BB /* BoletoFacil.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D9186BE0190D84CD008B03BB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D9186BE1190D84CD008B03BB /* Foundation.framework */,
+				D9186BE3190D84CD008B03BB /* CoreGraphics.framework */,
+				D9186BE5190D84CD008B03BB /* UIKit.framework */,
+				D9186BFA190D84CE008B03BB /* XCTest.framework */,
+				307233CA551D4CC58922B0B0 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D9186BE7190D84CD008B03BB /* BoletoFacil */ = {
+			isa = PBXGroup;
+			children = (
+				D9186BF0190D84CD008B03BB /* BFOAppDelegate.h */,
+				D9186BF1190D84CD008B03BB /* BFOAppDelegate.m */,
+				D9186C10190D874B008B03BB /* Library */,
+				D9186C11190D874B008B03BB /* Support */,
+				D9186C13190D874B008B03BB /* View */,
+				D9186C14190D874B008B03BB /* ViewController */,
+				D9186BF3190D84CD008B03BB /* Images.xcassets */,
+				D9186BE8190D84CD008B03BB /* Supporting Files */,
+			);
+			path = BoletoFacil;
+			sourceTree = "<group>";
+		};
+		D9186BE8190D84CD008B03BB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D9186BE9190D84CD008B03BB /* BoletoFacil-Info.plist */,
+				D9186BEA190D84CD008B03BB /* InfoPlist.strings */,
+				D9186BED190D84CD008B03BB /* main.m */,
+				D9186BEF190D84CD008B03BB /* BoletoFacil-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D9186C10190D874B008B03BB /* Library */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
+		D9186C11190D874B008B03BB /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				D9186C2D19129C87008B03BB /* BFOGerenciadorCodigoBarra.h */,
+				D9186C2E19129C87008B03BB /* BFOGerenciadorCodigoBarra.m */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+		D9186C13190D874B008B03BB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D9186C20190DDEC3008B03BB /* BFOEscanearBoletoView.h */,
+				D9186C21190DDEC3008B03BB /* BFOEscanearBoletoView.m */,
+				D9186C23190DDECD008B03BB /* BFOEscanearBoletoView.xib */,
+				D9186C2A190F1787008B03BB /* BFOMostrarBoletoView.h */,
+				D9186C2B190F1787008B03BB /* BFOMostrarBoletoView.m */,
+				D9186C28190F1541008B03BB /* BFOMostrarBoletoView.xib */,
+				D9186C351913CF48008B03BB /* BFOListaBoletosView.h */,
+				D9186C361913CF48008B03BB /* BFOListaBoletosView.m */,
+				D9186C331913CA8B008B03BB /* BFOListaBoletosView.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D9186C14190D874B008B03BB /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D9186C17190D87B9008B03BB /* BFOListaBoletosViewController.h */,
+				D9186C18190D87B9008B03BB /* BFOListaBoletosViewController.m */,
+				D9186C301913C6C2008B03BB /* BFONavegacaoPrincipalViewController.h */,
+				D9186C311913C6C2008B03BB /* BFONavegacaoPrincipalViewController.m */,
+				D9186C1A190D8846008B03BB /* BFOEscanearBoletoViewController.h */,
+				D9186C1B190D8846008B03BB /* BFOEscanearBoletoViewController.m */,
+				D9186C1D190D8897008B03BB /* BFOMostrarBoletoViewController.h */,
+				D9186C1E190D8897008B03BB /* BFOMostrarBoletoViewController.m */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D9186BDD190D84CD008B03BB /* BoletoFacil */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D9186C0A190D84CE008B03BB /* Build configuration list for PBXNativeTarget "BoletoFacil" */;
+			buildPhases = (
+				07D7281E2BDC4DB7B401AACE /* Check Pods Manifest.lock */,
+				D9186BDA190D84CD008B03BB /* Sources */,
+				D9186BDB190D84CD008B03BB /* Frameworks */,
+				D9186BDC190D84CD008B03BB /* Resources */,
+				DC68EEB65FA34D87BB4820A7 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BoletoFacil;
+			productName = BoletoFacil;
+			productReference = D9186BDE190D84CD008B03BB /* BoletoFacil.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D9186BD6190D84CD008B03BB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = BFO;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "Diogo do Carmo";
+				TargetAttributes = {
+					D9186BDD190D84CD008B03BB = {
+						DevelopmentTeam = NGYV2XXS3X;
+					};
+				};
+			};
+			buildConfigurationList = D9186BD9190D84CD008B03BB /* Build configuration list for PBXProject "BoletoFacil" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = D9186BD5190D84CD008B03BB;
+			productRefGroup = D9186BDF190D84CD008B03BB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D9186BDD190D84CD008B03BB /* BoletoFacil */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D9186BDC190D84CD008B03BB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D9186C29190F1541008B03BB /* BFOMostrarBoletoView.xib in Resources */,
+				D9186C24190DDECD008B03BB /* BFOEscanearBoletoView.xib in Resources */,
+				D9186C341913CA8B008B03BB /* BFOListaBoletosView.xib in Resources */,
+				D9186BEC190D84CD008B03BB /* InfoPlist.strings in Resources */,
+				D9186BF4190D84CD008B03BB /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		07D7281E2BDC4DB7B401AACE /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		DC68EEB65FA34D87BB4820A7 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D9186BDA190D84CD008B03BB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D9186C2C190F1787008B03BB /* BFOMostrarBoletoView.m in Sources */,
+				D9186BF2190D84CD008B03BB /* BFOAppDelegate.m in Sources */,
+				D9186C22190DDEC3008B03BB /* BFOEscanearBoletoView.m in Sources */,
+				D9186C19190D87B9008B03BB /* BFOListaBoletosViewController.m in Sources */,
+				D9186BEE190D84CD008B03BB /* main.m in Sources */,
+				D9186C321913C6C2008B03BB /* BFONavegacaoPrincipalViewController.m in Sources */,
+				D9186C2F19129C87008B03BB /* BFOGerenciadorCodigoBarra.m in Sources */,
+				D9186C371913CF48008B03BB /* BFOListaBoletosView.m in Sources */,
+				D9186C1F190D8897008B03BB /* BFOMostrarBoletoViewController.m in Sources */,
+				D9186C1C190D8846008B03BB /* BFOEscanearBoletoViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		D9186BEA190D84CD008B03BB /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D9186BEB190D84CD008B03BB /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D9186C08190D84CE008B03BB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		D9186C09190D84CE008B03BB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D9186C0B190D84CE008B03BB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 46B23A6EF2A64E91B016FB47 /* Pods.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BoletoFacil/BoletoFacil-Prefix.pch";
+				INFOPLIST_FILE = "BoletoFacil/BoletoFacil-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		D9186C0C190D84CE008B03BB /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 46B23A6EF2A64E91B016FB47 /* Pods.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BoletoFacil/BoletoFacil-Prefix.pch";
+				INFOPLIST_FILE = "BoletoFacil/BoletoFacil-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D9186BD9190D84CD008B03BB /* Build configuration list for PBXProject "BoletoFacil" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D9186C08190D84CE008B03BB /* Debug */,
+				D9186C09190D84CE008B03BB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D9186C0A190D84CE008B03BB /* Build configuration list for PBXNativeTarget "BoletoFacil" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D9186C0B190D84CE008B03BB /* Debug */,
+				D9186C0C190D84CE008B03BB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D9186BD6190D84CD008B03BB /* Project object */;
+}
