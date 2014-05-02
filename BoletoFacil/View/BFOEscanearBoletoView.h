@@ -13,5 +13,6 @@
 @interface BFOEscanearBoletoView : UIView
 
 - (void)setupCameraPreviewView:(ZBarReaderView *)readerView;
+- (void)alterarBotaoFecharParaBotaoSucesso;
 
 @end

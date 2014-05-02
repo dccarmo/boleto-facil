@@ -82,13 +82,16 @@
 - (void)readerView:(ZBarReaderView *)readerView didReadSymbols:(ZBarSymbolSet *)symbols fromImage:(UIImage *)image
 {
     BFONavegacaoPrincipalViewController *navegacaoPrincipal = (BFONavegacaoPrincipalViewController *) self.presentingViewController;
+    BFOEscanearBoletoView *view = (BFOEscanearBoletoView *) self.view;
     
     for (ZBarSymbol *symbol in symbols) {
         [self.gerenciadorCodigoBarra adicionarCodigo:symbol.data];
         
         [navegacaoPrincipal pushViewController:[[BFOMostrarBoletoViewController alloc] initWithCodigoBarra:self.gerenciadorCodigoBarra.ultimoCodigo] animated:NO];
         
-        [self fecharAction];
+        [view alterarBotaoFecharParaBotaoSucesso];
+        
+        [self performSelector:@selector(fecharAction) withObject:nil afterDelay:2.0f];
     }
 }
 

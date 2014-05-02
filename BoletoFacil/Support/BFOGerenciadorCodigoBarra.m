@@ -56,7 +56,7 @@ static NSString *fileName = @"barCodes";
 
 - (void)adicionarCodigo:(NSString *)codigo
 {
-    NSMutableDictionary *ultimoCodigo = [NSMutableDictionary dictionaryWithDictionary:@{@"codigo":codigo}];
+    NSMutableDictionary *ultimoCodigo = [NSMutableDictionary dictionaryWithDictionary:@{@"codigo":codigo, @"data":[NSDate date]}];
     
     self.ultimoCodigo = ultimoCodigo;
     [self.codigos addObject:ultimoCodigo];

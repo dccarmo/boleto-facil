@@ -14,6 +14,7 @@
 @interface BFOEscanearBoletoView()
 
 @property (weak, nonatomic) IBOutlet UIView *cameraPreviewView;
+@property (weak, nonatomic) IBOutlet UIButton *botaoFechar;
 
 @end
 
@@ -23,6 +24,12 @@
 {
     readerView.frame = self.cameraPreviewView.frame;
     [self.cameraPreviewView addSubview:readerView];
+}
+
+- (void)alterarBotaoFecharParaBotaoSucesso
+{
+    self.botaoFechar.userInteractionEnabled = NO;
+    self.botaoFechar.selected = YES;
 }
 
 @end

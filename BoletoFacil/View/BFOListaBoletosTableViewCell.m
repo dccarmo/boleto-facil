@@ -8,27 +8,24 @@
 
 #import "BFOListaBoletosTableViewCell.h"
 
+@interface BFOListaBoletosTableViewCell ()
+
+@property (weak, nonatomic) IBOutlet UILabel *banco;
+@property (weak, nonatomic) IBOutlet UILabel *data;
+@property (weak, nonatomic) IBOutlet UILabel *codigo;
+
+@end
+
 @implementation BFOListaBoletosTableViewCell
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+- (void)configurarCelularComCodigoBarra:(NSDictionary *)boleto
 {
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        // Initialization code
-    }
-    return self;
-}
-
-- (void)awakeFromNib
-{
-    // Initialization code
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+    NSDateFormatter *formatoData = [NSDateFormatter new];
+    
+    formatoData.dateStyle = NSDateFormatterShortStyle;
+    
+    self.codigo.text = boleto[@"codigo"];
+    self.data.text = [formatoData stringFromDate:boleto[@"data"]];
 }
 
 @end

@@ -12,6 +12,9 @@
 #import "BFOEscanearBoletoViewController.h"
 #import "BFOMostrarBoletoViewController.h"
 
+//Views
+#import "BFOListaBoletosTableViewCell.h"
+
 //Model
 #import "BFOGerenciadorCodigoBarra.h"
 
@@ -38,10 +41,11 @@
     
     UIBarButtonItem *botaoCamera = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(escanearCodigo)];
     
-    self.tableView.tableFooterView = [UIView new];
-    
     self.navigationItem.rightBarButtonItem = botaoCamera;
     self.navigationController.navigationBar.translucent = NO;
+    
+    self.tableView.tableFooterView = [UIView new];
+    [self.tableView registerNib:[UINib nibWithNibName:@"BFOListaBoletosTableViewCell" bundle:nil] forCellReuseIdentifier:@"BFOListaBoletosTableViewCell"];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -49,6 +53,12 @@
     [super viewWillAppear:animated];
     
     [self.tableView reloadData];
+    
+    if (![self.gerenciadorCodigoBarra quantidadeCodigosArmazenados]) {
+        self.tableView.backgroundView = [[[NSBundle mainBundle] loadNibNamed:@"BFOListaBolestosVaziaView" owner:self options:nil] firstObject];
+    } else {
+        self.tableView.backgroundView = nil;
+    }
 }
 
 - (void)escanearCodigo
@@ -65,20 +75,20 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"UITableViewCell"];
-    NSDictionary *barCode = [self.gerenciadorCodigoBarra codigoNoIndice:indexPath.row];
+    BFOListaBoletosTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"BFOListaBoletosTableViewCell" forIndexPath:indexPath];
+    NSDictionary *codigoBarra = [self.gerenciadorCodigoBarra codigoNoIndice:indexPath.row];
     
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
-    }
-    
-    cell.textLabel.text = barCode[@"codigo"];
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    [cell configurarCelularComCodigoBarra:codigoBarra];
     
     return cell;
 }
 
 #pragma mark - UITableViewDelegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 70.0f;
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

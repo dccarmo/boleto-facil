@@ -28,6 +28,7 @@
 		D9186C371913CF48008B03BB /* BFOListaBoletosView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9186C361913CF48008B03BB /* BFOListaBoletosView.m */; };
 		D9186C391913FC78008B03BB /* BFOListaBoletosTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9186C381913FC78008B03BB /* BFOListaBoletosTableViewCell.xib */; };
 		D9186C3C1913FEE1008B03BB /* BFOListaBoletosTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9186C3B1913FEE1008B03BB /* BFOListaBoletosTableViewCell.m */; };
+		D9186C3E19141111008B03BB /* BFOListaBolestosVaziaView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9186C3D19141111008B03BB /* BFOListaBolestosVaziaView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +68,7 @@
 		D9186C381913FC78008B03BB /* BFOListaBoletosTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BFOListaBoletosTableViewCell.xib; sourceTree = "<group>"; };
 		D9186C3A1913FEE1008B03BB /* BFOListaBoletosTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFOListaBoletosTableViewCell.h; sourceTree = "<group>"; };
 		D9186C3B1913FEE1008B03BB /* BFOListaBoletosTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFOListaBoletosTableViewCell.m; sourceTree = "<group>"; };
+		D9186C3D19141111008B03BB /* BFOListaBolestosVaziaView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BFOListaBolestosVaziaView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +169,7 @@
 				D9186C28190F1541008B03BB /* BFOMostrarBoletoView.xib */,
 				D9186C351913CF48008B03BB /* BFOListaBoletosView.h */,
 				D9186C361913CF48008B03BB /* BFOListaBoletosView.m */,
+				D9186C3D19141111008B03BB /* BFOListaBolestosVaziaView.xib */,
 				D9186C331913CA8B008B03BB /* BFOListaBoletosView.xib */,
 				D9186C3A1913FEE1008B03BB /* BFOListaBoletosTableViewCell.h */,
 				D9186C3B1913FEE1008B03BB /* BFOListaBoletosTableViewCell.m */,
@@ -251,6 +254,7 @@
 			files = (
 				D9186C29190F1541008B03BB /* BFOMostrarBoletoView.xib in Resources */,
 				D9186C24190DDECD008B03BB /* BFOEscanearBoletoView.xib in Resources */,
+				D9186C3E19141111008B03BB /* BFOListaBolestosVaziaView.xib in Resources */,
 				D9186C341913CA8B008B03BB /* BFOListaBoletosView.xib in Resources */,
 				D9186BEC190D84CD008B03BB /* InfoPlist.strings in Resources */,
 				D9186C391913FC78008B03BB /* BFOListaBoletosTableViewCell.xib in Resources */,
