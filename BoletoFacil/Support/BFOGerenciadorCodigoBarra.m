@@ -13,7 +13,6 @@ static NSString *fileName = @"barCodes";
 @interface BFOGerenciadorCodigoBarra()
 
 @property (nonatomic) NSMutableArray *codigos;
-@property (nonatomic, weak) NSMutableDictionary *ultimoCodigo;
 
 @end
 
@@ -47,6 +46,13 @@ static NSString *fileName = @"barCodes";
     
     return _codigos;
 }
+
+- (void)setUltimoCodigo:(NSMutableDictionary *)ultimoCodigo
+{
+    _ultimoCodigo = ultimoCodigo;
+}
+
+#pragma mark - Gerenciamento
 
 - (void)adicionarCodigo:(NSString *)codigo
 {

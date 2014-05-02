@@ -24,11 +24,17 @@
 
 @implementation BFOMostrarBoletoViewController
 
+- (void)dealloc
+{
+    [self.webServer stop];
+}
+
 - (instancetype)initWithCodigoBarra:(NSDictionary *)codigoBarra
 {
     self = [super initWithNibName:@"BFOMostrarBoletoView" bundle:nil];
     if (self) {
         self.codigoBarra = codigoBarra;
+        
     }
     return self;
 }
@@ -48,17 +54,14 @@
     self.webServer = [[GCDWebServer alloc] init];
     self.webServer.delegate = self;
     
-    // Add a handler to respond to GET requests on any URL
     [self.webServer addDefaultHandlerForMethod:@"GET"
-                              requestClass:[GCDWebServerRequest class]
-                              processBlock:^GCDWebServerResponse *(GCDWebServerRequest* request) {
+                                  requestClass:[GCDWebServerRequest class]
+                                  processBlock:^GCDWebServerResponse *(GCDWebServerRequest* request) {
                                   
                                   return [GCDWebServerDataResponse responseWithHTML:[NSString stringWithFormat:@"<html><body><p>Seu código de barras é: %@</p></body></html>", codigo]];
-                                  
-                              }];
+                                  }];
     
-    // Start server on port 8080
-    [self.webServer startWithPort:8080 bonjourName:nil];
+    [self.webServer start];
 }
 
 #pragma mark - GCDWebServerDelegate

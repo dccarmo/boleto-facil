@@ -26,6 +26,8 @@
 		D9186C321913C6C2008B03BB /* BFONavegacaoPrincipalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9186C311913C6C2008B03BB /* BFONavegacaoPrincipalViewController.m */; };
 		D9186C341913CA8B008B03BB /* BFOListaBoletosView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9186C331913CA8B008B03BB /* BFOListaBoletosView.xib */; };
 		D9186C371913CF48008B03BB /* BFOListaBoletosView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9186C361913CF48008B03BB /* BFOListaBoletosView.m */; };
+		D9186C391913FC78008B03BB /* BFOListaBoletosTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9186C381913FC78008B03BB /* BFOListaBoletosTableViewCell.xib */; };
+		D9186C3C1913FEE1008B03BB /* BFOListaBoletosTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9186C3B1913FEE1008B03BB /* BFOListaBoletosTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +64,9 @@
 		D9186C331913CA8B008B03BB /* BFOListaBoletosView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BFOListaBoletosView.xib; sourceTree = "<group>"; };
 		D9186C351913CF48008B03BB /* BFOListaBoletosView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFOListaBoletosView.h; sourceTree = "<group>"; };
 		D9186C361913CF48008B03BB /* BFOListaBoletosView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFOListaBoletosView.m; sourceTree = "<group>"; };
+		D9186C381913FC78008B03BB /* BFOListaBoletosTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BFOListaBoletosTableViewCell.xib; sourceTree = "<group>"; };
+		D9186C3A1913FEE1008B03BB /* BFOListaBoletosTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFOListaBoletosTableViewCell.h; sourceTree = "<group>"; };
+		D9186C3B1913FEE1008B03BB /* BFOListaBoletosTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFOListaBoletosTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +168,9 @@
 				D9186C351913CF48008B03BB /* BFOListaBoletosView.h */,
 				D9186C361913CF48008B03BB /* BFOListaBoletosView.m */,
 				D9186C331913CA8B008B03BB /* BFOListaBoletosView.xib */,
+				D9186C3A1913FEE1008B03BB /* BFOListaBoletosTableViewCell.h */,
+				D9186C3B1913FEE1008B03BB /* BFOListaBoletosTableViewCell.m */,
+				D9186C381913FC78008B03BB /* BFOListaBoletosTableViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -245,6 +253,7 @@
 				D9186C24190DDECD008B03BB /* BFOEscanearBoletoView.xib in Resources */,
 				D9186C341913CA8B008B03BB /* BFOListaBoletosView.xib in Resources */,
 				D9186BEC190D84CD008B03BB /* InfoPlist.strings in Resources */,
+				D9186C391913FC78008B03BB /* BFOListaBoletosTableViewCell.xib in Resources */,
 				D9186BF4190D84CD008B03BB /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -290,6 +299,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D9186C2C190F1787008B03BB /* BFOMostrarBoletoView.m in Sources */,
+				D9186C3C1913FEE1008B03BB /* BFOListaBoletosTableViewCell.m in Sources */,
 				D9186BF2190D84CD008B03BB /* BFOAppDelegate.m in Sources */,
 				D9186C22190DDEC3008B03BB /* BFOEscanearBoletoView.m in Sources */,
 				D9186C19190D87B9008B03BB /* BFOListaBoletosViewController.m in Sources */,

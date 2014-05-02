@@ -10,6 +10,8 @@
 
 @interface BFOGerenciadorCodigoBarra : NSObject
 
+@property (nonatomic, weak, readonly) NSMutableDictionary *ultimoCodigo;
+
 + (id)sharedGerenciadorCodigoBarra;
 
 - (NSDictionary *)codigoNoIndice:(NSInteger)indice;

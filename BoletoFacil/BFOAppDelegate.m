@@ -20,6 +20,8 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
+    [self setApplicationStyle];
+    
     return YES;
 }
 
@@ -48,6 +50,18 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void)setApplicationStyle
+{
+    UIColor *tintColor = [UIColor colorWithRed:0.298 green:0.85 blue:0.392 alpha:1];
+    UIColor *navigationBarBackgroundColor = [UIColor colorWithWhite:0.1f alpha:1.0f];
+    
+    //UIView
+    [UIView appearance].tintColor = tintColor;
+    
+    //UINavigationBar
+    [UINavigationBar appearance].backgroundColor = navigationBarBackgroundColor;
 }
 
 @end

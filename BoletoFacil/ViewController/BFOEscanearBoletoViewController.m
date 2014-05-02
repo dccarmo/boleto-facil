@@ -10,10 +10,14 @@
 
 #import "BFOEscanearBoletoViewController.h"
 
+//View Controllers
+#import "BFOMostrarBoletoViewController.h"
+#import "BFONavegacaoPrincipalViewController.h"
+
 //Views
 #import "BFOEscanearBoletoView.h"
 
-//Model
+//Models
 #import "BFOGerenciadorCodigoBarra.h"
 
 //Pods
@@ -21,7 +25,7 @@
 
 @interface BFOEscanearBoletoViewController () <ZBarReaderViewDelegate>
 
-@property (nonatomic) BFOGerenciadorCodigoBarra *barCodes;
+@property (nonatomic) BFOGerenciadorCodigoBarra *gerenciadorCodigoBarra;
 
 @end
 
@@ -31,7 +35,7 @@
 {
     self = [super initWithNibName:@"BFOEscanearBoletoView" bundle:nil];
     if (self) {
-         self.barCodes = [BFOGerenciadorCodigoBarra sharedGerenciadorCodigoBarra];
+         self.gerenciadorCodigoBarra = [BFOGerenciadorCodigoBarra sharedGerenciadorCodigoBarra];
     }
     return self;
 }
@@ -68,7 +72,7 @@
     
 }
 
-- (IBAction)fecharAction:(id)sender
+- (IBAction)fecharAction
 {
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
@@ -77,10 +81,14 @@
 
 - (void)readerView:(ZBarReaderView *)readerView didReadSymbols:(ZBarSymbolSet *)symbols fromImage:(UIImage *)image
 {
+    BFONavegacaoPrincipalViewController *navegacaoPrincipal = (BFONavegacaoPrincipalViewController *) self.presentingViewController;
+    
     for (ZBarSymbol *symbol in symbols) {
-        NSLog(@"%@", symbol.data);
+        [self.gerenciadorCodigoBarra adicionarCodigo:symbol.data];
         
-        [self.barCodes adicionarCodigo:symbol.data];
+        [navegacaoPrincipal pushViewController:[[BFOMostrarBoletoViewController alloc] initWithCodigoBarra:self.gerenciadorCodigoBarra.ultimoCodigo] animated:NO];
+        
+        [self fecharAction];
     }
 }
 
