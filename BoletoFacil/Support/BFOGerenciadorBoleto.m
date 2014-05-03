@@ -8,6 +8,10 @@
 
 #import "BFOGerenciadorBoleto.h"
 
+//Support
+#import "DCCBoletoBancarioFormatter.h"
+#import "BFOUtilidadesBoleto.h"
+
 static NSString *fileName = @"barCodes";
 
 @interface BFOGerenciadorBoleto()
@@ -56,7 +60,15 @@ static NSString *fileName = @"barCodes";
 
 - (void)adicionarCodigo:(NSString *)codigo
 {
-    NSMutableDictionary *ultimoCodigo = [NSMutableDictionary dictionaryWithDictionary:@{@"codigo":codigo, @"data":[NSDate date]}];
+    NSMutableDictionary *ultimoCodigo;
+    DCCBoletoBancarioFormatter *formatoBoleto = [DCCBoletoBancarioFormatter new];
+    BFOUtilidadesBoleto *utilidadesBoleto = [BFOUtilidadesBoleto new];
+    
+    ultimoCodigo = [NSMutableDictionary dictionaryWithDictionary:@{@"codigo":codigo,
+                                                                   @"linhaDigitavel":[formatoBoleto linhaDigitavelDoCodigoBarra:codigo],
+                                                                   @"banco":[utilidadesBoleto bancoDoCodigoBarra:codigo] ? [utilidadesBoleto bancoDoCodigoBarra:codigo] : @"Banco não identificado",
+                                                                   @"dataVencimento":[utilidadesBoleto dataVencimentoDoCodigoBarra:codigo],
+                                                                   @"data":[NSDate date]}];
     
     self.ultimoCodigo = ultimoCodigo;
     [self.codigos addObject:ultimoCodigo];
@@ -82,7 +94,5 @@ static NSString *fileName = @"barCodes";
         NSLog(@"Array wasn't saved properly");
     }
 }
-
-
 
 @end

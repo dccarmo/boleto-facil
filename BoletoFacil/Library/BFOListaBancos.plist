@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>codigo</key>
+		<string>399</string>
+		<key>nome</key>
+		<string>HSBC</string>
+	</dict>
+	<dict>
+		<key>codigo</key>
+		<string>422</string>
+		<key>nome</key>
+		<string>Safra</string>
+	</dict>
+	<dict>
+		<key>codigo</key>
+		<string>237</string>
+		<key>nome</key>
+		<string>Bradesco</string>
+	</dict>
+	<dict>
+		<key>codigo</key>
+		<string>001</string>
+		<key>nome</key>
+		<string>Banco do Brasil</string>
+	</dict>
+	<dict>
+		<key>codigo</key>
+		<string>341</string>
+		<key>nome</key>
+		<string>Itaú</string>
+	</dict>
+	<dict>
+		<key>codigo</key>
+		<string>104</string>
+		<key>nome</key>
+		<string>Caixa</string>
+	</dict>
+	<dict>
+		<key>codigo</key>
+		<string>033</string>
+		<key>nome</key>
+		<string>Santander</string>
+	</dict>
+	<dict>
+		<key>codigo</key>
+		<string>745</string>
+		<key>nome</key>
+		<string>Citibank</string>
+	</dict>
+	<dict>
+		<key>codigo</key>
+		<string>479</string>
+		<key>nome</key>
+		<string>Itaúbank</string>
+	</dict>
+	<dict>
+		<key>codigo</key>
+		<string>021</string>
+		<key>nome</key>
+		<string>Banestes</string>
+	</dict>
+	<dict>
+		<key>codigo</key>
+		<string>389</string>
+		<key>nome</key>
+		<string>Mercantil do Brasil</string>
+	</dict>
+	<dict>
+		<key>codigo</key>
+		<string>756</string>
+		<key>nome</key>
+		<string>SICOOB</string>
+	</dict>
+</array>
+</plist>

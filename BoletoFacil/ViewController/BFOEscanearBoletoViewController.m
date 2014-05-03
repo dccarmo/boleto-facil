@@ -20,6 +20,9 @@
 //Models
 #import "BFOGerenciadorBoleto.h"
 
+//Support
+#import "DCCBoletoBancarioFormatter.h"
+
 //Pods
 #import <ZBarSDK.h>
 
@@ -84,8 +87,18 @@
 {
     BFONavegacaoPrincipalViewController *navegacaoPrincipal = (BFONavegacaoPrincipalViewController *) self.presentingViewController;
     BFOEscanearBoletoView *view = (BFOEscanearBoletoView *) self.view;
+    NSString *codigo;
+    DCCBoletoBancarioFormatter *formatoBoleto = [DCCBoletoBancarioFormatter new];
     
     for (ZBarSymbol *symbol in symbols) {
+        codigo = symbol.data;
+        codigo = [[codigo componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
+        
+        if (![formatoBoleto linhaDigitavelDoCodigoBarra:codigo]) {
+            //Alterar o formato do botao para X vermelho, indicando erro
+            continue;
+        }
+        
         [self.gerenciadorBoleto adicionarCodigo:symbol.data];
         [self.leitorView stop];
         
@@ -93,7 +106,9 @@
         
         [view alterarBotaoFecharParaBotaoSucesso];
         
-        [self performSelector:@selector(fecharAction) withObject:nil afterDelay:3.0f];
+        [self performSelector:@selector(fecharAction) withObject:nil afterDelay:2.0f];
+        
+        break;
     }
 }
 

@@ -9,4 +9,11 @@
 
 @interface DCCBoletoBancarioFormatter : NSFormatter
 
+/**
+ *  Retorna a linha digitavel
+ *
+ */
+- (NSString *)linhaDigitavelDoCodigoBarra:(NSString *)codigoBarra;
+- (NSString *)codigoBarraDaLinhaDigitavel:(NSString *)linhaDigitavel;
+
 @end

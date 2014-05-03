@@ -25,7 +25,8 @@
     [formatoData setDoesRelativeDateFormatting:YES];
     [formatoData setDateStyle:NSDateFormatterShortStyle];
     
-    self.codigo.text = boleto[@"codigo"];
+    self.banco.text = boleto[@"banco"];
+    self.codigo.text = boleto[@"linhaDigitavel"];
     self.data.text = [formatoData stringFromDate:boleto[@"data"]];
 }
 

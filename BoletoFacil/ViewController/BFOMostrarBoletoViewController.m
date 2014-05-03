@@ -62,7 +62,7 @@
                                   requestClass:[GCDWebServerRequest class]
                                   processBlock:^GCDWebServerResponse *(GCDWebServerRequest* request) {
                                   
-                                  return [GCDWebServerDataResponse responseWithHTML:[NSString stringWithFormat:@"<html><body><p>Seu código de barras é: %@</p></body></html>", [formatoLinhaDigitavel stringForObjectValue:codigo]]];
+                                  return [GCDWebServerDataResponse responseWithHTML:[NSString stringWithFormat:@"<html><body><p>Seu código de barras é: %@</p></body></html>", [formatoLinhaDigitavel linhaDigitavelDoCodigoBarra:codigo]]];
                                   }];
     
     [self.webServer start];
