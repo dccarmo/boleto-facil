@@ -6,28 +6,28 @@
 //  Copyright (c) 2014 Diogo do Carmo. All rights reserved.
 //
 
-#import "BFOGerenciadorCodigoBarra.h"
+#import "BFOGerenciadorBoleto.h"
 
 static NSString *fileName = @"barCodes";
 
-@interface BFOGerenciadorCodigoBarra()
+@interface BFOGerenciadorBoleto()
 
 @property (nonatomic) NSMutableArray *codigos;
 
 @end
 
-@implementation BFOGerenciadorCodigoBarra
+@implementation BFOGerenciadorBoleto
 
-+ (id)sharedGerenciadorCodigoBarra
++ (id)sharedGerenciadorBoleto
 {
     static dispatch_once_t pred;
-    static BFOGerenciadorCodigoBarra *gerenciadorCodigoBarra = nil;
+    static BFOGerenciadorBoleto *gerenciadorBoleto = nil;
     
     dispatch_once(&pred, ^{
-        gerenciadorCodigoBarra = [self new];
+        gerenciadorBoleto = [self new];
     });
     
-    return gerenciadorCodigoBarra;
+    return gerenciadorBoleto;
 }
 
 - (NSMutableArray *)codigos

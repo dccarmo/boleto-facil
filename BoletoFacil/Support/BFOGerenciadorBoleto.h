@@ -8,11 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BFOGerenciadorCodigoBarra : NSObject
+@interface BFOGerenciadorBoleto : NSObject
 
 @property (nonatomic, weak, readonly) NSMutableDictionary *ultimoCodigo;
 
-+ (id)sharedGerenciadorCodigoBarra;
++ (id)sharedGerenciadorBoleto;
 
 - (NSDictionary *)codigoNoIndice:(NSInteger)indice;
 - (void)adicionarCodigo:(NSString *)codigo;

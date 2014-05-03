@@ -11,6 +11,9 @@
 //Views
 #import "BFOMostrarBoletoView.h"
 
+//Support
+#import "DCCBoletoBancarioFormatter.h"
+
 //Pods
 #import <GCDWebServer.h>
 #import <GCDWebServerDataResponse.h>
@@ -49,6 +52,7 @@
 - (void)inicializarWebService
 {
     NSString *codigo = self.codigoBarra[@"codigo"];
+    DCCBoletoBancarioFormatter *formatoLinhaDigitavel = [DCCBoletoBancarioFormatter new];
     
     // Create server
     self.webServer = [[GCDWebServer alloc] init];
@@ -58,7 +62,7 @@
                                   requestClass:[GCDWebServerRequest class]
                                   processBlock:^GCDWebServerResponse *(GCDWebServerRequest* request) {
                                   
-                                  return [GCDWebServerDataResponse responseWithHTML:[NSString stringWithFormat:@"<html><body><p>Seu código de barras é: %@</p></body></html>", codigo]];
+                                  return [GCDWebServerDataResponse responseWithHTML:[NSString stringWithFormat:@"<html><body><p>Seu código de barras é: %@</p></body></html>", [formatoLinhaDigitavel stringForObjectValue:codigo]]];
                                   }];
     
     [self.webServer start];

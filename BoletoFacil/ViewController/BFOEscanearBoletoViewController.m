@@ -18,14 +18,15 @@
 #import "BFOEscanearBoletoView.h"
 
 //Models
-#import "BFOGerenciadorCodigoBarra.h"
+#import "BFOGerenciadorBoleto.h"
 
 //Pods
 #import <ZBarSDK.h>
 
 @interface BFOEscanearBoletoViewController () <ZBarReaderViewDelegate>
 
-@property (nonatomic) BFOGerenciadorCodigoBarra *gerenciadorCodigoBarra;
+@property (nonatomic) BFOGerenciadorBoleto *gerenciadorBoleto;
+@property (nonatomic) ZBarReaderView *leitorView;
 
 @end
 
@@ -35,7 +36,7 @@
 {
     self = [super initWithNibName:@"BFOEscanearBoletoView" bundle:nil];
     if (self) {
-         self.gerenciadorCodigoBarra = [BFOGerenciadorCodigoBarra sharedGerenciadorCodigoBarra];
+         self.gerenciadorBoleto = [BFOGerenciadorBoleto sharedGerenciadorBoleto];
     }
     return self;
 }
@@ -60,15 +61,15 @@
 
 - (void)capturarCodigoBarra
 {
-    ZBarReaderView *readerView = [[ZBarReaderView alloc] initWithImageScanner:[ZBarImageScanner new]];
     BFOEscanearBoletoView *view = (BFOEscanearBoletoView *) self.view;
     
-    [view setupCameraPreviewView:readerView];
+    self.leitorView = [[ZBarReaderView alloc] initWithImageScanner:[ZBarImageScanner new]];
+    [view setupCameraPreviewView:self.leitorView];
     
-    readerView.readerDelegate = self;
-    readerView.zoom = 1.0;
-    [readerView.scanner setSymbology:ZBAR_EAN5 config:ZBAR_CFG_ENABLE to:0];
-    [readerView start];
+    self.leitorView.readerDelegate = self;
+    self.leitorView.zoom = 1.0;
+    [self.leitorView.scanner setSymbology:ZBAR_EAN5 config:ZBAR_CFG_ENABLE to:0];
+    [self.leitorView start];
     
 }
 
@@ -85,13 +86,14 @@
     BFOEscanearBoletoView *view = (BFOEscanearBoletoView *) self.view;
     
     for (ZBarSymbol *symbol in symbols) {
-        [self.gerenciadorCodigoBarra adicionarCodigo:symbol.data];
+        [self.gerenciadorBoleto adicionarCodigo:symbol.data];
+        [self.leitorView stop];
         
-        [navegacaoPrincipal pushViewController:[[BFOMostrarBoletoViewController alloc] initWithCodigoBarra:self.gerenciadorCodigoBarra.ultimoCodigo] animated:NO];
+        [navegacaoPrincipal pushViewController:[[BFOMostrarBoletoViewController alloc] initWithCodigoBarra:self.gerenciadorBoleto.ultimoCodigo] animated:NO];
         
         [view alterarBotaoFecharParaBotaoSucesso];
         
-        [self performSelector:@selector(fecharAction) withObject:nil afterDelay:2.0f];
+        [self performSelector:@selector(fecharAction) withObject:nil afterDelay:3.0f];
     }
 }
 

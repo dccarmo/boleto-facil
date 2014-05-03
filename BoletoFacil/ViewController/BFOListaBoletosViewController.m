@@ -16,11 +16,11 @@
 #import "BFOListaBoletosTableViewCell.h"
 
 //Model
-#import "BFOGerenciadorCodigoBarra.h"
+#import "BFOGerenciadorBoleto.h"
 
 @interface BFOListaBoletosViewController ()
 
-@property (nonatomic) BFOGerenciadorCodigoBarra *gerenciadorCodigoBarra;
+@property (nonatomic) BFOGerenciadorBoleto *gerenciadorBoleto;
 
 @end
 
@@ -30,7 +30,7 @@
 {
     self = [super initWithNibName:@"BFOListaBoletosView" bundle:nil];
     if (self) {
-        self.gerenciadorCodigoBarra = [BFOGerenciadorCodigoBarra sharedGerenciadorCodigoBarra];
+        self.gerenciadorBoleto = [BFOGerenciadorBoleto sharedGerenciadorBoleto];
     }
     return self;
 }
@@ -54,7 +54,7 @@
     
     [self.tableView reloadData];
     
-    if (![self.gerenciadorCodigoBarra quantidadeCodigosArmazenados]) {
+    if (![self.gerenciadorBoleto quantidadeCodigosArmazenados]) {
         self.tableView.backgroundView = [[[NSBundle mainBundle] loadNibNamed:@"BFOListaBolestosVaziaView" owner:self options:nil] firstObject];
     } else {
         self.tableView.backgroundView = nil;
@@ -70,13 +70,13 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.gerenciadorCodigoBarra quantidadeCodigosArmazenados];
+    return [self.gerenciadorBoleto quantidadeCodigosArmazenados];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     BFOListaBoletosTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"BFOListaBoletosTableViewCell" forIndexPath:indexPath];
-    NSDictionary *codigoBarra = [self.gerenciadorCodigoBarra codigoNoIndice:indexPath.row];
+    NSDictionary *codigoBarra = [self.gerenciadorBoleto codigoNoIndice:indexPath.row];
     
     [cell configurarCelularComCodigoBarra:codigoBarra];
     
@@ -92,7 +92,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSDictionary *codigoBarrra = [self.gerenciadorCodigoBarra codigoNoIndice:indexPath.row];
+    NSDictionary *codigoBarrra = [self.gerenciadorBoleto codigoNoIndice:indexPath.row];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     

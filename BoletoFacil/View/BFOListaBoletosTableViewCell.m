@@ -22,7 +22,8 @@
 {
     NSDateFormatter *formatoData = [NSDateFormatter new];
     
-    formatoData.dateStyle = NSDateFormatterShortStyle;
+    [formatoData setDoesRelativeDateFormatting:YES];
+    [formatoData setDateStyle:NSDateFormatterShortStyle];
     
     self.codigo.text = boleto[@"codigo"];
     self.data.text = [formatoData stringFromDate:boleto[@"data"]];
