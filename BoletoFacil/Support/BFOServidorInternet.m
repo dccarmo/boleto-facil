@@ -8,13 +8,19 @@
 
 #import "BFOServidorInternet.h"
 
+//Support
+#import "Reachability.h"
+
 //Pods
 #import <GCDWebServerDataResponse.h>
+
+static NSString * const erroSemConexaoWifi = @"Você não está conectado à wi-fi";
 
 @interface BFOServidorInternet () <GCDWebServerDelegate>
 
 @property (nonatomic) GCDWebServer *servidor;
 @property (nonatomic) NSString *mensagemErro;
+@property (nonatomic) Reachability *reachability;
 
 @end
 
@@ -38,6 +44,21 @@
     if (self.servidor && [self.servidor isRunning]) {
         [self.servidor stop];
     }
+
+    if (self.reachability) {
+        [self.reachability stopNotifier];
+    }
+}
+
+- (Reachability *)reachability
+{
+    if (!_reachability) {
+        _reachability = [Reachability reachabilityForInternetConnection];
+        [_reachability startNotifier];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityMudou) name:kReachabilityChangedNotification object:nil];
+    }
+    
+    return _reachability;
 }
 
 - (void)inicializarServidor
@@ -50,7 +71,15 @@
 
 - (void)iniciarServidor
 {
-    [self.servidor start];
+    if ([self.servidor isRunning]) {
+        [self.servidor stop];
+    }
+    
+    if (self.reachability.currentReachabilityStatus == ReachableViaWiFi) {
+        [self.servidor start];
+    } else {
+        self.mensagemErro = erroSemConexaoWifi;
+    }
 }
 
 - (NSString *)URLServidor
@@ -63,7 +92,7 @@
     NSString *codigo = boleto[@"codigo"];
     
     if (![self.servidor isRunning]) {
-//        *erro = nil;
+        *mensagemErro = self.mensagemErro ? self.mensagemErro : @"";
         return NO;
     }
     
@@ -77,6 +106,13 @@
                                  }];
     
     return YES;
+}
+
+#pragma mark - NSNotificationCenter
+
+- (void)reachabilityMudou
+{
+    [self iniciarServidor];
 }
 
 #pragma mark - GCDWebServerDelegate

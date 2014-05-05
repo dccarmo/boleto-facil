@@ -33,6 +33,7 @@
 		D9186C4919156FE8008B03BB /* BFOListaBancos.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9186C4819156FE8008B03BB /* BFOListaBancos.plist */; };
 		D9186C4C191573F1008B03BB /* BFOUtilidadesBoleto.m in Sources */ = {isa = PBXBuildFile; fileRef = D9186C4B191573F1008B03BB /* BFOUtilidadesBoleto.m */; };
 		D9186C541916DE81008B03BB /* BFOServidorInternet.m in Sources */ = {isa = PBXBuildFile; fileRef = D9186C531916DE81008B03BB /* BFOServidorInternet.m */; };
+		D9D1CF11191850FD0015C8EB /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D1CF10191850FD0015C8EB /* Reachability.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +81,8 @@
 		D9186C4B191573F1008B03BB /* BFOUtilidadesBoleto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFOUtilidadesBoleto.m; sourceTree = "<group>"; };
 		D9186C521916DE81008B03BB /* BFOServidorInternet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFOServidorInternet.h; sourceTree = "<group>"; };
 		D9186C531916DE81008B03BB /* BFOServidorInternet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFOServidorInternet.m; sourceTree = "<group>"; };
+		D9D1CF0F191850FD0015C8EB /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		D9D1CF10191850FD0015C8EB /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +167,8 @@
 		D9186C11190D874B008B03BB /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				D9D1CF0F191850FD0015C8EB /* Reachability.h */,
+				D9D1CF10191850FD0015C8EB /* Reachability.m */,
 				D9186C4A191573F1008B03BB /* BFOUtilidadesBoleto.h */,
 				D9186C4B191573F1008B03BB /* BFOUtilidadesBoleto.m */,
 				D9186C2D19129C87008B03BB /* BFOGerenciadorBoleto.h */,
@@ -325,6 +330,7 @@
 				D9186C2C190F1787008B03BB /* BFOMostrarBoletoView.m in Sources */,
 				D9186C3C1913FEE1008B03BB /* BFOListaBoletosTableViewCell.m in Sources */,
 				D9186BF2190D84CD008B03BB /* BFOAppDelegate.m in Sources */,
+				D9D1CF11191850FD0015C8EB /* Reachability.m in Sources */,
 				D9186C22190DDEC3008B03BB /* BFOEscanearBoletoView.m in Sources */,
 				D9186C4C191573F1008B03BB /* BFOUtilidadesBoleto.m in Sources */,
 				D9186C19190D87B9008B03BB /* BFOListaBoletosViewController.m in Sources */,
