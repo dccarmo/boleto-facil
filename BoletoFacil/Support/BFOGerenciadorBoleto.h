@@ -10,13 +10,12 @@
 
 @interface BFOGerenciadorBoleto : NSObject
 
-@property (nonatomic, weak, readonly) NSMutableDictionary *ultimoCodigo;
+@property (nonatomic, weak, readonly) NSMutableDictionary *ultimoBoleto;
 
 + (id)sharedGerenciadorBoleto;
 
-- (NSDictionary *)codigoNoIndice:(NSInteger)indice;
-- (void)adicionarCodigo:(NSString *)codigo;
+- (NSDictionary *)boletoNoIndice:(NSInteger)indice;
+- (void)adicionarCodigoBarras:(NSString *)codigoBarras;
 - (NSInteger)quantidadeCodigosArmazenados;
-- (NSDictionary *)ultimoCodigo;
 
 @end

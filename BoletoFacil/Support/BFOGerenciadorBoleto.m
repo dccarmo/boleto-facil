@@ -16,7 +16,7 @@ static NSString *fileName = @"barCodes";
 
 @interface BFOGerenciadorBoleto()
 
-@property (nonatomic) NSMutableArray *codigos;
+@property (nonatomic) NSMutableArray *boletos;
 
 @end
 
@@ -34,55 +34,57 @@ static NSString *fileName = @"barCodes";
     return gerenciadorBoleto;
 }
 
-- (NSMutableArray *)codigos
+- (NSMutableArray *)boletos
 {
-    if (!_codigos) {
+    if (!_boletos) {
         NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
         NSString *finalPath = [documentsDirectory stringByAppendingPathComponent:fileName];
         BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:finalPath];
         
         if (fileExists) {
-            _codigos = [NSMutableArray arrayWithContentsOfFile:finalPath];
+            _boletos = [NSMutableArray arrayWithContentsOfFile:finalPath];
         } else {
-            _codigos = [NSMutableArray new];
+            _boletos = [NSMutableArray new];
         }
     }
     
-    return _codigos;
+    return _boletos;
 }
 
-- (void)setUltimoCodigo:(NSMutableDictionary *)ultimoCodigo
+- (void)setUltimoBoleto:(NSMutableDictionary *)ultimoCodigo
 {
-    _ultimoCodigo = ultimoCodigo;
+    _ultimoBoleto = ultimoCodigo;
 }
 
 #pragma mark - Gerenciamento
 
-- (void)adicionarCodigo:(NSString *)codigo
+- (void)adicionarCodigoBarras:(NSString *)codigoBarras
 {
     NSMutableDictionary *ultimoCodigo;
     DCCBoletoBancarioFormatter *formatoBoleto = [DCCBoletoBancarioFormatter new];
     BFOUtilidadesBoleto *utilidadesBoleto = [BFOUtilidadesBoleto new];
     
-    ultimoCodigo = [NSMutableDictionary dictionaryWithDictionary:@{@"codigo":codigo,
-                                                                   @"linhaDigitavel":[formatoBoleto linhaDigitavelDoCodigoBarra:codigo],
-                                                                   @"banco":[utilidadesBoleto bancoDoCodigoBarra:codigo] ? [utilidadesBoleto bancoDoCodigoBarra:codigo] : @"Banco não identificado",
-                                                                   @"dataVencimento":[utilidadesBoleto dataVencimentoDoCodigoBarra:codigo],
+    ultimoCodigo = [NSMutableDictionary dictionaryWithDictionary:@{@"codigo":codigoBarras,
+                                                                   @"linhaDigitavel":[formatoBoleto linhaDigitavelDoCodigoBarra:codigoBarras],
+                                                                   @"banco":[utilidadesBoleto bancoDoCodigoBarras:codigoBarras] ? [utilidadesBoleto bancoDoCodigoBarras:codigoBarras] : @"Banco não identificado",
+                                                                   @"dataVencimento":[utilidadesBoleto dataVencimentoDoCodigoBarras:codigoBarras],
+                                                                   @"valorExtenso":[utilidadesBoleto valorExtensoDoCodigoBarras:codigoBarras],
                                                                    @"data":[NSDate date]}];
     
-    self.ultimoCodigo = ultimoCodigo;
-    [self.codigos addObject:ultimoCodigo];
+    self.ultimoBoleto = ultimoCodigo;
+    [self.boletos addObject:ultimoCodigo];
+    self.boletos = [NSMutableArray arrayWithArray:[self.boletos sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"data" ascending:NO]]]];
     [self save];
 }
 
-- (NSDictionary *)codigoNoIndice:(NSInteger)indice
+- (NSDictionary *)boletoNoIndice:(NSInteger)indice
 {
-    return self.codigos[indice];
+    return self.boletos[indice];
 }
 
 - (NSInteger)quantidadeCodigosArmazenados
 {
-    return [self.codigos count];
+    return [self.boletos count];
 }
 
 - (void)save
@@ -90,7 +92,7 @@ static NSString *fileName = @"barCodes";
     NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString *finalPath = [documentsDirectory stringByAppendingPathComponent:fileName];
 
-    if(![self.codigos writeToFile:finalPath atomically:NO]) {
+    if(![self.boletos writeToFile:finalPath atomically:NO]) {
         NSLog(@"Array wasn't saved properly");
     }
 }

@@ -32,6 +32,7 @@
 		D9186C44191530BF008B03BB /* DCCBoletoBancarioFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D9186C43191530BF008B03BB /* DCCBoletoBancarioFormatter.m */; };
 		D9186C4919156FE8008B03BB /* BFOListaBancos.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9186C4819156FE8008B03BB /* BFOListaBancos.plist */; };
 		D9186C4C191573F1008B03BB /* BFOUtilidadesBoleto.m in Sources */ = {isa = PBXBuildFile; fileRef = D9186C4B191573F1008B03BB /* BFOUtilidadesBoleto.m */; };
+		D9186C541916DE81008B03BB /* BFOServidorInternet.m in Sources */ = {isa = PBXBuildFile; fileRef = D9186C531916DE81008B03BB /* BFOServidorInternet.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,6 +78,8 @@
 		D9186C4819156FE8008B03BB /* BFOListaBancos.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BFOListaBancos.plist; sourceTree = "<group>"; };
 		D9186C4A191573F1008B03BB /* BFOUtilidadesBoleto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFOUtilidadesBoleto.h; sourceTree = "<group>"; };
 		D9186C4B191573F1008B03BB /* BFOUtilidadesBoleto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFOUtilidadesBoleto.m; sourceTree = "<group>"; };
+		D9186C521916DE81008B03BB /* BFOServidorInternet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFOServidorInternet.h; sourceTree = "<group>"; };
+		D9186C531916DE81008B03BB /* BFOServidorInternet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFOServidorInternet.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +168,8 @@
 				D9186C4B191573F1008B03BB /* BFOUtilidadesBoleto.m */,
 				D9186C2D19129C87008B03BB /* BFOGerenciadorBoleto.h */,
 				D9186C2E19129C87008B03BB /* BFOGerenciadorBoleto.m */,
+				D9186C521916DE81008B03BB /* BFOServidorInternet.h */,
+				D9186C531916DE81008B03BB /* BFOServidorInternet.m */,
 				D9186C42191530BF008B03BB /* DCCBoletoBancarioFormatter.h */,
 				D9186C43191530BF008B03BB /* DCCBoletoBancarioFormatter.m */,
 			);
@@ -324,6 +329,7 @@
 				D9186C4C191573F1008B03BB /* BFOUtilidadesBoleto.m in Sources */,
 				D9186C19190D87B9008B03BB /* BFOListaBoletosViewController.m in Sources */,
 				D9186BEE190D84CD008B03BB /* main.m in Sources */,
+				D9186C541916DE81008B03BB /* BFOServidorInternet.m in Sources */,
 				D9186C321913C6C2008B03BB /* BFONavegacaoPrincipalViewController.m in Sources */,
 				D9186C2F19129C87008B03BB /* BFOGerenciadorBoleto.m in Sources */,
 				D9186C371913CF48008B03BB /* BFOListaBoletosView.m in Sources */,

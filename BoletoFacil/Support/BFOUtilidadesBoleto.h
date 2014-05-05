@@ -16,10 +16,11 @@
  *  Retorna o nome do banco do codigo de barra informado
  *
  */
-- (NSString *)bancoDoCodigoBarra:(NSString *)codigoBarra;
+- (NSString *)bancoDoCodigoBarras:(NSString *)codigoBarras;
+- (NSDate *)dataVencimentoDoCodigoBarras:(NSString *)codigoBarras;
+- (NSString *)valorExtensoDoCodigoBarras:(NSString *)codigoBarras;
 
 - (NSString *)digitoVerificadorLinhaDigitavelDaSequencia:(NSString *)sequencia;
 - (NSString *)digitoVerificadorCodigoBarraDaSequencia:(NSString *)sequencia;
-- (NSDate *)dataVencimentoDoCodigoBarra:(NSString *)codigoBarra;
 
 @end

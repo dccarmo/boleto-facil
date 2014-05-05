@@ -10,6 +10,6 @@
 
 @interface BFOListaBoletosTableViewCell : UITableViewCell
 
-- (void)configurarCelularComCodigoBarra:(NSDictionary *)boleto;
+- (void)configurarTableViewCellComBoleto:(NSDictionary *)boleto;
 
 @end

@@ -14,10 +14,10 @@
 
 @implementation BFOUtilidadesBoleto
 
-- (NSString *)bancoDoCodigoBarra:(NSString *)codigoBarra
+- (NSString *)bancoDoCodigoBarras:(NSString *)codigoBarras
 {
     NSArray *listaBancos = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"BFOListaBancos" ofType:@"plist"]];
-    NSString *codigoBanco = [codigoBarra substringWithRange:NSRangeFromString(@"0-3")];
+    NSString *codigoBanco = [codigoBarras substringWithRange:NSRangeFromString(@"0-3")];
     NSString *nomeBanco = nil;
     NSDictionary *banco;
     
@@ -32,9 +32,9 @@
     return nomeBanco;
 }
 
-- (NSDate *)dataVencimentoDoCodigoBarra:(NSString *)codigoBarra
+- (NSDate *)dataVencimentoDoCodigoBarras:(NSString *)codigoBarras
 {
-    NSString *fatorVencimento = [codigoBarra substringWithRange:NSRangeFromString(@"5-4")];
+    NSString *fatorVencimento = [codigoBarras substringWithRange:NSRangeFromString(@"5-4")];
     NSDateComponents *componentesDataInicio = [NSDateComponents new];
     NSDateComponents *componentesDataSoma = [NSDateComponents new];
     
@@ -49,6 +49,20 @@
                                                         options:0];
 }
 
+- (NSString *)valorExtensoDoCodigoBarras:(NSString *)codigoBarras
+{
+    CGFloat valor;
+    NSNumberFormatter *formatoNumero = [NSNumberFormatter new];
+    
+    [formatoNumero setNumberStyle:NSNumberFormatterCurrencyStyle];
+    
+    valor = [[NSString stringWithFormat:@"%d.%d",
+              [[codigoBarras substringWithRange:NSRangeFromString(@"9-8")] integerValue],
+              [[codigoBarras substringWithRange:NSRangeFromString(@"17-2")] integerValue]] floatValue];
+    
+    return [formatoNumero stringFromNumber:[NSNumber numberWithFloat:valor]];
+}
+
 - (NSString *)digitoVerificadorLinhaDigitavelDaSequencia:(NSString *)sequencia
 {
     NSUInteger soma, peso, multiplicacao, digito;
@@ -57,7 +71,7 @@
     peso = 2;
     
     for (NSInteger i = [sequencia length] - 1; i >= 0; i--) {
-        multiplicacao = [[sequencia substringWithRange:NSRangeFromString([NSString stringWithFormat:@"%d-1", i])] integerValue] * peso;
+        multiplicacao = [[sequencia substringWithRange:NSRangeFromString([NSString stringWithFormat:@"%d-1", (int) i])] integerValue] * peso;
         
         if (multiplicacao >= 10) {
             multiplicacao = 1 + multiplicacao - 10;
@@ -78,7 +92,7 @@
         digito = 0;
     }
     
-    return [NSString stringWithFormat:@"%d",digito];
+    return [NSString stringWithFormat:@"%d", (int) digito];
 }
 
 - (NSString *)digitoVerificadorCodigoBarraDaSequencia:(NSString *)sequencia
@@ -91,7 +105,7 @@
     resto = 0;
     
     for (NSInteger i = [sequencia length] - 1; i >= 0; i--) {
-        soma = soma + [[sequencia substringWithRange:NSRangeFromString([NSString stringWithFormat:@"%d-%d", i, i + 1])] integerValue] * peso;
+        soma = soma + [[sequencia substringWithRange:NSRangeFromString([NSString stringWithFormat:@"%d-%d", (int) i, (int) i + 1])] integerValue] * peso;
         
         if (peso < base) {
             peso++;
@@ -110,7 +124,7 @@
         digito = 1;
     }
     
-    return [NSString stringWithFormat:@"%d",digito];
+    return [NSString stringWithFormat:@"%d", (int) digito];
 }
 
 @end

@@ -23,8 +23,14 @@
     
     self = [super initWithRootViewController:listaBoletos];
     if (self) {
-        
+        self.navigationBar.translucent = NO;
     }
+    return self;
+}
+
+- (instancetype)initWithRootViewController:(UIViewController *)rootViewController
+{
+    self = [self init];
     return self;
 }
 

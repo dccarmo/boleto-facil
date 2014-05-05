@@ -8,8 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSUInteger, BFOEstadoCriacaoServidor)
+{
+    BFOEstadoCriacaoServidorIniciando,
+    BFOEstadoCriacaoServidorSucesso,
+    BFOEstadoCriacaoServidorAviso,
+    BFOEstadoCriacaoServidorFalha
+};
+
 @interface BFOMostrarBoletoView : UIView
 
-@property (weak, nonatomic) IBOutlet UILabel *urlServidor;
+- (void)alterarEstadoCriacaoServidor:(BFOEstadoCriacaoServidor)estado mensagem:(NSString *)mensagem;
+- (void)configurarViewComBoleto:(NSDictionary *)boleto;
 
 @end

@@ -8,37 +8,38 @@
 
 #import "BFOMostrarBoletoViewController.h"
 
+//View Controllers
+#import "BFOListaBoletosViewController.h"
+
 //Views
 #import "BFOMostrarBoletoView.h"
 
 //Support
 #import "DCCBoletoBancarioFormatter.h"
+#import "BFOServidorInternet.h"
 
-//Pods
-#import <GCDWebServer.h>
-#import <GCDWebServerDataResponse.h>
+@interface BFOMostrarBoletoViewController ()
 
-@interface BFOMostrarBoletoViewController () <GCDWebServerDelegate>
-
-@property (nonatomic) GCDWebServer *webServer;
-@property (nonatomic) NSDictionary *codigoBarra;
+@property (nonatomic) NSDictionary *boleto;
 
 @end
 
 @implementation BFOMostrarBoletoViewController
 
-- (void)dealloc
-{
-    [self.webServer stop];
-}
-
-- (instancetype)initWithCodigoBarra:(NSDictionary *)codigoBarra
+- (instancetype)initWithCodigoBarra:(NSDictionary *)boleto
 {
     self = [super initWithNibName:@"BFOMostrarBoletoView" bundle:nil];
     if (self) {
-        self.codigoBarra = codigoBarra;
+        self.navigationItem.title = @"Detalhe Boleto";
         
+        self.boleto = boleto;
     }
+    return self;
+}
+
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [self init];
     return self;
 }
 
@@ -46,35 +47,37 @@
 {
     [super viewDidLoad];
     
-    [self inicializarWebService];
-}
-
-- (void)inicializarWebService
-{
-    NSString *codigo = self.codigoBarra[@"codigo"];
-    DCCBoletoBancarioFormatter *formatoLinhaDigitavel = [DCCBoletoBancarioFormatter new];
-    
-    // Create server
-    self.webServer = [[GCDWebServer alloc] init];
-    self.webServer.delegate = self;
-    
-    [self.webServer addDefaultHandlerForMethod:@"GET"
-                                  requestClass:[GCDWebServerRequest class]
-                                  processBlock:^GCDWebServerResponse *(GCDWebServerRequest* request) {
-                                  
-                                  return [GCDWebServerDataResponse responseWithHTML:[NSString stringWithFormat:@"<html><body><p>Seu código de barras é: %@</p></body></html>", [formatoLinhaDigitavel linhaDigitavelDoCodigoBarra:codigo]]];
-                                  }];
-    
-    [self.webServer start];
-}
-
-#pragma mark - GCDWebServerDelegate
-
-- (void)webServerDidStart:(GCDWebServer *)server
-{
     BFOMostrarBoletoView *view = (BFOMostrarBoletoView *) self.view;
     
-    view.urlServidor.text = [server.serverURL absoluteString];
+    [view configurarViewComBoleto:self.boleto];
+    [view alterarEstadoCriacaoServidor:BFOEstadoCriacaoServidorIniciando mensagem:@"Carregando servidor..."];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [self adicionarAcessoWeb];
+}
+
+- (void)adicionarAcessoWeb
+{
+    BFOMostrarBoletoView *view = (BFOMostrarBoletoView *) self.view;
+    NSString *mensagemErro;
+    
+    if ([[BFOServidorInternet sharedServidorInternet] mostrarBoleto:self.boleto mensagemErro:&mensagemErro]) {
+        [view alterarEstadoCriacaoServidor:BFOEstadoCriacaoServidorSucesso mensagem:[[BFOServidorInternet sharedServidorInternet] URLServidor]];
+    }
+    
+//    if ([self.servidorWeb isRunning]) {
+//        [self.servidorWeb addDefaultHandlerForMethod:@"GET"
+//                                              requestClass:[GCDWebServerRequest class]
+//                                              processBlock:^GCDWebServerResponse *(GCDWebServerRequest* request) {
+//                                                  
+//                                                  return [GCDWebServerDataResponse responseWithHTML:[NSString stringWithFormat:@"<html><body><p>Seu código de barras é: %@</p></body></html>", [formatoLinhaDigitavel linhaDigitavelDoCodigoBarra:codigo]]];
+//                                              }];
+//        [view alterarEstadoCriacaoServidor:BFOEstadoCriacaoServidorSucesso mensagem:[self.servidorWeb.serverURL absoluteString]];
+//    } else {
+//        [view alterarEstadoCriacaoServidor:BFOEstadoCriacaoServidorFalha mensagem:@"Erro ao criar acesso web"];
+//    }
 }
 
 @end

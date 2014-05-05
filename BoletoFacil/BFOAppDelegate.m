@@ -54,14 +54,16 @@
 
 - (void)setApplicationStyle
 {
-    UIColor *tintColor = [UIColor colorWithRed:0.298 green:0.85 blue:0.392 alpha:1];
-    UIColor *navigationBarBackgroundColor = [UIColor colorWithWhite:0.1f alpha:1.0f];
+    UIColor *tintColor = [UIColor colorWithRed:1 green:0.27 blue:0.317 alpha:1];
+    UIColor *navigationBarBackgroundColor = [UIColor colorWithWhite:0.97f alpha:1.0f];
     
     //UIView
     [UIView appearance].tintColor = tintColor;
     
     //UINavigationBar
     [UINavigationBar appearance].backgroundColor = navigationBarBackgroundColor;
+    [UINavigationBar appearance].titleTextAttributes = @{NSForegroundColorAttributeName:tintColor};
+    [UINavigationBar appearance].barTintColor = navigationBarBackgroundColor;
 }
 
 @end

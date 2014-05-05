@@ -99,10 +99,10 @@
             continue;
         }
         
-        [self.gerenciadorBoleto adicionarCodigo:symbol.data];
+        [self.gerenciadorBoleto adicionarCodigoBarras:symbol.data];
         [self.leitorView stop];
         
-        [navegacaoPrincipal pushViewController:[[BFOMostrarBoletoViewController alloc] initWithCodigoBarra:self.gerenciadorBoleto.ultimoCodigo] animated:NO];
+        [navegacaoPrincipal pushViewController:[[BFOMostrarBoletoViewController alloc] initWithCodigoBarra:self.gerenciadorBoleto.ultimoBoleto] animated:NO];
         
         [view alterarBotaoFecharParaBotaoSucesso];
         

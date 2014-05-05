@@ -30,19 +30,26 @@
 {
     self = [super initWithNibName:@"BFOListaBoletosView" bundle:nil];
     if (self) {
-        self.gerenciadorBoleto = [BFOGerenciadorBoleto sharedGerenciadorBoleto];
+        UIBarButtonItem *botaoCamera = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(escanearCodigo)];
+        
+        self.navigationItem.title = @"Boletos";
+        self.navigationItem.rightBarButtonItem = botaoCamera;
+        self.navigationController.navigationBar.translucent = NO;
+        
+        self.gerenciadorBoleto = [BFOGerenciadorBoleto new];
     }
+    return self;
+}
+
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [self init];
     return self;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    UIBarButtonItem *botaoCamera = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(escanearCodigo)];
-    
-    self.navigationItem.rightBarButtonItem = botaoCamera;
-    self.navigationController.navigationBar.translucent = NO;
     
     self.tableView.tableFooterView = [UIView new];
     [self.tableView registerNib:[UINib nibWithNibName:@"BFOListaBoletosTableViewCell" bundle:nil] forCellReuseIdentifier:@"BFOListaBoletosTableViewCell"];
@@ -76,9 +83,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     BFOListaBoletosTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"BFOListaBoletosTableViewCell" forIndexPath:indexPath];
-    NSDictionary *codigoBarra = [self.gerenciadorBoleto codigoNoIndice:indexPath.row];
+    NSDictionary *codigoBarra = [self.gerenciadorBoleto boletoNoIndice:indexPath.row];
     
-    [cell configurarCelularComCodigoBarra:codigoBarra];
+    [cell configurarTableViewCellComBoleto:codigoBarra];
     
     return cell;
 }
@@ -92,7 +99,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSDictionary *codigoBarrra = [self.gerenciadorBoleto codigoNoIndice:indexPath.row];
+    NSDictionary *codigoBarrra = [self.gerenciadorBoleto boletoNoIndice:indexPath.row];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     

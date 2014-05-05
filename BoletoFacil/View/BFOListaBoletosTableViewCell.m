@@ -18,7 +18,7 @@
 
 @implementation BFOListaBoletosTableViewCell
 
-- (void)configurarCelularComCodigoBarra:(NSDictionary *)boleto
+- (void)configurarTableViewCellComBoleto:(NSDictionary *)boleto
 {
     NSDateFormatter *formatoData = [NSDateFormatter new];
     
