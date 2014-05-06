@@ -69,6 +69,19 @@ static const NSUInteger diaBase = 07;
     return _linhaDigitavel;
 }
 
+- (NSArray *)sequenciasLinhaDigitavel
+{
+    
+    return @[[self.linhaDigitavel substringWithRange:NSRangeFromString(@"0-5")],
+             [self.linhaDigitavel substringWithRange:NSRangeFromString(@"5-5")],
+             [self.linhaDigitavel substringWithRange:NSRangeFromString(@"10-5")],
+             [self.linhaDigitavel substringWithRange:NSRangeFromString(@"15-6")],
+             [self.linhaDigitavel substringWithRange:NSRangeFromString(@"21-5")],
+             [self.linhaDigitavel substringWithRange:NSRangeFromString(@"26-6")],
+             [self.linhaDigitavel substringWithRange:NSRangeFromString(@"32-1")],
+             [self.linhaDigitavel substringWithRange:NSRangeFromString(@"33-14")]];
+}
+
 - (NSString *)banco
 {
     NSArray *listaBancos;

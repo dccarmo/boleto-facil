@@ -19,5 +19,6 @@
 @property (nonatomic, readonly) NSString *valorExtenso;
 
 - (instancetype)initWithCodigoBarras:(NSString *)codigoBarras;
+- (NSArray *)sequenciasLinhaDigitavel;
 
 @end

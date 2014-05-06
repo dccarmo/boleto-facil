@@ -46,6 +46,8 @@
     return self;
 }
 
+#pragma mark - UIViewController
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -61,6 +63,8 @@
     [self adicionarAcessoWeb];
 }
 
+#pragma mark - BFOMostrarBoletoViewController
+
 - (void)adicionarAcessoWeb
 {
     BFOMostrarBoletoView *view = (BFOMostrarBoletoView *) self.view;
@@ -71,18 +75,6 @@
     } else {
         [view alterarEstadoCriacaoServidor:BFOEstadoCriacaoServidorFalha mensagem:mensagemErro];
     }
-    
-//    if ([self.servidorWeb isRunning]) {
-//        [self.servidorWeb addDefaultHandlerForMethod:@"GET"
-//                                              requestClass:[GCDWebServerRequest class]
-//                                              processBlock:^GCDWebServerResponse *(GCDWebServerRequest* request) {
-//                                                  
-//                                                  return [GCDWebServerDataResponse responseWithHTML:[NSString stringWithFormat:@"<html><body><p>Seu código de barras é: %@</p></body></html>", [formatoLinhaDigitavel linhaDigitavelDoCodigoBarra:codigo]]];
-//                                              }];
-//        [view alterarEstadoCriacaoServidor:BFOEstadoCriacaoServidorSucesso mensagem:[self.servidorWeb.serverURL absoluteString]];
-//    } else {
-//        [view alterarEstadoCriacaoServidor:BFOEstadoCriacaoServidorFalha mensagem:@"Erro ao criar acesso web"];
-//    }
 }
 
 @end

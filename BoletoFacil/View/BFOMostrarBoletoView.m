@@ -8,6 +8,9 @@
 
 #import "BFOMostrarBoletoView.h"
 
+//Views
+#import "BFOSequenciaLinhaDigitavel.h"
+
 //Models
 #import "BFOBoleto.h"
 
@@ -34,6 +37,8 @@
     }
     return self;
 }
+
+#pragma mark - BFOMostrarBoletoView
 
 - (void)alterarEstadoCriacaoServidor:(BFOEstadoCriacaoServidor)estado mensagem:(NSString *)mensagem
 {
@@ -72,6 +77,26 @@
     self.banco.text = boleto.banco;
     self.dataVencimento.text = [formatoData stringFromDate:boleto.dataVencimento];
     self.valor.text = boleto.valorExtenso;
+    
+    [self configurarScrollLinhaDigitavelComBoleo:boleto];
+}
+
+- (void)configurarScrollLinhaDigitavelComBoleo:(BFOBoleto *)boleto
+{
+    NSArray *sequenciasLinhaDigitavel = [boleto sequenciasLinhaDigitavel];
+    BFOSequenciaLinhaDigitavel *campoSequencia = [[BFOSequenciaLinhaDigitavel alloc] initWithFrame:CGRectZero];
+    
+    for (NSString *sequencia in sequenciasLinhaDigitavel) {
+        campoSequencia = [[BFOSequenciaLinhaDigitavel alloc] initWithFrame:CGRectMake(campoSequencia.frame.origin.x + campoSequencia.frame.size.width,
+                                                                       0,
+                                                                       self.containerCodigo.frame.size.width,
+                                                                       self.containerCodigo.frame.size.height)];
+        campoSequencia.text = sequencia;
+        
+        [self.containerCodigo addSubview:campoSequencia];
+    }
+    
+    self.containerCodigo.contentSize = CGSizeMake(campoSequencia.frame.origin.x + campoSequencia.frame.size.width, self.containerCodigo.contentSize.height);
 }
 
 @end
