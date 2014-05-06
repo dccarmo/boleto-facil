@@ -11,12 +11,14 @@
 //Pods
 #import <GCDWebServer.h>
 
+@class BFOBoleto;
+
 @interface BFOServidorInternet : NSObject
 
 + (id)sharedServidorInternet;
 
 - (void)iniciarServidor;
 - (NSString *)URLServidor;
-- (BOOL)mostrarBoleto:(NSDictionary *)boleto mensagemErro:(NSString **)mensagemErro;
+- (BOOL)mostrarBoleto:(BFOBoleto *)boleto mensagemErro:(NSString **)mensagemErro;
 
 @end

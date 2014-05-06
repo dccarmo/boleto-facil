@@ -18,17 +18,17 @@
 #import "BFOEscanearBoletoView.h"
 
 //Models
-#import "BFOGerenciadorBoleto.h"
+#import "BFOBoleto.h"
 
 //Support
 #import "DCCBoletoBancarioFormatter.h"
+#import "BFOArmazenamentoBoleto.h"
 
 //Pods
 #import <ZBarSDK.h>
 
 @interface BFOEscanearBoletoViewController () <ZBarReaderViewDelegate>
 
-@property (nonatomic) BFOGerenciadorBoleto *gerenciadorBoleto;
 @property (nonatomic) ZBarReaderView *leitorView;
 
 @end
@@ -39,7 +39,7 @@
 {
     self = [super initWithNibName:@"BFOEscanearBoletoView" bundle:nil];
     if (self) {
-         self.gerenciadorBoleto = [BFOGerenciadorBoleto sharedGerenciadorBoleto];
+
     }
     return self;
 }
@@ -87,22 +87,26 @@
 {
     BFONavegacaoPrincipalViewController *navegacaoPrincipal = (BFONavegacaoPrincipalViewController *) self.presentingViewController;
     BFOEscanearBoletoView *view = (BFOEscanearBoletoView *) self.view;
-    NSString *codigo;
+    NSString *codigoBarras;
     DCCBoletoBancarioFormatter *formatoBoleto = [DCCBoletoBancarioFormatter new];
+    BFOBoleto *boleto;
     
     for (ZBarSymbol *symbol in symbols) {
-        codigo = symbol.data;
-        codigo = [[codigo componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
+        codigoBarras = symbol.data;
+        codigoBarras = [[codigoBarras componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
         
-        if (![formatoBoleto linhaDigitavelDoCodigoBarra:codigo]) {
+        if (![formatoBoleto linhaDigitavelDoCodigoBarra:codigoBarras]) {
             //Alterar o formato do botao para X vermelho, indicando erro
             continue;
         }
         
-        [self.gerenciadorBoleto adicionarCodigoBarras:symbol.data];
+        boleto = [[BFOBoleto alloc] initWithCodigoBarras:codigoBarras];
+        [[BFOArmazenamentoBoleto sharedArmazenamentoBoleto].boletos addObject:boleto];
+        [[BFOArmazenamentoBoleto sharedArmazenamentoBoleto] salvar];
+        
         [self.leitorView stop];
         
-        [navegacaoPrincipal pushViewController:[[BFOMostrarBoletoViewController alloc] initWithCodigoBarra:self.gerenciadorBoleto.ultimoBoleto] animated:NO];
+        [navegacaoPrincipal pushViewController:[[BFOMostrarBoletoViewController alloc] initWithBoleto:boleto] animated:NO];
         
         [view alterarBotaoFecharParaBotaoSucesso];
         

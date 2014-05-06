@@ -16,9 +16,11 @@ typedef NS_ENUM(NSUInteger, BFOEstadoCriacaoServidor)
     BFOEstadoCriacaoServidorFalha
 };
 
+@class BFOBoleto;
+
 @interface BFOMostrarBoletoView : UIView
 
 - (void)alterarEstadoCriacaoServidor:(BFOEstadoCriacaoServidor)estado mensagem:(NSString *)mensagem;
-- (void)configurarViewComBoleto:(NSDictionary *)boleto;
+- (void)configurarViewComBoleto:(BFOBoleto *)boleto;
 
 @end

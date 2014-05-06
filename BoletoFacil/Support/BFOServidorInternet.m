@@ -8,6 +8,9 @@
 
 #import "BFOServidorInternet.h"
 
+//Models
+#import "BFOBoleto.h"
+
 //Support
 #import "Reachability.h"
 
@@ -87,9 +90,9 @@ static NSString * const erroSemConexaoWifi = @"Você não está conectado à wi-
     return [self.servidor.serverURL absoluteString];
 }
 
-- (BOOL)mostrarBoleto:(NSDictionary *)boleto mensagemErro:(NSString **)mensagemErro
+- (BOOL)mostrarBoleto:(BFOBoleto *)boleto mensagemErro:(NSString **)mensagemErro
 {
-    NSString *codigo = boleto[@"codigo"];
+    NSString *codigo = boleto.codigoBarras;
     
     if (![self.servidor isRunning]) {
         *mensagemErro = self.mensagemErro ? self.mensagemErro : @"";

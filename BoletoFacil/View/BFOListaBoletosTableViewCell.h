@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class BFOBoleto;
+
 @interface BFOListaBoletosTableViewCell : UITableViewCell
 
-- (void)configurarTableViewCellComBoleto:(NSDictionary *)boleto;
+- (void)configurarTableViewCellComBoleto:(BFOBoleto *)boleto;
 
 @end

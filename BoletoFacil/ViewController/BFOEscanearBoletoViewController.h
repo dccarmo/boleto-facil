@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class BFOGerenciadorBoleto;
+@class BFOArmazenamentoBoleto;
 
 @interface BFOEscanearBoletoViewController : UIViewController
 

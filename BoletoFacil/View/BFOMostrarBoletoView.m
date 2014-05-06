@@ -8,6 +8,9 @@
 
 #import "BFOMostrarBoletoView.h"
 
+//Models
+#import "BFOBoleto.h"
+
 @interface BFOMostrarBoletoView ()
 
 @property (weak, nonatomic) IBOutlet UIView *estadoServidorFundo;
@@ -59,16 +62,16 @@
     [UIView commitAnimations];
 }
 
-- (void)configurarViewComBoleto:(NSDictionary *)boleto
+- (void)configurarViewComBoleto:(BFOBoleto *)boleto
 {
     NSDateFormatter *formatoData = [NSDateFormatter new];
     
     [formatoData setDateStyle:NSDateFormatterShortStyle];
     [formatoData setDoesRelativeDateFormatting:YES];
     
-    self.banco.text = boleto[@"banco"];
-    self.dataVencimento.text = [formatoData stringFromDate:boleto[@"dataVencimento"]];
-    self.valor.text = boleto[@"valorExtenso"];
+    self.banco.text = boleto.banco;
+    self.dataVencimento.text = [formatoData stringFromDate:boleto.dataVencimento];
+    self.valor.text = boleto.valorExtenso;
 }
 
 @end

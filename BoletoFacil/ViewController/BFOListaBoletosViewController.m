@@ -15,12 +15,13 @@
 //Views
 #import "BFOListaBoletosTableViewCell.h"
 
-//Model
-#import "BFOGerenciadorBoleto.h"
+//Models
+#import "BFOBoleto.h"
+
+//Support
+#import "BFOArmazenamentoBoleto.h"
 
 @interface BFOListaBoletosViewController ()
-
-@property (nonatomic) BFOGerenciadorBoleto *gerenciadorBoleto;
 
 @end
 
@@ -35,8 +36,6 @@
         self.navigationItem.title = @"Boletos";
         self.navigationItem.rightBarButtonItem = botaoCamera;
         self.navigationController.navigationBar.translucent = NO;
-        
-        self.gerenciadorBoleto = [BFOGerenciadorBoleto new];
     }
     return self;
 }
@@ -61,7 +60,7 @@
     
     [self.tableView reloadData];
     
-    if (![self.gerenciadorBoleto quantidadeCodigosArmazenados]) {
+    if ([[BFOArmazenamentoBoleto sharedArmazenamentoBoleto].boletos count] == 0) {
         self.tableView.backgroundView = [[[NSBundle mainBundle] loadNibNamed:@"BFOListaBolestosVaziaView" owner:self options:nil] firstObject];
     } else {
         self.tableView.backgroundView = nil;
@@ -77,15 +76,15 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.gerenciadorBoleto quantidadeCodigosArmazenados];
+    return [[BFOArmazenamentoBoleto sharedArmazenamentoBoleto].boletos count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     BFOListaBoletosTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"BFOListaBoletosTableViewCell" forIndexPath:indexPath];
-    NSDictionary *codigoBarra = [self.gerenciadorBoleto boletoNoIndice:indexPath.row];
+    BFOBoleto *boleto = [BFOArmazenamentoBoleto sharedArmazenamentoBoleto].boletos[indexPath.row];
     
-    [cell configurarTableViewCellComBoleto:codigoBarra];
+    [cell configurarTableViewCellComBoleto:boleto];
     
     return cell;
 }
@@ -99,11 +98,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSDictionary *codigoBarrra = [self.gerenciadorBoleto boletoNoIndice:indexPath.row];
+    BFOBoleto *boleto = [BFOArmazenamentoBoleto sharedArmazenamentoBoleto].boletos[indexPath.row];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    [self.navigationController pushViewController:[[BFOMostrarBoletoViewController alloc] initWithCodigoBarra:codigoBarrra] animated:YES];
+    [self.navigationController pushViewController:[[BFOMostrarBoletoViewController alloc] initWithBoleto:boleto] animated:YES];
 }
 
 @end

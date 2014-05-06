@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@class GCDWebServer;
+@class BFOBoleto;
 
 @interface BFOMostrarBoletoViewController : UIViewController
 
 /**
  *  Designated initializer
  */
-- (instancetype)initWithCodigoBarra:(NSDictionary *)boleto;
+- (instancetype)initWithBoleto:(BFOBoleto *)boleto;
 
 @end

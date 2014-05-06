@@ -8,6 +8,9 @@
 
 #import "BFOListaBoletosTableViewCell.h"
 
+//Models
+#import "BFOBoleto.h"
+
 @interface BFOListaBoletosTableViewCell ()
 
 @property (weak, nonatomic) IBOutlet UILabel *banco;
@@ -18,16 +21,16 @@
 
 @implementation BFOListaBoletosTableViewCell
 
-- (void)configurarTableViewCellComBoleto:(NSDictionary *)boleto
+- (void)configurarTableViewCellComBoleto:(BFOBoleto *)boleto
 {
     NSDateFormatter *formatoData = [NSDateFormatter new];
     
     [formatoData setDoesRelativeDateFormatting:YES];
     [formatoData setDateStyle:NSDateFormatterShortStyle];
     
-    self.banco.text = boleto[@"banco"];
-    self.codigo.text = boleto[@"linhaDigitavel"];
-    self.data.text = [formatoData stringFromDate:boleto[@"data"]];
+    self.banco.text = boleto.banco;
+    self.codigo.text = boleto.linhaDigitavel;
+    self.data.text = [formatoData stringFromDate:boleto.data];
 }
 
 @end

@@ -14,19 +14,22 @@
 //Views
 #import "BFOMostrarBoletoView.h"
 
+//Models
+#import "BFOBoleto.h"
+
 //Support
 #import "DCCBoletoBancarioFormatter.h"
 #import "BFOServidorInternet.h"
 
 @interface BFOMostrarBoletoViewController ()
 
-@property (nonatomic) NSDictionary *boleto;
+@property (nonatomic) BFOBoleto *boleto;
 
 @end
 
 @implementation BFOMostrarBoletoViewController
 
-- (instancetype)initWithCodigoBarra:(NSDictionary *)boleto
+- (instancetype)initWithBoleto:(BFOBoleto *)boleto
 {
     self = [super initWithNibName:@"BFOMostrarBoletoView" bundle:nil];
     if (self) {
