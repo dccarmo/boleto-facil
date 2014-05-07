@@ -33,7 +33,10 @@
 {
     self = [super initWithNibName:@"BFOMostrarBoletoView" bundle:nil];
     if (self) {
-        self.navigationItem.title = @"Detalhe Boleto";
+        UIBarButtonItem *botaoCompartilhar = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(compartilharBoleto)];
+        
+        self.navigationItem.title = @"Detalhe";
+        self.navigationItem.rightBarButtonItem = botaoCompartilhar;
         
         self.boleto = boleto;
     }
@@ -42,7 +45,7 @@
 
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [self init];
+    self = [self initWithBoleto:nil];
     return self;
 }
 
@@ -75,6 +78,15 @@
     } else {
         [view alterarEstadoCriacaoServidor:BFOEstadoCriacaoServidorFalha mensagem:mensagemErro];
     }
+}
+
+- (void)compartilharBoleto
+{
+    UIActivityViewController *opcoesCompartilhamento = [[UIActivityViewController alloc] initWithActivityItems:@[self.boleto] applicationActivities:@[]];
+    
+    opcoesCompartilhamento.excludedActivityTypes = @[UIActivityTypePostToFacebook, UIActivityTypePostToTwitter, UIActivityTypePostToWeibo, UIActivityTypePostToTencentWeibo];
+    
+    [self presentViewController:opcoesCompartilhamento animated:YES completion:nil];
 }
 
 @end

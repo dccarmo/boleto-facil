@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BFOBoleto : NSObject <NSCoding>
+@interface BFOBoleto : NSObject <NSCoding, UIActivityItemSource>
 
 @property (nonatomic, readonly) NSString *codigoBarras;
 @property (nonatomic, readonly) NSDate *data;

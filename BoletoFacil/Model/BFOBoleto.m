@@ -161,4 +161,21 @@ static const NSUInteger diaBase = 07;
     return _valorExtenso;
 }
 
+#pragma mark - UIActivityItemSource
+
+- (id)activityViewControllerPlaceholderItem:(UIActivityViewController *)activityViewController
+{
+    return self.linhaDigitavel;
+}
+
+- (id)activityViewController:(UIActivityViewController *)activityViewController itemForActivityType:(NSString *)activityType
+{
+    return self.linhaDigitavel;
+}
+
+//- (UIImage *)activityViewController:(UIActivityViewController *)activityViewController thumbnailImageForActivityType:(NSString *)activityType suggestedSize:(CGSize)size
+//{
+//    return [UIImage imageWithImage:[UIImage imageNamed:kCustomURLImageName] scaledToFitToSize:size];
+//}
+
 @end
