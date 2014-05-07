@@ -43,7 +43,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Linha digitável" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0sV-1w-kKJ">
-                    <rect key="frame" x="20" y="196" width="92" height="18"/>
+                    <rect key="frame" x="20" y="152" width="92" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -77,9 +77,26 @@
                     </subviews>
                     <color key="backgroundColor" red="0.44313728810000003" green="0.87450987099999999" blue="0.98039221759999995" alpha="1" colorSpace="deviceRGB"/>
                 </view>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" pagingEnabled="YES" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="thy-ba-Xpm">
-                    <rect key="frame" x="0.0" y="222" width="320" height="60"/>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="thy-ba-Xpm">
+                    <rect key="frame" x="0.0" y="178" width="320" height="42"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <connections>
+                        <outlet property="delegate" destination="2XQ-yb-zgR" id="fkf-bf-ibQ"/>
+                    </connections>
+                </scrollView>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Código de barras" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jIu-kI-ICv">
+                    <rect key="frame" x="20" y="264" width="113" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fLk-ij-hYQ">
+                    <rect key="frame" x="0.0" y="290" width="320" height="42"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <connections>
+                        <outlet property="delegate" destination="2XQ-yb-zgR" id="Xdh-kg-5UO"/>
+                    </connections>
                 </scrollView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -88,8 +105,8 @@
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
             <connections>
                 <outlet property="banco" destination="hFw-mv-9eK" id="b9a-Nc-NY0"/>
-                <outlet property="codigoBarras" destination="thy-ba-Xpm" id="txF-Gu-e8f"/>
-                <outlet property="containerCodigo" destination="thy-ba-Xpm" id="3Zk-zr-3cv"/>
+                <outlet property="containerCodigoBarras" destination="fLk-ij-hYQ" id="NiD-hj-T4p"/>
+                <outlet property="containerLinhaDigitavel" destination="thy-ba-Xpm" id="A7F-V2-fzQ"/>
                 <outlet property="dataVencimento" destination="CpP-TG-KHr" id="ga9-Ch-QkS"/>
                 <outlet property="estadoServidorFundo" destination="TyI-eQ-vwn" id="YcF-oK-O9H"/>
                 <outlet property="estadoServidorMensagem" destination="Gx8-Sw-W6T" id="EBX-dC-kja"/>

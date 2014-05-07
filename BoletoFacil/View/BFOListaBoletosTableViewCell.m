@@ -29,7 +29,7 @@
     [formatoData setDateStyle:NSDateFormatterShortStyle];
     
     self.banco.text = boleto.banco;
-    self.codigo.text = boleto.linhaDigitavel;
+    self.codigo.text = [boleto linhaDigitavelFormatada];
     self.data.text = [formatoData stringFromDate:boleto.data];
 }
 

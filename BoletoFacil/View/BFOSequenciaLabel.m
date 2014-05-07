@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Diogo do Carmo. All rights reserved.
 //
 
-#import "BFOSequenciaLinhaDigitavel.h"
+#import "BFOSequenciaLabel.h"
 
-@implementation BFOSequenciaLinhaDigitavel
+@implementation BFOSequenciaLabel
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -37,7 +37,7 @@
     copiar = [[UIMenuItem alloc] initWithTitle:@"Copiar" action:@selector(copiarSequencia)];
     
     menuController.menuItems = @[copiar];
-    [menuController setTargetRect:CGRectMake(self.superview.center.x, self.center.y / 2, 2, 2) inView:self];
+    [menuController setTargetRect:self.bounds inView:self];
     [menuController setMenuVisible:YES animated:YES];
 }
 
@@ -52,6 +52,7 @@
 {
     self.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:35.0f];
     self.textAlignment = NSTextAlignmentCenter;
+    self.textColor = [UIColor darkGrayColor];
 }
 
 #pragma mark - UIResponder

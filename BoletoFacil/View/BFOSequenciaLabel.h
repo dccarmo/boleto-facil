@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BFOSequenciaLinhaDigitavel : UILabel
+@interface BFOSequenciaLabel : UILabel
 
 @end

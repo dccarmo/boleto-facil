@@ -9,21 +9,24 @@
 #import "BFOMostrarBoletoView.h"
 
 //Views
-#import "BFOSequenciaLinhaDigitavel.h"
+#import "BFOSequenciaLabel.h"
 
 //Models
 #import "BFOBoleto.h"
 
-@interface BFOMostrarBoletoView ()
+static const NSUInteger margemNumerosLinhaDigitavel = 15;
+static const NSUInteger margemLateralView = 20;
+
+@interface BFOMostrarBoletoView () <UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *estadoServidorFundo;
 @property (weak, nonatomic) IBOutlet UILabel *estadoServidorMensagem;
-@property (weak, nonatomic) IBOutlet UIScrollView *codigoBarras;
 
 @property (weak, nonatomic) IBOutlet UILabel *banco;
 @property (weak, nonatomic) IBOutlet UILabel *dataVencimento;
 @property (weak, nonatomic) IBOutlet UILabel *valor;
-@property (weak, nonatomic) IBOutlet UIScrollView *containerCodigo;
+@property (weak, nonatomic) IBOutlet UIScrollView *containerLinhaDigitavel;
+@property (weak, nonatomic) IBOutlet UIScrollView *containerCodigoBarras;
 
 @end
 
@@ -78,25 +81,89 @@
     self.dataVencimento.text = [formatoData stringFromDate:boleto.dataVencimento];
     self.valor.text = boleto.valorExtenso;
     
-    [self configurarScrollLinhaDigitavelComBoleo:boleto];
+    [self configurarContainerLinhaDigitavelComBoleto:boleto];
+    [self calcularTransparenciaContainerLinhaDigitavel];
+    
+    [self configurarContainerCodigoBarrasComBoleto:boleto];
 }
 
-- (void)configurarScrollLinhaDigitavelComBoleo:(BFOBoleto *)boleto
+- (void)configurarContainerLinhaDigitavelComBoleto:(BFOBoleto *)boleto
 {
     NSArray *sequenciasLinhaDigitavel = [boleto sequenciasLinhaDigitavel];
-    BFOSequenciaLinhaDigitavel *campoSequencia = [[BFOSequenciaLinhaDigitavel alloc] initWithFrame:CGRectZero];
+    BFOSequenciaLabel *textoSequencia;
+    CGRect frameCampoSequencia;
     
     for (NSString *sequencia in sequenciasLinhaDigitavel) {
-        campoSequencia = [[BFOSequenciaLinhaDigitavel alloc] initWithFrame:CGRectMake(campoSequencia.frame.origin.x + campoSequencia.frame.size.width,
-                                                                       0,
-                                                                       self.containerCodigo.frame.size.width,
-                                                                       self.containerCodigo.frame.size.height)];
-        campoSequencia.text = sequencia;
         
-        [self.containerCodigo addSubview:campoSequencia];
+        if ([sequencia isEqual:[sequenciasLinhaDigitavel firstObject]]) {
+            frameCampoSequencia =  CGRectMake(self.containerLinhaDigitavel.frame.size.width/2, 0, self.containerLinhaDigitavel.frame.size.width, self.containerLinhaDigitavel.frame.size.height);
+        } else  {
+            frameCampoSequencia =  CGRectMake(textoSequencia.frame.origin.x + textoSequencia.frame.size.width + margemNumerosLinhaDigitavel, 0, self.containerLinhaDigitavel.frame.size.width, self.containerLinhaDigitavel.frame.size.height);
+        }
+        
+        textoSequencia = [[BFOSequenciaLabel alloc] initWithFrame:frameCampoSequencia];
+        
+        textoSequencia.text = sequencia;
+        [textoSequencia sizeToFit];
+        
+        if ([sequencia isEqual:[sequenciasLinhaDigitavel firstObject]]) {
+            textoSequencia.center = CGPointMake(self.containerLinhaDigitavel.frame.size.width/2, textoSequencia.center.y);
+        }
+        
+        [self.containerLinhaDigitavel addSubview:textoSequencia];
     }
     
-    self.containerCodigo.contentSize = CGSizeMake(campoSequencia.frame.origin.x + campoSequencia.frame.size.width, self.containerCodigo.contentSize.height);
+    self.containerLinhaDigitavel.contentSize = CGSizeMake(textoSequencia.frame.origin.x + textoSequencia.frame.size.width + margemLateralView, self.containerLinhaDigitavel.contentSize.height);
+}
+
+- (void)configurarContainerCodigoBarrasComBoleto:(BFOBoleto *)boleto
+{
+    BFOSequenciaLabel *textoSequencia = [[BFOSequenciaLabel alloc] initWithFrame:CGRectMake(20, 0, self.containerCodigoBarras.frame.size.width, self.containerCodigoBarras.frame.size.width)];
+    
+    textoSequencia.text = boleto.codigoBarras;
+    [textoSequencia sizeToFit];
+    
+    [self.containerCodigoBarras addSubview:textoSequencia];
+    self.containerCodigoBarras.contentSize = CGSizeMake(textoSequencia.frame.origin.x + textoSequencia.frame.size.width + margemLateralView, self.containerCodigoBarras.contentSize.height);
+}
+
+- (void)calcularTransparenciaContainerLinhaDigitavel
+{
+    BFOSequenciaLabel *textoSequencia;
+    CGFloat deslocamentoTextoSequencia, distanciaDoCentro, transparenciaTextoSequencia;
+    
+    for (UIView *view in [self.containerLinhaDigitavel subviews]) {
+        if ([view isKindOfClass:[BFOSequenciaLabel class]]) {
+            textoSequencia = (BFOSequenciaLabel *) view;
+        } else {
+            continue;
+        }
+        
+        deslocamentoTextoSequencia = textoSequencia.center.x - self.containerLinhaDigitavel.contentOffset.x;
+        distanciaDoCentro = abs(deslocamentoTextoSequencia - self.containerLinhaDigitavel.center.x);
+        
+        transparenciaTextoSequencia = distanciaDoCentro/self.containerLinhaDigitavel.center.x;
+        
+        if (transparenciaTextoSequencia >= 0.9f) {
+            transparenciaTextoSequencia = 0.9f;
+        }
+        
+        textoSequencia.alpha = 1.0f - transparenciaTextoSequencia;
+    }
+}
+
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [[UIMenuController sharedMenuController] setMenuVisible:NO animated:YES];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if ([scrollView isEqual:self.containerLinhaDigitavel]) {
+        [self calcularTransparenciaContainerLinhaDigitavel];
+    }
 }
 
 @end

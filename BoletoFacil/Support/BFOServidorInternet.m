@@ -95,7 +95,7 @@ static NSString * const erroSemConexaoWifi = @"Você não está conectado à wi-
     NSString *codigo = boleto.codigoBarras;
     
     if (![self.servidor isRunning]) {
-        *mensagemErro = self.mensagemErro ? self.mensagemErro : @"";
+        *mensagemErro = self.mensagemErro ? self.mensagemErro : @"Erro desconhecido";
         return NO;
     }
     

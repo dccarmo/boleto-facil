@@ -44,6 +44,9 @@ static const NSUInteger diaBase = 07;
     if (self) {
         _codigoBarras = [coder decodeObjectForKey:@"codigoBarras"];
         _data = [coder decodeObjectForKey:@"data"];
+        _banco = [coder decodeObjectForKey:@"banco"];
+        _dataVencimento = [coder decodeObjectForKey:@"dataVencimento"];
+        _valorExtenso = [coder decodeObjectForKey:@"valorExtenso"];
     }
     return self;
 }
@@ -52,6 +55,9 @@ static const NSUInteger diaBase = 07;
 {
     [coder encodeObject:self.codigoBarras forKey:@"codigoBarras"];
     [coder encodeObject:self.data forKey:@"data"];
+    [coder encodeObject:self.banco forKey:@"banco"];
+    [coder encodeObject:self.dataVencimento forKey:@"dataVencimento"];
+    [coder encodeObject:self.valorExtenso forKey:@"valorExtenso"];
 }
 
 #pragma mark - BFOBoleto
@@ -80,6 +86,13 @@ static const NSUInteger diaBase = 07;
              [self.linhaDigitavel substringWithRange:NSRangeFromString(@"26-6")],
              [self.linhaDigitavel substringWithRange:NSRangeFromString(@"32-1")],
              [self.linhaDigitavel substringWithRange:NSRangeFromString(@"33-14")]];
+}
+
+- (NSString *)linhaDigitavelFormatada
+{
+    NSArray *sequencias = [self sequenciasLinhaDigitavel];
+    
+    return [NSString stringWithFormat:@"%@.%@ %@.%@ %@.%@ %@ %@", sequencias[0], sequencias[1], sequencias[2], sequencias[3], sequencias[4], sequencias[5], sequencias[6], sequencias[7]];
 }
 
 - (NSString *)banco

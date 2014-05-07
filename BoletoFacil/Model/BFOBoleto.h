@@ -20,5 +20,6 @@
 
 - (instancetype)initWithCodigoBarras:(NSString *)codigoBarras;
 - (NSArray *)sequenciasLinhaDigitavel;
+- (NSString *)linhaDigitavelFormatada;
 
 @end
