@@ -49,7 +49,7 @@ static const NSUInteger margemLateralView = 20;
     
     switch (estado) {
         case BFOEstadoCriacaoServidorIniciando:
-            self.estadoServidorFundo.backgroundColor = [UIColor colorWithRed:0.443 green:0.874 blue:0.98 alpha:1];
+            self.estadoServidorFundo.backgroundColor = [UIColor colorWithRed:0.105 green:0.792 blue:0.984 alpha:1];
             break;
             
         case BFOEstadoCriacaoServidorSucesso:

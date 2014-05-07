@@ -31,7 +31,8 @@
 {
     self = [super initWithNibName:@"BFOListaBoletosView" bundle:nil];
     if (self) {
-        UIBarButtonItem *botaoCamera = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(escanearCodigo)];
+        UIImage *imagemEscanear = [UIImage imageNamed:@"botao_escanear"];
+        UIBarButtonItem *botaoCamera = [[UIBarButtonItem alloc] initWithImage:imagemEscanear style:UIBarButtonItemStylePlain target:self action:@selector(escanearCodigo)];
         
         self.navigationItem.title = @"Boletos";
         self.navigationItem.rightBarButtonItem = botaoCamera;

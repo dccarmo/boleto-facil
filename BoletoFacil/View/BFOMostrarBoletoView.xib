@@ -75,7 +75,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" red="0.44313728810000003" green="0.87450987099999999" blue="0.98039221759999995" alpha="1" colorSpace="deviceRGB"/>
+                    <color key="backgroundColor" red="0.10588236153125763" green="0.79215693473815918" blue="0.98431378602981567" alpha="1" colorSpace="deviceRGB"/>
                 </view>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="thy-ba-Xpm">
                     <rect key="frame" x="0.0" y="178" width="320" height="42"/>
