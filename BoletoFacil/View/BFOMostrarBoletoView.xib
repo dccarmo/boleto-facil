@@ -28,12 +28,15 @@
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="03/05/2014" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CpP-TG-KHr">
+                <label opaque="NO" clipsSubviews="YES" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="03/05/2014" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CpP-TG-KHr">
                     <rect key="frame" x="158" y="64" width="142" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="EtO-0J-FHD" appends="YES" id="l1S-cE-mrE"/>
+                    </connections>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Valor" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nOk-uF-cqR">
                     <rect key="frame" x="20" y="90" width="32" height="18"/>
@@ -107,11 +110,16 @@
                 <outlet property="banco" destination="hFw-mv-9eK" id="b9a-Nc-NY0"/>
                 <outlet property="containerCodigoBarras" destination="fLk-ij-hYQ" id="NiD-hj-T4p"/>
                 <outlet property="containerLinhaDigitavel" destination="thy-ba-Xpm" id="A7F-V2-fzQ"/>
-                <outlet property="dataVencimento" destination="CpP-TG-KHr" id="ga9-Ch-QkS"/>
+                <outlet property="dataVencimento" destination="CpP-TG-KHr" id="J9y-5Y-mYh"/>
                 <outlet property="estadoServidorFundo" destination="TyI-eQ-vwn" id="YcF-oK-O9H"/>
                 <outlet property="estadoServidorMensagem" destination="Gx8-Sw-W6T" id="EBX-dC-kja"/>
                 <outlet property="valor" destination="D13-FN-NJ2" id="eyp-KW-6Yv"/>
             </connections>
         </view>
+        <tapGestureRecognizer id="EtO-0J-FHD">
+            <connections>
+                <action selector="trocarDataValidadeAction:" destination="-1" id="tD5-a7-3b4"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
 </document>

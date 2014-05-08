@@ -35,6 +35,8 @@
 		D9D1CF11191850FD0015C8EB /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D1CF10191850FD0015C8EB /* Reachability.m */; };
 		D9D1CF15191855190015C8EB /* BFOBoleto.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D1CF14191855190015C8EB /* BFOBoleto.m */; };
 		D9D1CF18191879230015C8EB /* BFOSequenciaLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D1CF17191879230015C8EB /* BFOSequenciaLabel.m */; };
+		D9D1CF1E191ABF990015C8EB /* BFOAdicionarLembreteActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D1CF1D191ABF990015C8EB /* BFOAdicionarLembreteActivity.m */; };
+		D9D1CF21191AC7120015C8EB /* DCCNewReminderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D1CF20191AC7120015C8EB /* DCCNewReminderViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,6 +88,10 @@
 		D9D1CF14191855190015C8EB /* BFOBoleto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFOBoleto.m; sourceTree = "<group>"; };
 		D9D1CF16191879230015C8EB /* BFOSequenciaLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFOSequenciaLabel.h; sourceTree = "<group>"; };
 		D9D1CF17191879230015C8EB /* BFOSequenciaLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFOSequenciaLabel.m; sourceTree = "<group>"; };
+		D9D1CF1C191ABF990015C8EB /* BFOAdicionarLembreteActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFOAdicionarLembreteActivity.h; sourceTree = "<group>"; };
+		D9D1CF1D191ABF990015C8EB /* BFOAdicionarLembreteActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFOAdicionarLembreteActivity.m; sourceTree = "<group>"; };
+		D9D1CF1F191AC7120015C8EB /* DCCNewReminderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCCNewReminderViewController.h; sourceTree = "<group>"; };
+		D9D1CF20191AC7120015C8EB /* DCCNewReminderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCCNewReminderViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,6 +185,8 @@
 				D9186C531916DE81008B03BB /* BFOServidorInternet.m */,
 				D9186C42191530BF008B03BB /* DCCBoletoBancarioFormatter.h */,
 				D9186C43191530BF008B03BB /* DCCBoletoBancarioFormatter.m */,
+				D9D1CF1F191AC7120015C8EB /* DCCNewReminderViewController.h */,
+				D9D1CF20191AC7120015C8EB /* DCCNewReminderViewController.m */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -186,6 +194,8 @@
 		D9186C13190D874B008B03BB /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D9D1CF1C191ABF990015C8EB /* BFOAdicionarLembreteActivity.h */,
+				D9D1CF1D191ABF990015C8EB /* BFOAdicionarLembreteActivity.m */,
 				D9186C20190DDEC3008B03BB /* BFOEscanearBoletoView.h */,
 				D9186C21190DDEC3008B03BB /* BFOEscanearBoletoView.m */,
 				D9186C23190DDECD008B03BB /* BFOEscanearBoletoView.xib */,
@@ -358,6 +368,8 @@
 				D9186C321913C6C2008B03BB /* BFONavegacaoPrincipalViewController.m in Sources */,
 				D9186C2F19129C87008B03BB /* BFOArmazenamentoBoleto.m in Sources */,
 				D9186C371913CF48008B03BB /* BFOListaBoletosView.m in Sources */,
+				D9D1CF21191AC7120015C8EB /* DCCNewReminderViewController.m in Sources */,
+				D9D1CF1E191ABF990015C8EB /* BFOAdicionarLembreteActivity.m in Sources */,
 				D9186C1F190D8897008B03BB /* BFOMostrarBoletoViewController.m in Sources */,
 				D9186C1C190D8846008B03BB /* BFOEscanearBoletoViewController.m in Sources */,
 			);

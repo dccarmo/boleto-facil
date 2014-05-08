@@ -73,7 +73,7 @@ static const NSUInteger margemLateralView = 20;
 - (void)configurarViewComBoleto:(BFOBoleto *)boleto
 {
     NSDateFormatter *formatoData = [NSDateFormatter new];
-    
+
     [formatoData setDateStyle:NSDateFormatterShortStyle];
     [formatoData setDoesRelativeDateFormatting:YES];
     

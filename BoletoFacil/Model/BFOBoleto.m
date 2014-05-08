@@ -47,6 +47,8 @@ static const NSUInteger diaBase = 07;
         _banco = [coder decodeObjectForKey:@"banco"];
         _dataVencimento = [coder decodeObjectForKey:@"dataVencimento"];
         _valorExtenso = [coder decodeObjectForKey:@"valorExtenso"];
+        _tituloLembrete = [coder decodeObjectForKey:@"tituloLembrete"];
+        _dataLembrete = [coder decodeObjectForKey:@"dataLembrete"];
     }
     return self;
 }
@@ -58,6 +60,8 @@ static const NSUInteger diaBase = 07;
     [coder encodeObject:self.banco forKey:@"banco"];
     [coder encodeObject:self.dataVencimento forKey:@"dataVencimento"];
     [coder encodeObject:self.valorExtenso forKey:@"valorExtenso"];
+    [coder encodeObject:self.tituloLembrete forKey:@"tituloLembrete"];
+    [coder encodeObject:self.dataLembrete forKey:@"dataLembrete"];
 }
 
 #pragma mark - BFOBoleto

@@ -37,8 +37,18 @@
     copiar = [[UIMenuItem alloc] initWithTitle:@"Copiar" action:@selector(copiarSequencia)];
     
     menuController.menuItems = @[copiar];
-    [menuController setTargetRect:self.bounds inView:self];
-    [menuController setMenuVisible:YES animated:YES];
+    
+    if (self.frame.size.width > self.superview.frame.size.width) {
+        [menuController setTargetRect:self.superview.bounds inView:self];
+    } else {
+        [menuController setTargetRect:self.bounds inView:self];
+    }
+    
+    if ([menuController isMenuVisible]) {
+        [menuController setMenuVisible:NO animated:YES];
+    } else {
+        [menuController setMenuVisible:YES animated:YES];
+    }
 }
 
 - (void)copiarSequencia

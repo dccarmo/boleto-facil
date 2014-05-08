@@ -18,6 +18,9 @@
 @property (nonatomic, readonly) NSDate *dataVencimento;
 @property (nonatomic, readonly) NSString *valorExtenso;
 
+@property (nonatomic) NSString *tituloLembrete;
+@property (nonatomic) NSDate *dataLembrete;
+
 - (instancetype)initWithCodigoBarras:(NSString *)codigoBarras;
 - (NSArray *)sequenciasLinhaDigitavel;
 - (NSString *)linhaDigitavelFormatada;

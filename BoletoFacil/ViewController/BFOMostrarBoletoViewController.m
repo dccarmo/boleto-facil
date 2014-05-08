@@ -13,6 +13,7 @@
 
 //Views
 #import "BFOMostrarBoletoView.h"
+#import "BFOAdicionarLembreteActivity.h"
 
 //Models
 #import "BFOBoleto.h"
@@ -24,6 +25,7 @@
 @interface BFOMostrarBoletoViewController ()
 
 @property (nonatomic) BFOBoleto *boleto;
+@property (nonatomic) BOOL dataVencimentoRelativa;
 
 @end
 
@@ -59,6 +61,8 @@
     
     [view configurarViewComBoleto:self.boleto];
     [view alterarEstadoCriacaoServidor:BFOEstadoCriacaoServidorIniciando mensagem:@"Carregando servidor..."];
+    
+    self.dataVencimentoRelativa = YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -82,11 +86,28 @@
 
 - (void)compartilharBoleto
 {
-    UIActivityViewController *opcoesCompartilhamento = [[UIActivityViewController alloc] initWithActivityItems:@[self.boleto] applicationActivities:@[]];
+    BFOAdicionarLembreteActivity *adicionarLembrete;
+    UIActivityViewController *opcoesCompartilhamento;
     
+    adicionarLembrete = [[BFOAdicionarLembreteActivity alloc] initWithBoleto:self.boleto];
+    
+    opcoesCompartilhamento = [[UIActivityViewController alloc] initWithActivityItems:@[self.boleto] applicationActivities:@[adicionarLembrete]];
     opcoesCompartilhamento.excludedActivityTypes = @[UIActivityTypePostToFacebook, UIActivityTypePostToTwitter, UIActivityTypePostToWeibo, UIActivityTypePostToTencentWeibo];
     
     [self presentViewController:opcoesCompartilhamento animated:YES completion:nil];
+}
+
+- (IBAction)trocarDataValidadeAction:(UITapGestureRecognizer *)toque
+{
+    UILabel *dataVencimento = (UILabel *) toque.view;
+    NSDateFormatter *formatoData = [NSDateFormatter new];
+    
+    self.dataVencimentoRelativa = !self.dataVencimentoRelativa;
+    
+    [formatoData setDateStyle:NSDateFormatterShortStyle];
+    [formatoData setDoesRelativeDateFormatting:self.dataVencimentoRelativa];
+    
+    dataVencimento.text = [formatoData stringFromDate:self.boleto.dataVencimento];
 }
 
 @end

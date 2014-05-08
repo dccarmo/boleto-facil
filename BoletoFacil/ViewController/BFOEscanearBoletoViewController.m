@@ -44,6 +44,8 @@
     return self;
 }
 
+#pragma mark - UIViewController
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -61,6 +63,8 @@
 {
     return UIStatusBarAnimationFade;
 }
+
+#pragma mark - BFOEscanearBoletoViewController
 
 - (void)capturarCodigoBarra
 {
