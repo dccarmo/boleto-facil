@@ -40,11 +40,7 @@
 
 - (NSString *)activityTitle
 {
-    if (self.boleto.dataLembrete) {
-        return @"Editar Lembrete";
-    } else {
-        return @"Adicionar Lembrete";
-    }
+    return @"Adicionar Lembrete";
 }
 
 - (UIImage *)activityImage

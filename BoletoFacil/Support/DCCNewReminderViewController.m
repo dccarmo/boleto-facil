@@ -49,19 +49,13 @@ typedef NS_ENUM(NSUInteger, DCCNewReminderRow)
     if (self) {
         UIBarButtonItem *salvar = [[UIBarButtonItem alloc] initWithTitle:@"Salvar" style:UIBarButtonItemStyleDone target:self action:@selector(salvarLembrete)];
         UIBarButtonItem *cancelar = [[UIBarButtonItem alloc] initWithTitle:@"Cancelar" style:UIBarButtonItemStyleDone target:self action:@selector(fechar)];
-        UIBarButtonItem *remover = [[UIBarButtonItem alloc] initWithTitle:@"Remover" style:UIBarButtonItemStyleDone target:self action:@selector(removerLembrete)];
         
         _activity = activity;
         _boleto = boleto;
         
         self.navigationItem.title = @"Novo Lembrete";
         self.navigationItem.rightBarButtonItem = salvar;
-        
-        if (_boleto.dataLembrete) {
-            self.navigationItem.leftBarButtonItem = remover;
-        } else {
-            self.navigationItem.leftBarButtonItem = cancelar;
-        }
+        self.navigationItem.leftBarButtonItem = cancelar;
     }
     return self;
 }
@@ -96,10 +90,6 @@ typedef NS_ENUM(NSUInteger, DCCNewReminderRow)
     notification.soundName = UILocalNotificationDefaultSoundName;
     notification.applicationIconBadgeNumber = 1;
     
-    if (self.boleto.dataLembrete) {
-        [self removerNotificacao];
-    }
-    
     [[UIApplication sharedApplication] scheduleLocalNotification:notification];
     
     self.boleto.tituloLembrete = self.titleField.text;
@@ -130,18 +120,19 @@ typedef NS_ENUM(NSUInteger, DCCNewReminderRow)
     }
 }
 
-
 - (UITextField *)titleField
 {
     if (!_titleField) {
         _titleField = [[UITextField alloc] initWithFrame:CGRectMake(self.tableView.separatorInset.left, 0, self.tableView.frame.size.width, 44.0f)];
         _titleField.placeholder = @"";
         
-        if (self.boleto.tituloLembrete) {
-            _titleField.text = self.boleto.tituloLembrete;
-        } else {
-            _titleField.text = [NSString stringWithFormat:@"Pagar boleto do %@", self.boleto.banco];
-        }
+//        if (self.boleto.tituloLembrete) {
+//            _titleField.text = self.boleto.tituloLembrete;
+//        } else {
+//            _titleField.text = [NSString stringWithFormat:@"Pagar boleto do %@", self.boleto.banco];
+//        }
+        
+        _titleField.text = [NSString stringWithFormat:@"Pagar boleto do %@", self.boleto.banco];
     }
     
     return _titleField;
@@ -167,15 +158,21 @@ typedef NS_ENUM(NSUInteger, DCCNewReminderRow)
         _datePicker.minimumDate = [NSDate date];
         _datePicker.datePickerMode = UIDatePickerModeDateAndTime;
         
-        if (self.boleto.dataLembrete) {
-            _datePicker.date = self.boleto.dataLembrete;
-        } else {
-            dateComponents = [[NSCalendar currentCalendar] components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit fromDate:self.boleto.dataVencimento];
-            [dateComponents setHour:8];
-            [dateComponents setMinute:0];
-            
-            _datePicker.date = [[NSCalendar currentCalendar] dateFromComponents:dateComponents];
-        }
+//        if (self.boleto.dataLembrete) {
+//            _datePicker.date = self.boleto.dataLembrete;
+//        } else {
+//            dateComponents = [[NSCalendar currentCalendar] components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit fromDate:self.boleto.dataVencimento];
+//            [dateComponents setHour:8];
+//            [dateComponents setMinute:0];
+//            
+//            _datePicker.date = [[NSCalendar currentCalendar] dateFromComponents:dateComponents];
+//        }
+        
+        dateComponents = [[NSCalendar currentCalendar] components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit fromDate:self.boleto.dataVencimento];
+        [dateComponents setHour:8];
+        [dateComponents setMinute:0];
+        
+        _datePicker.date = [[NSCalendar currentCalendar] dateFromComponents:dateComponents];
         
         [_datePicker addTarget:self action:@selector(datePickerChanged) forControlEvents:UIControlEventValueChanged];
     }

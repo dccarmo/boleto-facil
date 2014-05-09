@@ -31,11 +31,14 @@
 {
     self = [super initWithNibName:@"BFOListaBoletosView" bundle:nil];
     if (self) {
-        UIImage *imagemEscanear = [UIImage imageNamed:@"botao_escanear"];
-        UIBarButtonItem *botaoCamera = [[UIBarButtonItem alloc] initWithImage:imagemEscanear style:UIBarButtonItemStylePlain target:self action:@selector(escanearCodigo)];
+        UIImage *imagemEscanear = [UIImage imageNamed:@"botao_config_navbar"];
+        UIBarButtonItem *config = [[UIBarButtonItem alloc] initWithImage:imagemEscanear style:UIBarButtonItemStyleDone target:self action:@selector(abrirConfiguracao)];
+        UIBarButtonItem *adicionar = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(escanearCodigo)];
         
         self.navigationItem.title = @"Boletos";
-        self.navigationItem.rightBarButtonItem = botaoCamera;
+        self.navigationItem.leftBarButtonItem = config;
+        self.navigationItem.rightBarButtonItem = adicionar;
+        
         self.navigationController.navigationBar.translucent = NO;
     }
     return self;
@@ -46,6 +49,8 @@
     self = [self init];
     return self;
 }
+
+#pragma mark - UIViewController
 
 - (void)viewDidLoad
 {
@@ -66,6 +71,13 @@
     } else {
         self.tableView.backgroundView = nil;
     }
+}
+
+#pragma mark - BFOListaBoletosViewController
+
+- (void)abrirConfiguracao
+{
+    
 }
 
 - (void)escanearCodigo
