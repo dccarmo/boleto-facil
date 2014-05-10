@@ -21,6 +21,8 @@ static const NSUInteger margemLateralView = 20;
 
 @property (weak, nonatomic) IBOutlet UIView *estadoServidorFundo;
 @property (weak, nonatomic) IBOutlet UILabel *estadoServidorMensagem;
+@property (weak, nonatomic) IBOutlet UILabel *estadoServidorEndereco;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *estadoServidorAltura;
 
 @property (weak, nonatomic) IBOutlet UILabel *banco;
 @property (weak, nonatomic) IBOutlet UILabel *dataVencimento;
@@ -45,29 +47,45 @@ static const NSUInteger margemLateralView = 20;
 
 - (void)alterarEstadoCriacaoServidor:(BFOEstadoCriacaoServidor)estado mensagem:(NSString *)mensagem
 {
-    [UIView beginAnimations:@"alterarEstadoCriacaoServidor" context:nil];
+    UIColor *backgroundColor;
     
     switch (estado) {
         case BFOEstadoCriacaoServidorIniciando:
-            self.estadoServidorFundo.backgroundColor = [UIColor colorWithRed:0.105 green:0.792 blue:0.984 alpha:1];
+            backgroundColor = [UIColor colorWithRed:0.105 green:0.792 blue:0.984 alpha:1];
             break;
             
         case BFOEstadoCriacaoServidorSucesso:
-            self.estadoServidorFundo.backgroundColor = [UIColor colorWithRed:0.298 green:0.85 blue:0.392 alpha:1];
+            backgroundColor = [UIColor colorWithRed:0.298 green:0.85 blue:0.392 alpha:1];
+            
+            self.estadoServidorEndereco.text = mensagem;
+            self.estadoServidorEndereco.alpha = 0;
+            self.estadoServidorEndereco.hidden = NO;
+            
+            mensagem = @"Acesse o boleto a partir deste endereço:";
+            
+            self.estadoServidorAltura.constant = 1.7f * self.estadoServidorAltura.constant;
+            [self.estadoServidorFundo setNeedsUpdateConstraints];
             break;
             
         case BFOEstadoCriacaoServidorAviso:
-            self.estadoServidorFundo.backgroundColor = [UIColor colorWithRed:1 green:0.8 blue:0.007 alpha:1];
+            backgroundColor = [UIColor colorWithRed:1 green:0.8 blue:0.007 alpha:1];
             break;
             
         case BFOEstadoCriacaoServidorFalha:
-            self.estadoServidorFundo.backgroundColor = [UIColor colorWithRed:1 green:0.176 blue:0.333 alpha:1];
+            backgroundColor = [UIColor colorWithRed:1 green:0.176 blue:0.333 alpha:1];
             break;
     }
     
-    self.estadoServidorMensagem.text = mensagem;
-    
-    [UIView commitAnimations];
+    [UIView animateWithDuration:0.3f animations:^{
+        self.estadoServidorFundo.backgroundColor = backgroundColor;
+        self.estadoServidorMensagem.text = mensagem;
+        
+        if (BFOEstadoCriacaoServidorSucesso) {
+            self.estadoServidorEndereco.alpha = 1.0f;
+        }
+        
+        [self layoutIfNeeded];
+    }];
 }
 
 - (void)configurarViewComBoleto:(BFOBoleto *)boleto
