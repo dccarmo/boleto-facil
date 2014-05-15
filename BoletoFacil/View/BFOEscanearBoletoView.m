@@ -16,7 +16,6 @@
 @interface BFOEscanearBoletoView()
 
 @property (weak, nonatomic) IBOutlet UIView *cameraPreviewView;
-@property (weak, nonatomic) IBOutlet UIButton *botaoFechar;
 
 @end
 
@@ -32,19 +31,25 @@
     self = [super initWithCoder:coder];
     if (self) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rotacionarBotaoFechar) name:@"UIDeviceOrientationDidChangeNotification" object:nil];
-        
-        [self rotacionarBotaoFechar];
     }
     return self;
 }
+
+#pragma mark - UINibLoading
+
+- (void)awakeFromNib
+{    
+    [self rotacionarBotaoFechar];
+    [self adicionarEfeitoMovimentoBotaoFechar];
+}
+
+#pragma mark - BFOEscanearBoletoView
 
 - (void)setupCameraPreviewView:(ZBarReaderView *)readerView
 {
     readerView.frame = self.cameraPreviewView.frame;
     [self.cameraPreviewView addSubview:readerView];
 }
-
-#pragma mark - botaoFechar
 
 - (void)alterarBotaoFecharParaBotaoSucesso
 {
@@ -81,10 +86,25 @@
             break;
     }
     
-    [UIView beginAnimations:@"rotate" context:nil];
+    [UIView beginAnimations:@"rotacionarBotaoFechar" context:nil];
     [UIView setAnimationDuration:0.5];
         self.botaoFechar.transform = CGAffineTransformMakeRotation(DegreesToRadians(degrees));
     [UIView commitAnimations];
+}
+
+- (void)adicionarEfeitoMovimentoBotaoFechar
+{
+    UIInterpolatingMotionEffect *efeitoX = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.x" type:UIInterpolatingMotionEffectTypeTiltAlongHorizontalAxis];
+    UIInterpolatingMotionEffect *efeitoY = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.y" type:UIInterpolatingMotionEffectTypeTiltAlongVerticalAxis];
+    
+    efeitoX.maximumRelativeValue = @10;
+    efeitoX.minimumRelativeValue = @(-10);
+    
+    efeitoY.maximumRelativeValue = @10;
+    efeitoY.minimumRelativeValue = @(-10);
+    
+    [self.botaoFechar addMotionEffect:efeitoX];
+    [self.botaoFechar addMotionEffect:efeitoY];
 }
 
 @end

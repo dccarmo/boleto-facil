@@ -30,6 +30,7 @@
 @interface BFOEscanearBoletoViewController () <ZBarReaderViewDelegate>
 
 @property (nonatomic) ZBarReaderView *leitorView;
+@property (nonatomic) UIDynamicAnimator *animador;
 
 @end
 
@@ -54,6 +55,27 @@
     [self capturarCodigoBarra];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    BFOEscanearBoletoView *view = (BFOEscanearBoletoView *) self.view;
+    
+    view.botaoFechar.center = CGPointMake(view.botaoFechar.center.x, view.botaoFechar.center.y + view.botaoFechar.frame.size.height + 20);
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    BFOEscanearBoletoView *view = (BFOEscanearBoletoView *) self.view;
+    UISnapBehavior *snapBehavior;
+    
+    snapBehavior = [[UISnapBehavior alloc] initWithItem:view.botaoFechar snapToPoint:CGPointMake(view.botaoFechar.center.x, view.botaoFechar.center.y - (view.botaoFechar.frame.size.height + 20))];
+    self.animador = [[UIDynamicAnimator alloc] initWithReferenceView:view];
+    [self.animador addBehavior:snapBehavior];
+}
+
 - (BOOL)prefersStatusBarHidden
 {
     return YES;
@@ -76,8 +98,10 @@
     self.leitorView.readerDelegate = self;
     self.leitorView.zoom = 1.0;
     [self.leitorView.scanner setSymbology:ZBAR_EAN5 config:ZBAR_CFG_ENABLE to:0];
-    [self.leitorView start];
+    self.leitorView.torchMode = AVCaptureTorchModeOff;
+    self.leitorView.tracksSymbols = NO;
     
+    [self.leitorView start];
 }
 
 - (IBAction)fecharAction

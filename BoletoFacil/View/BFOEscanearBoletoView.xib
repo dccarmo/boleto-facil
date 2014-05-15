@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -14,33 +14,25 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w2G-Gn-1jQ">
+                <view contentMode="scaleToFill" id="w2G-Gn-1jQ">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hkS-O2-Au4">
-                    <rect key="frame" x="126" y="480" width="68" height="68"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="hkS-O2-Au4">
+                    <rect key="frame" x="126" y="479" width="69" height="69"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" image="botao_fechar_camera">
+                    <state key="normal" image="botao_escanear_float_cancelar">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
-                    <state key="selected" image="botao_codigo_escaneado"/>
+                    <state key="selected" image="botao_escanear_float_certo"/>
                     <connections>
                         <action selector="fecharAction" destination="-1" eventType="touchUpInside" id="kiK-KX-9Ab"/>
                     </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-            <constraints>
-                <constraint firstItem="w2G-Gn-1jQ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Dkl-1P-Wxb"/>
-                <constraint firstAttribute="trailing" secondItem="w2G-Gn-1jQ" secondAttribute="trailing" id="MAl-B8-16Y"/>
-                <constraint firstAttribute="bottom" secondItem="hkS-O2-Au4" secondAttribute="bottom" constant="20" id="bGc-Kd-4rs"/>
-                <constraint firstAttribute="bottom" secondItem="w2G-Gn-1jQ" secondAttribute="bottom" id="cyO-Ew-gkZ"/>
-                <constraint firstItem="w2G-Gn-1jQ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="hfy-Q5-jvQ"/>
-                <constraint firstAttribute="centerX" secondItem="hkS-O2-Au4" secondAttribute="centerX" id="yez-Lx-owF"/>
-            </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
             <connections>
                 <outlet property="botaoFechar" destination="hkS-O2-Au4" id="dmw-eK-x5r"/>
@@ -49,7 +41,7 @@
         </view>
     </objects>
     <resources>
-        <image name="botao_codigo_escaneado" width="68" height="68"/>
-        <image name="botao_fechar_camera" width="68" height="68"/>
+        <image name="botao_escanear_float_cancelar" width="69" height="69"/>
+        <image name="botao_escanear_float_certo" width="69" height="69"/>
     </resources>
 </document>

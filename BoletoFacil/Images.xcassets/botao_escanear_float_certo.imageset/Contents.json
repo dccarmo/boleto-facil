@@ -3,12 +3,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "botao_codigo_escaneado.png"
+      "filename" : "botao_escanear_float_certo.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "botao_codigo_escaneado@2x.png"
+      "filename" : "botao_escanear_float_certo@2x.png"
     }
   ],
   "info" : {
