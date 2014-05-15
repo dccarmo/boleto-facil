@@ -12,9 +12,8 @@
 
 @interface BFOEscanearBoletoView : UIView
 
-@property (weak, nonatomic) IBOutlet UIButton *botaoFechar;
-
 - (void)setupCameraPreviewView:(ZBarReaderView *)readerView;
 - (void)alterarBotaoFecharParaBotaoSucesso;
+- (void)mostrarBotoes;
 
 @end

@@ -55,25 +55,13 @@
     [self capturarCodigoBarra];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    BFOEscanearBoletoView *view = (BFOEscanearBoletoView *) self.view;
-    
-    view.botaoFechar.center = CGPointMake(view.botaoFechar.center.x, view.botaoFechar.center.y + view.botaoFechar.frame.size.height + 20);
-}
-
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
     BFOEscanearBoletoView *view = (BFOEscanearBoletoView *) self.view;
-    UISnapBehavior *snapBehavior;
-    
-    snapBehavior = [[UISnapBehavior alloc] initWithItem:view.botaoFechar snapToPoint:CGPointMake(view.botaoFechar.center.x, view.botaoFechar.center.y - (view.botaoFechar.frame.size.height + 20))];
-    self.animador = [[UIDynamicAnimator alloc] initWithReferenceView:view];
-    [self.animador addBehavior:snapBehavior];
+   
+    [view mostrarBotoes];
 }
 
 - (BOOL)prefersStatusBarHidden
@@ -104,9 +92,24 @@
     [self.leitorView start];
 }
 
-- (IBAction)fecharAction
+- (IBAction)fecharAction:(id)sender
 {
+    self.leitorView.torchMode = AVCaptureTorchModeOff;
+    
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)alterarFlashAction:(id)sender
+{
+    UIButton *botaoFlash = (UIButton *) sender;
+    
+    botaoFlash.selected = !botaoFlash.selected;
+    
+    if (botaoFlash.selected) {
+        self.leitorView.torchMode = AVCaptureTorchModeOn;
+    } else {
+        self.leitorView.torchMode = AVCaptureTorchModeOff;
+    }
 }
 
 #pragma mark - ZBarReaderViewDelegate
@@ -138,7 +141,11 @@
         
         [view alterarBotaoFecharParaBotaoSucesso];
         
-        [self performSelector:@selector(fecharAction) withObject:nil afterDelay:2.0f];
+        if (self.leitorView.torchMode == AVCaptureTorchModeOn) {
+            
+        }
+        
+        [self performSelector:@selector(fecharAction:) withObject:nil afterDelay:2.0f];
         
         break;
     }

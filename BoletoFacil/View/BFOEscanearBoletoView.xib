@@ -19,6 +19,17 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cbQ-zJ-pZ8">
+                    <rect key="frame" x="256" y="20" width="44" height="44"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" image="botao_flash_float">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="selected" image="botao_flash_cheio_float"/>
+                    <connections>
+                        <action selector="alterarFlashAction:" destination="-1" eventType="touchUpInside" id="HUM-0P-BDE"/>
+                    </connections>
+                </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="hkS-O2-Au4">
                     <rect key="frame" x="126" y="479" width="69" height="69"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -28,7 +39,7 @@
                     </state>
                     <state key="selected" image="botao_escanear_float_certo"/>
                     <connections>
-                        <action selector="fecharAction" destination="-1" eventType="touchUpInside" id="kiK-KX-9Ab"/>
+                        <action selector="fecharAction:" destination="-1" eventType="touchUpInside" id="3MF-bs-cf6"/>
                     </connections>
                 </button>
             </subviews>
@@ -36,6 +47,7 @@
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
             <connections>
                 <outlet property="botaoFechar" destination="hkS-O2-Au4" id="dmw-eK-x5r"/>
+                <outlet property="botaoFlash" destination="cbQ-zJ-pZ8" id="hW8-mn-bgJ"/>
                 <outlet property="cameraPreviewView" destination="w2G-Gn-1jQ" id="xqY-9B-xM0"/>
             </connections>
         </view>
@@ -43,5 +55,7 @@
     <resources>
         <image name="botao_escanear_float_cancelar" width="69" height="69"/>
         <image name="botao_escanear_float_certo" width="69" height="69"/>
+        <image name="botao_flash_cheio_float" width="36" height="36"/>
+        <image name="botao_flash_float" width="36" height="36"/>
     </resources>
 </document>
