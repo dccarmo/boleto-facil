@@ -108,7 +108,7 @@ static const NSUInteger alturaInicialEstadoServidorFundo = 30;
     if (boleto.dataVencimento) {
         self.dataVencimento.text = [formatoData stringFromDate:boleto.dataVencimento];
     } else {
-        self.dataVencimento.text = @"-";
+        self.dataVencimento.text = @"Não informada";
     }
     
     self.valor.text = boleto.valorExtenso;
@@ -145,7 +145,11 @@ static const NSUInteger alturaInicialEstadoServidorFundo = 30;
         [self.containerLinhaDigitavel addSubview:textoSequencia];
     }
     
-    self.containerLinhaDigitavel.contentSize = CGSizeMake(textoSequencia.frame.origin.x + textoSequencia.frame.size.width + margemLateralView, self.containerLinhaDigitavel.contentSize.height);
+    if (textoSequencia.frame.size.width >= self.containerCodigoBarras.frame.size.width/2) {
+        self.containerLinhaDigitavel.contentSize = CGSizeMake(textoSequencia.frame.origin.x + textoSequencia.frame.size.width + margemLateralView, self.containerLinhaDigitavel.contentSize.height);
+    } else {
+        self.containerLinhaDigitavel.contentSize = CGSizeMake(textoSequencia.frame.origin.x + textoSequencia.frame.size.width + self.containerLinhaDigitavel.frame.size.width/2, self.containerLinhaDigitavel.contentSize.height);
+    }
 }
 
 - (void)configurarContainerCodigoBarrasComBoleto:(BFOBoleto *)boleto

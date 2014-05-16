@@ -14,7 +14,6 @@
 @interface BFOListaBoletosTableViewCell ()
 
 @property (weak, nonatomic) IBOutlet UILabel *banco;
-@property (weak, nonatomic) IBOutlet UILabel *data;
 @property (weak, nonatomic) IBOutlet UILabel *codigo;
 
 @end
@@ -35,7 +34,6 @@
     }
 
     self.codigo.text = [boleto linhaDigitavelFormatada];
-    self.data.text = [formatoData stringFromDate:boleto.data];
 }
 
 @end

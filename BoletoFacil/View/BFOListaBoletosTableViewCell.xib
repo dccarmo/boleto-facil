@@ -14,45 +14,31 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Banco não identificado" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="unQ-pM-HgP">
-                        <rect key="frame" x="15" y="15" width="202" height="21"/>
+                        <rect key="frame" x="15" y="15" width="166" height="19"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="75691301020203123123548941230812390812" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TKC-zy-15j">
-                        <rect key="frame" x="15" y="41" width="272" height="18"/>
+                        <rect key="frame" x="15" y="39" width="272" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20/05/2014" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4iF-bz-za9">
-                        <rect key="frame" x="225" y="19" width="62" height="14"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="62" id="OBW-iM-8gG"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
-                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="4iF-bz-za9" firstAttribute="leading" secondItem="unQ-pM-HgP" secondAttribute="trailing" constant="8" symbolic="YES" id="Cxm-8e-xdK"/>
-                    <constraint firstItem="TKC-zy-15j" firstAttribute="trailing" secondItem="4iF-bz-za9" secondAttribute="trailing" id="K1U-85-dbA"/>
+                    <constraint firstAttribute="trailing" secondItem="TKC-zy-15j" secondAttribute="trailing" id="BLY-6J-JZJ"/>
                     <constraint firstItem="TKC-zy-15j" firstAttribute="leading" secondItem="unQ-pM-HgP" secondAttribute="leading" id="P9X-Hw-9zH"/>
                     <constraint firstItem="TKC-zy-15j" firstAttribute="top" secondItem="unQ-pM-HgP" secondAttribute="bottom" constant="5" id="RXe-wG-7QP"/>
-                    <constraint firstItem="TKC-zy-15j" firstAttribute="top" secondItem="4iF-bz-za9" secondAttribute="bottom" constant="8" symbolic="YES" id="eTn-05-UbZ"/>
                     <constraint firstItem="unQ-pM-HgP" firstAttribute="leading" secondItem="l9k-Py-6l9" secondAttribute="leading" constant="15" id="gkL-Es-3qP"/>
-                    <constraint firstAttribute="trailing" secondItem="4iF-bz-za9" secondAttribute="trailing" id="vjG-RN-ADT"/>
                     <constraint firstItem="unQ-pM-HgP" firstAttribute="top" secondItem="l9k-Py-6l9" secondAttribute="top" constant="15" id="zTS-Gn-TM8"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="banco" destination="unQ-pM-HgP" id="zDS-CR-O9b"/>
                 <outlet property="codigo" destination="TKC-zy-15j" id="Gns-je-C9X"/>
-                <outlet property="data" destination="4iF-bz-za9" id="SQF-zZ-5Uw"/>
             </connections>
         </tableViewCell>
     </objects>

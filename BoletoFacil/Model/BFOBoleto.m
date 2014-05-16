@@ -237,12 +237,12 @@ static const NSUInteger diaBase = 07;
 
 - (id)activityViewControllerPlaceholderItem:(UIActivityViewController *)activityViewController
 {
-    return self.linhaDigitavel;
+    return [self linhaDigitavelFormatada];
 }
 
 - (id)activityViewController:(UIActivityViewController *)activityViewController itemForActivityType:(NSString *)activityType
 {
-    return self.linhaDigitavel;
+    return [self linhaDigitavelFormatada];
 }
 
 //- (UIImage *)activityViewController:(UIActivityViewController *)activityViewController thumbnailImageForActivityType:(NSString *)activityType suggestedSize:(CGSize)size
