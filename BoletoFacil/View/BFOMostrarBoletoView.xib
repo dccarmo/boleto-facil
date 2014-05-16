@@ -45,17 +45,17 @@
                     </constraints>
                 </view>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Banco" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H14-lI-hjW">
-                    <rect key="frame" x="20" y="38" width="42" height="18"/>
+                    <rect key="frame" x="20" y="38" width="100" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="42" id="hsZ-6A-jaY"/>
+                        <constraint firstAttribute="width" constant="100" id="hsZ-6A-jaY"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Banco não identificado" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hFw-mv-9eK">
-                    <rect key="frame" x="70" y="38" width="230" height="18"/>
+                    <rect key="frame" x="128" y="38" width="172" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -173,6 +173,7 @@
                 <outlet property="estadoServidorEndereco" destination="Bhn-tH-fgG" id="s5n-F8-abB"/>
                 <outlet property="estadoServidorFundo" destination="TyI-eQ-vwn" id="YcF-oK-O9H"/>
                 <outlet property="estadoServidorMensagem" destination="Gx8-Sw-W6T" id="EBX-dC-kja"/>
+                <outlet property="tipoSegmento" destination="H14-lI-hjW" id="iZQ-GG-Vfi"/>
                 <outlet property="valor" destination="D13-FN-NJ2" id="eyp-KW-6Yv"/>
             </connections>
         </view>

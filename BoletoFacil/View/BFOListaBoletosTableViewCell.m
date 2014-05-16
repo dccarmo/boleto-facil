@@ -28,7 +28,12 @@
     [formatoData setDoesRelativeDateFormatting:YES];
     [formatoData setDateStyle:NSDateFormatterShortStyle];
     
-    self.banco.text = boleto.banco;
+    if (boleto.tipo == BFOTipoBoletoBancario) {
+        self.banco.text = boleto.banco;
+    } else {
+        self.banco.text = boleto.segmento;
+    }
+
     self.codigo.text = [boleto linhaDigitavelFormatada];
     self.data.text = [formatoData stringFromDate:boleto.data];
 }

@@ -18,6 +18,7 @@ static const NSUInteger diaBase = 07;
 @interface BFOBoleto () {
     NSString *_linhaDigitavel;
     NSString *_banco;
+    NSString *_segmento;
     NSDate *_dataVencimento;
     NSString *_valorExtenso;
 }
@@ -45,6 +46,7 @@ static const NSUInteger diaBase = 07;
         _codigoBarras = [coder decodeObjectForKey:@"codigoBarras"];
         _data = [coder decodeObjectForKey:@"data"];
         _banco = [coder decodeObjectForKey:@"banco"];
+        _segmento = [coder decodeObjectForKey:@"segmento"];
         _dataVencimento = [coder decodeObjectForKey:@"dataVencimento"];
         _valorExtenso = [coder decodeObjectForKey:@"valorExtenso"];
         _tituloLembrete = [coder decodeObjectForKey:@"tituloLembrete"];
@@ -58,6 +60,7 @@ static const NSUInteger diaBase = 07;
     [coder encodeObject:self.codigoBarras forKey:@"codigoBarras"];
     [coder encodeObject:self.data forKey:@"data"];
     [coder encodeObject:self.banco forKey:@"banco"];
+    [coder encodeObject:self.segmento forKey:@"segmento"];
     [coder encodeObject:self.dataVencimento forKey:@"dataVencimento"];
     [coder encodeObject:self.valorExtenso forKey:@"valorExtenso"];
     [coder encodeObject:self.tituloLembrete forKey:@"tituloLembrete"];
@@ -65,6 +68,17 @@ static const NSUInteger diaBase = 07;
 }
 
 #pragma mark - BFOBoleto
+
+- (BFOTipoBoleto)tipo
+{
+    switch ([self.codigoBarras characterAtIndex:0]) {
+        case '8':
+            return BFOTipoBoletoArrecadacao;
+            
+        default:
+            return BFOTipoBoletoBancario;
+    }
+}
 
 - (NSString *)linhaDigitavel
 {
@@ -81,22 +95,40 @@ static const NSUInteger diaBase = 07;
 
 - (NSArray *)sequenciasLinhaDigitavel
 {
-    
-    return @[[self.linhaDigitavel substringWithRange:NSRangeFromString(@"0-5")],
-             [self.linhaDigitavel substringWithRange:NSRangeFromString(@"5-5")],
-             [self.linhaDigitavel substringWithRange:NSRangeFromString(@"10-5")],
-             [self.linhaDigitavel substringWithRange:NSRangeFromString(@"15-6")],
-             [self.linhaDigitavel substringWithRange:NSRangeFromString(@"21-5")],
-             [self.linhaDigitavel substringWithRange:NSRangeFromString(@"26-6")],
-             [self.linhaDigitavel substringWithRange:NSRangeFromString(@"32-1")],
-             [self.linhaDigitavel substringWithRange:NSRangeFromString(@"33-14")]];
+    switch (self.tipo) {
+        case BFOTipoBoletoBancario:
+            return @[[self.linhaDigitavel substringWithRange:NSRangeFromString(@"0-5")],
+                     [self.linhaDigitavel substringWithRange:NSRangeFromString(@"5-5")],
+                     [self.linhaDigitavel substringWithRange:NSRangeFromString(@"10-5")],
+                     [self.linhaDigitavel substringWithRange:NSRangeFromString(@"15-6")],
+                     [self.linhaDigitavel substringWithRange:NSRangeFromString(@"21-5")],
+                     [self.linhaDigitavel substringWithRange:NSRangeFromString(@"26-6")],
+                     [self.linhaDigitavel substringWithRange:NSRangeFromString(@"32-1")],
+                     [self.linhaDigitavel substringWithRange:NSRangeFromString(@"33-14")]];
+            
+        case BFOTipoBoletoArrecadacao:
+            return @[[self.linhaDigitavel substringWithRange:NSRangeFromString(@"0-11")],
+                     [self.linhaDigitavel substringWithRange:NSRangeFromString(@"11-1")],
+                     [self.linhaDigitavel substringWithRange:NSRangeFromString(@"12-11")],
+                     [self.linhaDigitavel substringWithRange:NSRangeFromString(@"23-1")],
+                     [self.linhaDigitavel substringWithRange:NSRangeFromString(@"24-11")],
+                     [self.linhaDigitavel substringWithRange:NSRangeFromString(@"35-1")],
+                     [self.linhaDigitavel substringWithRange:NSRangeFromString(@"36-11")],
+                     [self.linhaDigitavel substringWithRange:NSRangeFromString(@"47-1")]];
+    }
 }
 
 - (NSString *)linhaDigitavelFormatada
 {
     NSArray *sequencias = [self sequenciasLinhaDigitavel];
     
-    return [NSString stringWithFormat:@"%@.%@ %@.%@ %@.%@ %@ %@", sequencias[0], sequencias[1], sequencias[2], sequencias[3], sequencias[4], sequencias[5], sequencias[6], sequencias[7]];
+    switch (self.tipo) {
+        case BFOTipoBoletoBancario:
+            return [NSString stringWithFormat:@"%@.%@ %@.%@ %@.%@ %@ %@", sequencias[0], sequencias[1], sequencias[2], sequencias[3], sequencias[4], sequencias[5], sequencias[6], sequencias[7]];
+            
+        case BFOTipoBoletoArrecadacao:
+            return [NSString stringWithFormat:@"%@-%@ %@-%@ %@-%@ %@-%@", sequencias[0], sequencias[1], sequencias[2], sequencias[3], sequencias[4], sequencias[5], sequencias[6], sequencias[7]];
+    }
 }
 
 - (NSString *)banco
@@ -106,6 +138,7 @@ static const NSUInteger diaBase = 07;
     NSDictionary *banco;
     
     if (!_banco) {
+        _banco = @"";
         listaBancos = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"BFOListaBancos" ofType:@"plist"]];
         codigoBanco = [self.codigoBarras substringWithRange:NSRangeFromString(@"0-3")];
         
@@ -121,6 +154,29 @@ static const NSUInteger diaBase = 07;
     return _banco;
 }
 
+- (NSString *)segmento
+{
+    NSArray *listaSegmentos;
+    NSString *codigoSegmento;
+    NSDictionary *segmento;
+    
+    if (!_segmento) {
+        _segmento = @"";
+        listaSegmentos = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"BFOListaSegmentos" ofType:@"plist"]];
+        codigoSegmento = [self.codigoBarras substringWithRange:NSRangeFromString(@"1-1")];
+        
+        for (segmento in listaSegmentos) {
+            if ([segmento[@"codigo"] isEqualToString:codigoSegmento]) {
+                _segmento = segmento[@"nome"];
+                
+                break;
+            }
+        }
+    }
+    
+    return _segmento;
+}
+
 - (NSDate *)dataVencimento
 {
     NSString *fatorVencimento;
@@ -128,6 +184,10 @@ static const NSUInteger diaBase = 07;
     NSDateComponents *componentesDataSoma;
     
     if (!_dataVencimento) {
+        if (self.tipo == BFOTipoBoletoArrecadacao) {
+            return nil;
+        }
+        
         fatorVencimento = [self.codigoBarras substringWithRange:NSRangeFromString(@"5-4")];
         componentesDataInicio = [NSDateComponents new];
         componentesDataSoma = [NSDateComponents new];
@@ -155,9 +215,17 @@ static const NSUInteger diaBase = 07;
         formatoNumero = [NSNumberFormatter new];
         [formatoNumero setNumberStyle:NSNumberFormatterCurrencyStyle];
         
-        valor = [[NSString stringWithFormat:@"%d.%d",
-                  [[self.codigoBarras substringWithRange:NSRangeFromString(@"9-8")] integerValue],
-                  [[self.codigoBarras substringWithRange:NSRangeFromString(@"17-2")] integerValue]] floatValue];
+        switch (self.tipo) {
+            case BFOTipoBoletoBancario:
+                valor = [[NSString stringWithFormat:@"%d.%d",
+                          [[self.codigoBarras substringWithRange:NSRangeFromString(@"9-8")] integerValue],
+                          [[self.codigoBarras substringWithRange:NSRangeFromString(@"17-2")] integerValue]] floatValue];
+                
+            case BFOTipoBoletoArrecadacao:
+                valor = [[NSString stringWithFormat:@"%d.%d",
+                          [[self.codigoBarras substringWithRange:NSRangeFromString(@"4-9")] integerValue],
+                          [[self.codigoBarras substringWithRange:NSRangeFromString(@"13-2")] integerValue]] floatValue];
+        }
         
         _valorExtenso = [formatoNumero stringFromNumber:[NSNumber numberWithFloat:valor]];
     }

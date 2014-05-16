@@ -25,6 +25,7 @@ static const NSUInteger alturaInicialEstadoServidorFundo = 30;
 @property (weak, nonatomic) IBOutlet UILabel *estadoServidorEndereco;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *estadoServidorAltura;
 
+@property (weak, nonatomic) IBOutlet UILabel *tipoSegmento;
 @property (weak, nonatomic) IBOutlet UILabel *banco;
 @property (weak, nonatomic) IBOutlet UILabel *dataVencimento;
 @property (weak, nonatomic) IBOutlet UILabel *valor;
@@ -97,8 +98,19 @@ static const NSUInteger alturaInicialEstadoServidorFundo = 30;
     [formatoData setDateStyle:NSDateFormatterShortStyle];
     [formatoData setDoesRelativeDateFormatting:YES];
     
-    self.banco.text = boleto.banco;
-    self.dataVencimento.text = [formatoData stringFromDate:boleto.dataVencimento];
+    if (boleto.tipo == BFOTipoBoletoBancario) {
+        self.banco.text = boleto.banco;
+    } else {
+        self.tipoSegmento.text = @"Segmento";
+        self.banco.text = boleto.segmento;
+    }
+    
+    if (boleto.dataVencimento) {
+        self.dataVencimento.text = [formatoData stringFromDate:boleto.dataVencimento];
+    } else {
+        self.dataVencimento.text = @"-";
+    }
+    
     self.valor.text = boleto.valorExtenso;
     
     [self configurarContainerLinhaDigitavelComBoleto:boleto];
