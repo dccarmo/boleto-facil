@@ -16,6 +16,7 @@
 
 static const NSUInteger margemNumerosLinhaDigitavel = 15;
 static const NSUInteger margemLateralView = 20;
+static const NSUInteger alturaInicialEstadoServidorFundo = 30;
 
 @interface BFOMostrarBoletoView () <UIScrollViewDelegate>
 
@@ -34,15 +35,6 @@ static const NSUInteger margemLateralView = 20;
 
 @implementation BFOMostrarBoletoView
 
-- (instancetype)initWithCoder:(NSCoder *)coder
-{
-    self = [super initWithCoder:coder];
-    if (self) {
-        
-    }
-    return self;
-}
-
 #pragma mark - BFOMostrarBoletoView
 
 - (void)alterarEstadoCriacaoServidor:(BFOEstadoCriacaoServidor)estado mensagem:(NSString *)mensagem
@@ -56,15 +48,6 @@ static const NSUInteger margemLateralView = 20;
             
         case BFOEstadoCriacaoServidorSucesso:
             backgroundColor = [UIColor colorWithRed:0.298 green:0.85 blue:0.392 alpha:1];
-            
-            self.estadoServidorEndereco.text = mensagem;
-            self.estadoServidorEndereco.alpha = 0;
-            self.estadoServidorEndereco.hidden = NO;
-            
-            mensagem = @"Acesse o boleto a partir deste endereço:";
-            
-            self.estadoServidorAltura.constant = 1.7f * self.estadoServidorAltura.constant;
-            [self.estadoServidorFundo setNeedsUpdateConstraints];
             break;
             
         case BFOEstadoCriacaoServidorAviso:
@@ -76,12 +59,31 @@ static const NSUInteger margemLateralView = 20;
             break;
     }
     
+    if (estado == BFOEstadoCriacaoServidorSucesso) {
+        if (self.estadoServidorEndereco.alpha) {
+            return;
+        }
+        
+        self.estadoServidorEndereco.text = mensagem;
+        self.estadoServidorEndereco.alpha = 0;
+        
+        mensagem = @"Acesse o boleto a partir deste endereço:";
+        
+        self.estadoServidorAltura.constant = 1.7f * self.estadoServidorAltura.constant;
+        [self.estadoServidorFundo setNeedsUpdateConstraints];
+    } else {
+        self.estadoServidorAltura.constant = alturaInicialEstadoServidorFundo;
+        [self.estadoServidorFundo setNeedsUpdateConstraints];
+    }
+    
     [UIView animateWithDuration:0.3f animations:^{
         self.estadoServidorFundo.backgroundColor = backgroundColor;
         self.estadoServidorMensagem.text = mensagem;
         
-        if (BFOEstadoCriacaoServidorSucesso) {
+        if (estado == BFOEstadoCriacaoServidorSucesso) {
             self.estadoServidorEndereco.alpha = 1.0f;
+        } else {
+            self.estadoServidorEndereco.alpha = 0;
         }
         
         [self layoutIfNeeded];

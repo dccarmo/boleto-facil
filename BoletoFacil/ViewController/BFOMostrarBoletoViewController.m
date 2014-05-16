@@ -19,7 +19,6 @@
 #import "BFOBoleto.h"
 
 //Support
-#import "DCCBoletoBancarioFormatter.h"
 #import "BFOServidorInternet.h"
 
 @interface BFOMostrarBoletoViewController ()
@@ -80,7 +79,7 @@
     if ([[BFOServidorInternet sharedServidorInternet] mostrarBoleto:self.boleto mensagemErro:&mensagemErro]) {
         [view alterarEstadoCriacaoServidor:BFOEstadoCriacaoServidorSucesso mensagem:[[BFOServidorInternet sharedServidorInternet] URLServidor]];
     } else {
-        [view alterarEstadoCriacaoServidor:BFOEstadoCriacaoServidorFalha mensagem:mensagemErro];
+        [view alterarEstadoCriacaoServidor:BFOEstadoCriacaoServidorAviso mensagem:mensagemErro];
     }
 }
 
@@ -91,7 +90,12 @@
     
     adicionarLembrete = [[BFOAdicionarLembreteActivity alloc] initWithBoleto:self.boleto];
     
-    opcoesCompartilhamento = [[UIActivityViewController alloc] initWithActivityItems:@[self.boleto] applicationActivities:@[adicionarLembrete]];
+    if ([[UIApplication sharedApplication].scheduledLocalNotifications count] < 64) {
+        opcoesCompartilhamento = [[UIActivityViewController alloc] initWithActivityItems:@[self.boleto] applicationActivities:@[adicionarLembrete]];
+    } else {
+        opcoesCompartilhamento = [[UIActivityViewController alloc] initWithActivityItems:@[self.boleto] applicationActivities:nil];
+    }
+    
     opcoesCompartilhamento.excludedActivityTypes = @[UIActivityTypePostToFacebook, UIActivityTypePostToTwitter, UIActivityTypePostToWeibo, UIActivityTypePostToTencentWeibo];
     
     [self presentViewController:opcoesCompartilhamento animated:YES completion:nil];

@@ -9,7 +9,7 @@
 #import "BFOBoleto.h"
 
 //Support
-#import "DCCBoletoBancarioFormatter.h"
+#import "DCCBoletoFormatter.h"
 
 static const NSUInteger anoBase = 1997;
 static const NSUInteger mesBase = 10;
@@ -68,10 +68,10 @@ static const NSUInteger diaBase = 07;
 
 - (NSString *)linhaDigitavel
 {
-    DCCBoletoBancarioFormatter *formatoBoleto;
+    DCCBoletoFormatter *formatoBoleto;
     
     if (!_linhaDigitavel) {
-        formatoBoleto = [DCCBoletoBancarioFormatter new];
+        formatoBoleto = [DCCBoletoFormatter new];
         
         _linhaDigitavel = [formatoBoleto linhaDigitavelDoCodigoBarra:self.codigoBarras];
     }

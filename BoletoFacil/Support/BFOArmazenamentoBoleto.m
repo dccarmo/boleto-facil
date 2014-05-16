@@ -11,9 +11,6 @@
 //Models
 #import "BFOBoleto.h"
 
-//Support
-#import "DCCBoletoBancarioFormatter.h"
-
 @interface BFOArmazenamentoBoleto() {
     NSMutableArray *_boletos;
 }

@@ -21,7 +21,7 @@
 #import "BFOBoleto.h"
 
 //Support
-#import "DCCBoletoBancarioFormatter.h"
+#import "DCCBoletoFormatter.h"
 #import "BFOArmazenamentoBoleto.h"
 
 //Pods
@@ -119,7 +119,7 @@
     BFONavegacaoPrincipalViewController *navegacaoPrincipal = (BFONavegacaoPrincipalViewController *) self.presentingViewController;
     BFOEscanearBoletoView *view = (BFOEscanearBoletoView *) self.view;
     NSString *codigoBarras;
-    DCCBoletoBancarioFormatter *formatoBoleto = [DCCBoletoBancarioFormatter new];
+    DCCBoletoFormatter *formatoBoleto = [DCCBoletoFormatter new];
     BFOBoleto *boleto;
     
     for (ZBarSymbol *symbol in symbols) {
