@@ -35,6 +35,7 @@
 		D9B56336192573C800C53A05 /* BFOConfiguracoesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B56335192573C800C53A05 /* BFOConfiguracoesViewController.m */; };
 		D9B5633C1926568000C53A05 /* DCCBoletoFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B5633B1926568000C53A05 /* DCCBoletoFormatter.m */; };
 		D9B5633E1926585300C53A05 /* BFOListaSegmentos.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9B5633D1926585300C53A05 /* BFOListaSegmentos.plist */; };
+		D9B563401927A99F00C53A05 /* BFOConfiguracoesStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9B5633F1927A99F00C53A05 /* BFOConfiguracoesStoryboard.storyboard */; };
 		D9D1CF11191850FD0015C8EB /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D1CF10191850FD0015C8EB /* Reachability.m */; };
 		D9D1CF15191855190015C8EB /* BFOBoleto.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D1CF14191855190015C8EB /* BFOBoleto.m */; };
 		D9D1CF18191879230015C8EB /* BFOSequenciaLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D1CF17191879230015C8EB /* BFOSequenciaLabel.m */; };
@@ -89,6 +90,7 @@
 		D9B5633A1926568000C53A05 /* DCCBoletoFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCCBoletoFormatter.h; sourceTree = "<group>"; };
 		D9B5633B1926568000C53A05 /* DCCBoletoFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCCBoletoFormatter.m; sourceTree = "<group>"; };
 		D9B5633D1926585300C53A05 /* BFOListaSegmentos.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BFOListaSegmentos.plist; sourceTree = "<group>"; };
+		D9B5633F1927A99F00C53A05 /* BFOConfiguracoesStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BFOConfiguracoesStoryboard.storyboard; sourceTree = "<group>"; };
 		D9D1CF0F191850FD0015C8EB /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		D9D1CF10191850FD0015C8EB /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		D9D1CF13191855190015C8EB /* BFOBoleto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFOBoleto.h; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 		D9186C13190D874B008B03BB /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D9B5633F1927A99F00C53A05 /* BFOConfiguracoesStoryboard.storyboard */,
 				D9186C20190DDEC3008B03BB /* BFOEscanearBoletoView.h */,
 				D9186C21190DDEC3008B03BB /* BFOEscanearBoletoView.m */,
 				D9186C23190DDECD008B03BB /* BFOEscanearBoletoView.xib */,
@@ -313,6 +316,7 @@
 			files = (
 				D9B5633E1926585300C53A05 /* BFOListaSegmentos.plist in Resources */,
 				D9186C4919156FE8008B03BB /* BFOListaBancos.plist in Resources */,
+				D9B563401927A99F00C53A05 /* BFOConfiguracoesStoryboard.storyboard in Resources */,
 				D9186C29190F1541008B03BB /* BFOMostrarBoletoView.xib in Resources */,
 				D9186C24190DDECD008B03BB /* BFOEscanearBoletoView.xib in Resources */,
 				D9186C3E19141111008B03BB /* BFOListaBolestosVaziaView.xib in Resources */,

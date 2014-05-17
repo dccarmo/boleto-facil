@@ -11,6 +11,7 @@
 //View Controllers
 #import "BFOEscanearBoletoViewController.h"
 #import "BFOMostrarBoletoViewController.h"
+#import "BFOConfiguracoesViewController.h"
 
 //Views
 #import "BFOListaBoletosTableViewCell.h"
@@ -77,7 +78,10 @@
 
 - (void)abrirConfiguracao
 {
+    BFOConfiguracoesViewController *configuracoes = [BFOConfiguracoesViewController new];
+    UINavigationController *navegacao = [[UINavigationController alloc] initWithRootViewController:configuracoes];
     
+    [self presentViewController:navegacao animated:YES completion:nil];
 }
 
 - (void)escanearCodigo
@@ -100,6 +104,19 @@
     [cell configurarTableViewCellComBoleto:boleto];
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    BFOBoleto *boleto;
+    
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        boleto = [BFOArmazenamentoBoleto sharedArmazenamentoBoleto].boletos[indexPath.row];
+        [[BFOArmazenamentoBoleto sharedArmazenamentoBoleto].boletos removeObject:boleto];
+        [[BFOArmazenamentoBoleto sharedArmazenamentoBoleto] salvar];
+        
+        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
 }
 
 #pragma mark - UITableViewDelegate

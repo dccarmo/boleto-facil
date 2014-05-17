@@ -25,12 +25,12 @@ typedef NS_ENUM(NSUInteger, BFOTipoBoleto)
 @property (nonatomic, readonly) NSString *segmento;
 @property (nonatomic, readonly) NSDate *dataVencimento;
 @property (nonatomic, readonly) NSString *valorExtenso;
-
-@property (nonatomic) NSString *tituloLembrete;
-@property (nonatomic) NSDate *dataLembrete;
+@property (nonatomic, readonly) NSArray *lembretes;
 
 - (instancetype)initWithCodigoBarras:(NSString *)codigoBarras;
 - (NSArray *)sequenciasLinhaDigitavel;
 - (NSString *)linhaDigitavelFormatada;
+- (void)agendarLembrete:(NSString *)titulo data:(NSDate *)dataLembrete;
+- (void)cancelarLembrete:(NSDate *)dataLembrete;
 
 @end

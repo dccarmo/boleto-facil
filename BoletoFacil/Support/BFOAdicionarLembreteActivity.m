@@ -53,11 +53,6 @@
     return YES;
 }
 
-- (void)prepareWithActivityItems:(NSArray *)activityItems
-{
-    
-}
-
 - (UIViewController *)activityViewController
 {
     return [[UINavigationController alloc] initWithRootViewController:[[DCCNewReminderViewController alloc] initWithActivity:self boleto:self.boleto]];

@@ -11,7 +11,16 @@
 //View Controllers
 #import "BFONavegacaoPrincipalViewController.h"
 
+NSString * const BFOOrdenacaoTelaPrincipalKey = @"OrdenacaoTelaPrincipal";
+
 @implementation BFOAppDelegate
+
++ (void)initialize
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    [defaults registerDefaults:@{BFOOrdenacaoTelaPrincipalKey: @0}];
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -64,7 +73,7 @@
     
     //UINavigationBar
     [UINavigationBar appearance].backgroundColor = navigationBarBackgroundColor;
-    [UINavigationBar appearance].titleTextAttributes = @{NSForegroundColorAttributeName:tintColor};
+//    [UINavigationBar appearance].titleTextAttributes = @{NSForegroundColorAttributeName:tintColor};
     [UINavigationBar appearance].barTintColor = navigationBarBackgroundColor;
 }
 

@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSUInteger, BFOOrdenacaoTelaPrincipal)
+{
+    BFOOrdenacaoTelaPrincipalDataInsercao,
+    BFOOrdenacaoTelaPrincipalDataVencimento
+};
+
 @interface BFOConfiguracoesViewController : UITableViewController
 
 @end

@@ -21,6 +21,7 @@ static const NSUInteger diaBase = 07;
     NSString *_segmento;
     NSDate *_dataVencimento;
     NSString *_valorExtenso;
+    NSMutableArray *_lembretes;
 }
 
 @end
@@ -49,8 +50,6 @@ static const NSUInteger diaBase = 07;
         _segmento = [coder decodeObjectForKey:@"segmento"];
         _dataVencimento = [coder decodeObjectForKey:@"dataVencimento"];
         _valorExtenso = [coder decodeObjectForKey:@"valorExtenso"];
-        _tituloLembrete = [coder decodeObjectForKey:@"tituloLembrete"];
-        _dataLembrete = [coder decodeObjectForKey:@"dataLembrete"];
     }
     return self;
 }
@@ -63,8 +62,6 @@ static const NSUInteger diaBase = 07;
     [coder encodeObject:self.segmento forKey:@"segmento"];
     [coder encodeObject:self.dataVencimento forKey:@"dataVencimento"];
     [coder encodeObject:self.valorExtenso forKey:@"valorExtenso"];
-    [coder encodeObject:self.tituloLembrete forKey:@"tituloLembrete"];
-    [coder encodeObject:self.dataLembrete forKey:@"dataLembrete"];
 }
 
 #pragma mark - BFOBoleto
@@ -217,20 +214,48 @@ static const NSUInteger diaBase = 07;
         
         switch (self.tipo) {
             case BFOTipoBoletoBancario:
-                valor = [[NSString stringWithFormat:@"%d.%d",
-                          [[self.codigoBarras substringWithRange:NSRangeFromString(@"9-8")] integerValue],
-                          [[self.codigoBarras substringWithRange:NSRangeFromString(@"17-2")] integerValue]] floatValue];
+                valor = [[NSString stringWithFormat:@"%ld.%ld",
+                          (long)[[self.codigoBarras substringWithRange:NSRangeFromString(@"9-8")] integerValue],
+                          (long)[[self.codigoBarras substringWithRange:NSRangeFromString(@"17-2")] integerValue]] floatValue];
                 
             case BFOTipoBoletoArrecadacao:
-                valor = [[NSString stringWithFormat:@"%d.%d",
-                          [[self.codigoBarras substringWithRange:NSRangeFromString(@"4-9")] integerValue],
-                          [[self.codigoBarras substringWithRange:NSRangeFromString(@"13-2")] integerValue]] floatValue];
+                valor = [[NSString stringWithFormat:@"%ld.%ld",
+                          (long)[[self.codigoBarras substringWithRange:NSRangeFromString(@"4-9")] integerValue],
+                          (long)[[self.codigoBarras substringWithRange:NSRangeFromString(@"13-2")] integerValue]] floatValue];
         }
         
         _valorExtenso = [formatoNumero stringFromNumber:[NSNumber numberWithFloat:valor]];
     }
     
     return _valorExtenso;
+}
+
+- (NSArray *)lembretes
+{
+    if (!_lembretes) {
+        _lembretes = [NSMutableArray new];
+    }
+    
+    return _lembretes;
+}
+
+- (void)agendarLembrete:(NSString *)titulo data:(NSDate *)dataLembrete
+{
+    UILocalNotification *notificacao;
+    
+    notificacao = [UILocalNotification new];
+    notificacao.fireDate = dataLembrete;
+    notificacao.alertBody = titulo;
+    notificacao.userInfo = @{@"codigoBarras":self.codigoBarras};
+    
+    [[UIApplication sharedApplication] scheduleLocalNotification:notificacao];
+    
+    [_lembretes addObject:notificacao];
+}
+
+- (void)cancelarLembrete:(UILocalNotification *)notificacao
+{
+    [_lembretes removeObject:notificacao];
 }
 
 #pragma mark - UIActivityItemSource

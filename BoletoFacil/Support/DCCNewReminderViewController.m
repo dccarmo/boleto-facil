@@ -92,32 +92,10 @@ typedef NS_ENUM(NSUInteger, DCCNewReminderRow)
     
     [[UIApplication sharedApplication] scheduleLocalNotification:notification];
     
-    self.boleto.tituloLembrete = self.titleField.text;
-    self.boleto.dataLembrete = self.datePicker.date;
+    [self.boleto agendarLembrete:self.titleField.text data:self.datePicker.date];
     [[BFOArmazenamentoBoleto sharedArmazenamentoBoleto] salvar];
     
     [self fechar];
-}
-
-- (void)removerLembrete
-{
-    [self removerNotificacao];
-    
-    self.boleto.tituloLembrete = nil;
-    self.boleto.dataLembrete = nil;
-    [[BFOArmazenamentoBoleto sharedArmazenamentoBoleto] salvar];
-    
-    [self fechar];
-}
-
-- (void)removerNotificacao
-{
-    for (UILocalNotification *notification in [UIApplication sharedApplication].scheduledLocalNotifications) {
-        if ([notification.fireDate isEqualToDate:self.boleto.dataLembrete]) {
-            [[UIApplication sharedApplication] cancelLocalNotification:notification];
-            break;
-        }
-    }
 }
 
 - (UITextField *)titleField
