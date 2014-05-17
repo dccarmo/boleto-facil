@@ -8,6 +8,9 @@
 
 #import "BFOListaBoletosViewController.h"
 
+//App Delegate
+#import "BFOAppDelegate.h"
+
 //View Controllers
 #import "BFOEscanearBoletoViewController.h"
 #import "BFOMostrarBoletoViewController.h"
@@ -23,6 +26,8 @@
 #import "BFOArmazenamentoBoleto.h"
 
 @interface BFOListaBoletosViewController ()
+
+@property (nonatomic) NSArray *boletos;
 
 @end
 
@@ -65,16 +70,32 @@
 {
     [super viewWillAppear:animated];
     
+    [self carregarBoletos];
     [self.tableView reloadData];
+}
+
+#pragma mark - BFOListaBoletosViewController
+
+- (void)carregarBoletos
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    if ([[BFOArmazenamentoBoleto sharedArmazenamentoBoleto].boletos count] == 0) {
+    switch ([defaults integerForKey:BFOOrdenacaoTelaPrincipalKey]) {
+        case BFOOrdenacaoTelaPrincipalDataInsercao:
+            self.boletos = [[BFOArmazenamentoBoleto sharedArmazenamentoBoleto].boletos sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"data" ascending:YES]]];
+            break;
+            
+        case BFOOrdenacaoTelaPrincipalDataVencimento:
+            self.boletos = [[BFOArmazenamentoBoleto sharedArmazenamentoBoleto].boletos sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"dataVencimento" ascending:YES]]];
+            break;
+    }
+    
+    if ([self.boletos count] == 0) {
         self.tableView.backgroundView = [[[NSBundle mainBundle] loadNibNamed:@"BFOListaBolestosVaziaView" owner:self options:nil] firstObject];
     } else {
         self.tableView.backgroundView = nil;
     }
 }
-
-#pragma mark - BFOListaBoletosViewController
 
 - (void)abrirConfiguracao
 {
@@ -93,13 +114,13 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[BFOArmazenamentoBoleto sharedArmazenamentoBoleto].boletos count];
+    return [self.boletos count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     BFOListaBoletosTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"BFOListaBoletosTableViewCell" forIndexPath:indexPath];
-    BFOBoleto *boleto = [BFOArmazenamentoBoleto sharedArmazenamentoBoleto].boletos[indexPath.row];
+    BFOBoleto *boleto = self.boletos[indexPath.row];
     
     [cell configurarTableViewCellComBoleto:boleto];
     
@@ -111,9 +132,11 @@
     BFOBoleto *boleto;
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        boleto = [BFOArmazenamentoBoleto sharedArmazenamentoBoleto].boletos[indexPath.row];
+        boleto = self.boletos[indexPath.row];
         [[BFOArmazenamentoBoleto sharedArmazenamentoBoleto].boletos removeObject:boleto];
         [[BFOArmazenamentoBoleto sharedArmazenamentoBoleto] salvar];
+        
+        [self carregarBoletos];
         
         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
@@ -128,7 +151,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    BFOBoleto *boleto = [BFOArmazenamentoBoleto sharedArmazenamentoBoleto].boletos[indexPath.row];
+    BFOBoleto *boleto = self.boletos[indexPath.row];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     

@@ -111,6 +111,7 @@ typedef NS_ENUM(NSUInteger, DCCNewReminderRow)
 //        }
         
         _titleField.text = [NSString stringWithFormat:@"Pagar boleto do %@", self.boleto.banco];
+        _titleField.textColor = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1];
     }
     
     return _titleField;
@@ -217,6 +218,7 @@ typedef NS_ENUM(NSUInteger, DCCNewReminderRow)
             break;
     }
     
+    cell.textLabel.textColor = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
