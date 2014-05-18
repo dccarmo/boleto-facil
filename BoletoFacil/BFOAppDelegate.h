@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 extern NSString * const BFOOrdenacaoTelaPrincipalKey;
+extern NSString * const BFOMostrarBoletosVencidosKey;
+extern NSString * const BFOMostrarBoletosPagosKey;
 
 @interface BFOAppDelegate : UIResponder <UIApplicationDelegate>
 

@@ -12,7 +12,8 @@
 #import "BFOAppDelegate.h"
 
 //View Controllers
-#import "BFOLembretesViewController.h"
+#import "BFOOrdenacaoListaBoletoViewController.h"
+#import "BFOListaLembretesViewController.h"
 
 typedef NS_ENUM(NSUInteger, BFOConfiguracoesViewControllerSecao)
 {
@@ -21,6 +22,9 @@ typedef NS_ENUM(NSUInteger, BFOConfiguracoesViewControllerSecao)
 };
 
 @interface BFOConfiguracoesViewController ()
+
+@property (weak, nonatomic) IBOutlet UISwitch *mostrarBoletosPagos;
+@property (weak, nonatomic) IBOutlet UISwitch *mostrarBoletosVencidos;
 
 @end
 
@@ -43,18 +47,45 @@ typedef NS_ENUM(NSUInteger, BFOConfiguracoesViewControllerSecao)
 {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    [self configurarInterruptores];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self.tableView reloadData];
 }
 
 #pragma mark - BFOConfiguracoesViewController
 
+- (void)configurarInterruptores
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    self.mostrarBoletosPagos.on = [defaults boolForKey:BFOMostrarBoletosPagosKey];
+    self.mostrarBoletosVencidos.on = [defaults boolForKey:BFOMostrarBoletosVencidosKey];
+}
+
 - (IBAction)fechar:(id)sender
 {
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)mostrarBoletosPagosAction:(id)sender
+{
+    UISwitch *interruptor = (UISwitch *) sender;
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    [defaults setObject:@(interruptor.on) forKey:BFOMostrarBoletosPagosKey];
+}
+
+- (IBAction)mostrarBoletosVencidosAction:(id)sender
+{
+    UISwitch *interruptor = (UISwitch *) sender;
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    [defaults setObject:@(interruptor.on) forKey:BFOMostrarBoletosVencidosKey];
 }
 
 #pragma mark - UITableViewDataSource
@@ -64,11 +95,24 @@ typedef NS_ENUM(NSUInteger, BFOConfiguracoesViewControllerSecao)
     UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    if (indexPath.section == BFOConfiguracoesViewControllerSecaoTelaPrincipal) {
-        if (indexPath.row == [defaults integerForKey:BFOOrdenacaoTelaPrincipalKey]) {
-            cell.accessoryType = UITableViewCellAccessoryCheckmark;
-        } else {
-            cell.accessoryType = UITableViewCellAccessoryNone;
+    if (indexPath.section == BFOConfiguracoesViewControllerSecaoTelaPrincipal &&
+        indexPath.row == 0) {
+        switch ([defaults integerForKey:BFOOrdenacaoTelaPrincipalKey]) {
+            case BFOOrdenacaoTelaPrincipalDataInsercao:
+                cell.detailTextLabel.text = BFOOrdenacaoTelaPrincipalDataInsercaoTexto;
+                break;
+                
+            case BFOOrdenacaoTelaPrincipalDataVencimento:
+                cell.detailTextLabel.text = BFOOrdenacaoTelaPrincipalDataVencimentoTexto;
+                break;
+                
+            case BFOOrdenacaoTelaPrincipalCategoria:
+                cell.detailTextLabel.text = BFOOrdenacaoTelaPrincipalCategoriaTexto;
+                break;
+                
+            case BFOOrdenacaoTelaPrincipalBanco:
+                cell.detailTextLabel.text = BFOOrdenacaoTelaPrincipalBancoTexto;
+                break;
         }
     }
     
@@ -79,18 +123,14 @@ typedef NS_ENUM(NSUInteger, BFOConfiguracoesViewControllerSecao)
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if (indexPath.section == BFOConfiguracoesViewControllerSecaoTelaPrincipal) {
-        [defaults setObject:[NSNumber numberWithInteger:indexPath.row] forKey:BFOOrdenacaoTelaPrincipalKey];
-        
-        [self.tableView reloadData];
+    if (indexPath.section == BFOConfiguracoesViewControllerSecaoTelaPrincipal ) {
+        [self.navigationController pushViewController:[BFOOrdenacaoListaBoletoViewController new] animated:YES];
     }
     
     if (indexPath.section == BFOConfiguracoesViewControllerSecaoLembretes) {
-        [self.navigationController pushViewController:[BFOLembretesViewController new] animated:YES];
+        [self.navigationController pushViewController:[BFOListaLembretesViewController new] animated:YES];
     }
 }
 

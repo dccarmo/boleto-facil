@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BFOLembretesViewController : UITableViewController
+@interface BFOListaLembretesViewController : UITableViewController
 
 @end

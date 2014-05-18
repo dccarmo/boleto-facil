@@ -15,6 +15,7 @@
 #import "BFOEscanearBoletoViewController.h"
 #import "BFOMostrarBoletoViewController.h"
 #import "BFOConfiguracoesViewController.h"
+#import "BFOOrdenacaoListaBoletoViewController.h"
 
 //Views
 #import "BFOListaBoletosTableViewCell.h"

@@ -34,9 +34,11 @@
 		D91A4F06191CF49000D96AC5 /* BFOAdicionarLembreteActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = D91A4F04191CF49000D96AC5 /* BFOAdicionarLembreteActivity.m */; };
 		D9B56336192573C800C53A05 /* BFOConfiguracoesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B56335192573C800C53A05 /* BFOConfiguracoesViewController.m */; };
 		D9B5633C1926568000C53A05 /* DCCBoletoFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B5633B1926568000C53A05 /* DCCBoletoFormatter.m */; };
-		D9B5633E1926585300C53A05 /* BFOListaSegmentos.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9B5633D1926585300C53A05 /* BFOListaSegmentos.plist */; };
+		D9B5633E1926585300C53A05 /* BFOListaCategorias.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9B5633D1926585300C53A05 /* BFOListaCategorias.plist */; };
 		D9B563401927A99F00C53A05 /* BFOConfiguracoesStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9B5633F1927A99F00C53A05 /* BFOConfiguracoesStoryboard.storyboard */; };
-		D9B563431928452500C53A05 /* BFOLembretesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B563421928452500C53A05 /* BFOLembretesViewController.m */; };
+		D9B563431928452500C53A05 /* BFOListaLembretesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B563421928452500C53A05 /* BFOListaLembretesViewController.m */; };
+		D9B5634619296E7800C53A05 /* BFOOrdenacaoListaBoletoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B5634519296E7800C53A05 /* BFOOrdenacaoListaBoletoViewController.m */; };
+		D9B56348192977F800C53A05 /* BFOListaLembretesVaziaView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9B56347192977F800C53A05 /* BFOListaLembretesVaziaView.xib */; };
 		D9D1CF11191850FD0015C8EB /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D1CF10191850FD0015C8EB /* Reachability.m */; };
 		D9D1CF15191855190015C8EB /* BFOBoleto.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D1CF14191855190015C8EB /* BFOBoleto.m */; };
 		D9D1CF18191879230015C8EB /* BFOSequenciaLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D1CF17191879230015C8EB /* BFOSequenciaLabel.m */; };
@@ -90,10 +92,13 @@
 		D9B56335192573C800C53A05 /* BFOConfiguracoesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFOConfiguracoesViewController.m; sourceTree = "<group>"; };
 		D9B5633A1926568000C53A05 /* DCCBoletoFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCCBoletoFormatter.h; sourceTree = "<group>"; };
 		D9B5633B1926568000C53A05 /* DCCBoletoFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCCBoletoFormatter.m; sourceTree = "<group>"; };
-		D9B5633D1926585300C53A05 /* BFOListaSegmentos.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BFOListaSegmentos.plist; sourceTree = "<group>"; };
+		D9B5633D1926585300C53A05 /* BFOListaCategorias.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BFOListaCategorias.plist; sourceTree = "<group>"; };
 		D9B5633F1927A99F00C53A05 /* BFOConfiguracoesStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BFOConfiguracoesStoryboard.storyboard; sourceTree = "<group>"; };
-		D9B563411928452500C53A05 /* BFOLembretesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFOLembretesViewController.h; sourceTree = "<group>"; };
-		D9B563421928452500C53A05 /* BFOLembretesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFOLembretesViewController.m; sourceTree = "<group>"; };
+		D9B563411928452500C53A05 /* BFOListaLembretesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFOListaLembretesViewController.h; sourceTree = "<group>"; };
+		D9B563421928452500C53A05 /* BFOListaLembretesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFOListaLembretesViewController.m; sourceTree = "<group>"; };
+		D9B5634419296E7800C53A05 /* BFOOrdenacaoListaBoletoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFOOrdenacaoListaBoletoViewController.h; sourceTree = "<group>"; };
+		D9B5634519296E7800C53A05 /* BFOOrdenacaoListaBoletoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFOOrdenacaoListaBoletoViewController.m; sourceTree = "<group>"; };
+		D9B56347192977F800C53A05 /* BFOListaLembretesVaziaView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BFOListaLembretesVaziaView.xib; sourceTree = "<group>"; };
 		D9D1CF0F191850FD0015C8EB /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		D9D1CF10191850FD0015C8EB /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		D9D1CF13191855190015C8EB /* BFOBoleto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFOBoleto.h; sourceTree = "<group>"; };
@@ -180,7 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				D9186C4819156FE8008B03BB /* BFOListaBancos.plist */,
-				D9B5633D1926585300C53A05 /* BFOListaSegmentos.plist */,
+				D9B5633D1926585300C53A05 /* BFOListaCategorias.plist */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -223,6 +228,7 @@
 				D9186C3A1913FEE1008B03BB /* BFOListaBoletosTableViewCell.h */,
 				D9186C3B1913FEE1008B03BB /* BFOListaBoletosTableViewCell.m */,
 				D9186C381913FC78008B03BB /* BFOListaBoletosTableViewCell.xib */,
+				D9B56347192977F800C53A05 /* BFOListaLembretesVaziaView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -240,8 +246,10 @@
 				D9186C1E190D8897008B03BB /* BFOMostrarBoletoViewController.m */,
 				D9B56334192573C800C53A05 /* BFOConfiguracoesViewController.h */,
 				D9B56335192573C800C53A05 /* BFOConfiguracoesViewController.m */,
-				D9B563411928452500C53A05 /* BFOLembretesViewController.h */,
-				D9B563421928452500C53A05 /* BFOLembretesViewController.m */,
+				D9B5634419296E7800C53A05 /* BFOOrdenacaoListaBoletoViewController.h */,
+				D9B5634519296E7800C53A05 /* BFOOrdenacaoListaBoletoViewController.m */,
+				D9B563411928452500C53A05 /* BFOListaLembretesViewController.h */,
+				D9B563421928452500C53A05 /* BFOListaLembretesViewController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -319,11 +327,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D9B5633E1926585300C53A05 /* BFOListaSegmentos.plist in Resources */,
+				D9B5633E1926585300C53A05 /* BFOListaCategorias.plist in Resources */,
 				D9186C4919156FE8008B03BB /* BFOListaBancos.plist in Resources */,
 				D9B563401927A99F00C53A05 /* BFOConfiguracoesStoryboard.storyboard in Resources */,
 				D9186C29190F1541008B03BB /* BFOMostrarBoletoView.xib in Resources */,
 				D9186C24190DDECD008B03BB /* BFOEscanearBoletoView.xib in Resources */,
+				D9B56348192977F800C53A05 /* BFOListaLembretesVaziaView.xib in Resources */,
 				D9186C3E19141111008B03BB /* BFOListaBolestosVaziaView.xib in Resources */,
 				D9186C341913CA8B008B03BB /* BFOListaBoletosView.xib in Resources */,
 				D9186BEC190D84CD008B03BB /* InfoPlist.strings in Resources */,
@@ -388,10 +397,11 @@
 				D9186C321913C6C2008B03BB /* BFONavegacaoPrincipalViewController.m in Sources */,
 				D9186C2F19129C87008B03BB /* BFOArmazenamentoBoleto.m in Sources */,
 				D9186C371913CF48008B03BB /* BFOListaBoletosView.m in Sources */,
-				D9B563431928452500C53A05 /* BFOLembretesViewController.m in Sources */,
+				D9B563431928452500C53A05 /* BFOListaLembretesViewController.m in Sources */,
 				D9D1CF21191AC7120015C8EB /* DCCNewReminderViewController.m in Sources */,
 				D9186C1F190D8897008B03BB /* BFOMostrarBoletoViewController.m in Sources */,
 				D9186C1C190D8846008B03BB /* BFOEscanearBoletoViewController.m in Sources */,
+				D9B5634619296E7800C53A05 /* BFOOrdenacaoListaBoletoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

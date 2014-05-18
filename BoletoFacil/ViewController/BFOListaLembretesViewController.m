@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Diogo do Carmo. All rights reserved.
 //
 
-#import "BFOLembretesViewController.h"
+#import "BFOListaLembretesViewController.h"
 
 //Model
 #import "BFOBoleto.h"
@@ -14,13 +14,13 @@
 //Support
 #import "BFOArmazenamentoBoleto.h"
 
-@interface BFOLembretesViewController ()
+@interface BFOListaLembretesViewController ()
 
 @property (nonatomic) NSArray *lembretes;
 
 @end
 
-@implementation BFOLembretesViewController
+@implementation BFOListaLembretesViewController
 
 - (instancetype)init
 {
@@ -46,11 +46,17 @@
     [self carregarLembretes];
 }
 
-#pragma mark - BFOLembretesViewController
+#pragma mark - BFOListaLembretesViewController
 
 - (void)carregarLembretes
 {
     self.lembretes = [[UIApplication sharedApplication].scheduledLocalNotifications sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"fireDate" ascending:YES]]];
+    
+    if ([self.lembretes count] == 0) {
+        self.tableView.backgroundView = [[[NSBundle mainBundle] loadNibNamed:@"BFOListaLembretesVaziaView" owner:self options:nil] firstObject];
+    } else {
+        self.tableView.backgroundView = nil;
+    }
 }
 
 #pragma mark - UITableViewDataSource

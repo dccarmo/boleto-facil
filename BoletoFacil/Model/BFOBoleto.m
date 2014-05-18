@@ -18,11 +18,12 @@ static const NSUInteger diaBase = 07;
 @interface BFOBoleto () {
     NSString *_linhaDigitavel;
     NSDate *_dataVencimento;
-    NSString *_codigoBanco;
-    NSString *_codigoSegmento;
     NSString *_valorExtenso;
     NSMutableArray *_lembretes;
 }
+
+@property (nonatomic) NSString *codigoBanco;
+@property (nonatomic) NSString *codigoCategoria;
 
 @end
 
@@ -47,7 +48,7 @@ static const NSUInteger diaBase = 07;
         _codigoBarras = [coder decodeObjectForKey:@"codigoBarras"];
         _data = [coder decodeObjectForKey:@"data"];
         _codigoBanco = [coder decodeObjectForKey:@"codigoBanco"];
-        _codigoSegmento = [coder decodeObjectForKey:@"codigoSegmento"];
+        _codigoCategoria = [coder decodeObjectForKey:@"codigoCategoria"];
         _dataVencimento = [coder decodeObjectForKey:@"dataVencimento"];
         _valorExtenso = [coder decodeObjectForKey:@"valorExtenso"];
     }
@@ -59,7 +60,7 @@ static const NSUInteger diaBase = 07;
     [coder encodeObject:self.codigoBarras forKey:@"codigoBarras"];
     [coder encodeObject:self.data forKey:@"data"];
     [coder encodeObject:self.codigoBanco forKey:@"codigoBanco"];
-    [coder encodeObject:self.codigoSegmento forKey:@"codigoSegmento"];
+    [coder encodeObject:self.codigoCategoria forKey:@"codigoCategoria"];
     [coder encodeObject:self.dataVencimento forKey:@"dataVencimento"];
     [coder encodeObject:self.valorExtenso forKey:@"valorExtenso"];
 }
@@ -153,35 +154,72 @@ static const NSUInteger diaBase = 07;
         }
     }
     
-    return @"Banco não identificado";
+    return @"-";
 }
 
-- (NSString *)codigoSegmento
+- (NSString *)codigoCategoria
 {
-    if (!_codigoSegmento) {
-        _codigoSegmento = [self.codigoBarras substringWithRange:NSRangeFromString(@"1-1")];
+    if (!_codigoCategoria) {
+        _codigoCategoria = [self.codigoBarras substringWithRange:NSRangeFromString(@"1-1")];
         
         if (self.tipo == BFOTipoBoletoBancario) {
-            _codigoSegmento = @"0";
+            _codigoCategoria = @"0";
         }
     }
     
-    return _codigoSegmento;
+    return _codigoCategoria;
 }
 
-- (NSString *)segmento
+- (NSString *)categoria
 {
-    NSArray *listaSegmentos;
+    NSArray *listaCategorias;
     
-    listaSegmentos = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"BFOListaSegmentos" ofType:@"plist"]];
+    listaCategorias = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"BFOListaCategorias" ofType:@"plist"]];
     
-    for (NSDictionary *segmento in listaSegmentos) {
-        if ([segmento[@"codigo"] isEqualToString:self.codigoSegmento]) {
-            return segmento[@"nome"];
+    for (NSDictionary *categoria in listaCategorias) {
+        if ([categoria[@"codigo"] isEqualToString:self.codigoCategoria]) {
+            return categoria[@"nome"];
         }
     }
     
     return @"Outros";
+}
+
+- (UIColor *)corCategoria
+{
+    UIColor *cor;
+    
+    switch ([self.codigoCategoria integerValue]) {
+        case 1:
+            cor = [UIColor colorWithRed:1 green:0.647 blue:0.007 alpha:1];
+            break;
+            
+        case 2:
+            cor = [UIColor colorWithRed:0 green:0.568 blue:1 alpha:1];
+            break;
+            
+        case 3:
+            cor = [UIColor colorWithRed:1 green:0.823 blue:0.007 alpha:1];
+            break;
+            
+        case 4:
+            cor = [UIColor colorWithRed:0.415 green:0.443 blue:0.894 alpha:1];
+            break;
+            
+        case 5:
+            cor = [UIColor colorWithRed:1 green:0.647 blue:0.007 alpha:1];
+            break;
+            
+        case 7:
+            cor = [UIColor colorWithRed:0.38 green:0.823 blue:0.996 alpha:1];
+            break;
+            
+        default:
+            cor = [UIColor colorWithRed:0.282 green:0.858 blue:0.419 alpha:1];
+            break;
+    }
+    
+    return cor;
 }
 
 - (NSDate *)dataVencimento

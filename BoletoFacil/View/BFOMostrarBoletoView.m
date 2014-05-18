@@ -25,7 +25,8 @@ static const NSUInteger alturaInicialEstadoServidorFundo = 30;
 @property (weak, nonatomic) IBOutlet UILabel *estadoServidorEndereco;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *estadoServidorAltura;
 
-@property (weak, nonatomic) IBOutlet UILabel *tipoSegmento;
+@property (weak, nonatomic) IBOutlet UIView *corCategoria;
+@property (weak, nonatomic) IBOutlet UILabel *categoria;
 @property (weak, nonatomic) IBOutlet UILabel *banco;
 @property (weak, nonatomic) IBOutlet UILabel *dataVencimento;
 @property (weak, nonatomic) IBOutlet UILabel *valor;
@@ -98,12 +99,8 @@ static const NSUInteger alturaInicialEstadoServidorFundo = 30;
     [formatoData setDateStyle:NSDateFormatterShortStyle];
     [formatoData setDoesRelativeDateFormatting:YES];
     
-    if (boleto.tipo == BFOTipoBoletoBancario) {
-        self.banco.text = boleto.banco;
-    } else {
-        self.tipoSegmento.text = @"Segmento";
-        self.banco.text = boleto.segmento;
-    }
+    self.categoria.text = boleto.categoria;
+    self.banco.text = boleto.banco;
     
     if (boleto.dataVencimento) {
         self.dataVencimento.text = [formatoData stringFromDate:boleto.dataVencimento];

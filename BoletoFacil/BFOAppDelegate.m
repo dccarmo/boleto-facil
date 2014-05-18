@@ -12,6 +12,9 @@
 #import "BFONavegacaoPrincipalViewController.h"
 
 NSString * const BFOOrdenacaoTelaPrincipalKey = @"OrdenacaoTelaPrincipal";
+NSString * const BFOMostrarBoletosVencidosKey = @"MostrarBoletosVencidos";
+NSString * const BFOMostrarBoletosPagosKey = @"MostrarBoletosPagos";
+
 
 @implementation BFOAppDelegate
 
@@ -19,7 +22,9 @@ NSString * const BFOOrdenacaoTelaPrincipalKey = @"OrdenacaoTelaPrincipal";
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    [defaults registerDefaults:@{BFOOrdenacaoTelaPrincipalKey: @0}];
+    [defaults registerDefaults:@{BFOOrdenacaoTelaPrincipalKey: @0,
+                                 BFOMostrarBoletosVencidosKey: @YES,
+                                 BFOMostrarBoletosPagosKey: @YES}];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions

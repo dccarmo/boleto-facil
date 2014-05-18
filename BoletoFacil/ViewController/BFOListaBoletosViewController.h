@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@class GCDWebServer;
-
 @interface BFOListaBoletosViewController : UITableViewController
 
 @end

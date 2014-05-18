@@ -52,8 +52,8 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="corCategoria" destination="ktA-co-RMW" id="ejD-bU-zyp"/>
                 <outlet property="descricao" destination="TKC-zy-15j" id="h6i-Ry-6RF"/>
-                <outlet property="segmento" destination="ktA-co-RMW" id="Ib5-OL-tFt"/>
                 <outlet property="titulo" destination="unQ-pM-HgP" id="3Yv-4B-lCt"/>
             </connections>
         </tableViewCell>
