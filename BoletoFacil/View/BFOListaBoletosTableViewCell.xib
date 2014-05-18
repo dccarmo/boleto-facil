@@ -6,39 +6,55 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="70" id="ACL-V8-1he" customClass="BFOListaBoletosTableViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="75"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="60" id="ACL-V8-1he" customClass="BFOListaBoletosTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="65"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ACL-V8-1he" id="l9k-Py-6l9">
-                <rect key="frame" x="0.0" y="0.0" width="287" height="74"/>
+                <rect key="frame" x="0.0" y="0.0" width="287" height="64"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Banco não identificado" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="unQ-pM-HgP">
-                        <rect key="frame" x="15" y="15" width="166" height="19"/>
+                        <rect key="frame" x="44" y="12" width="243" height="19"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="243" id="F0M-1J-p9r"/>
+                        </constraints>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="75691301020203123123548941230812390812" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TKC-zy-15j">
-                        <rect key="frame" x="15" y="39" width="272" height="18"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="R$ 1.400,00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TKC-zy-15j">
+                        <rect key="frame" x="44" y="36" width="243" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="243" id="qgw-Ln-h4e"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="13"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ktA-co-RMW">
+                        <rect key="frame" x="15" y="25" width="14" height="14"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" red="0.28235295414924622" green="0.85882359743118286" blue="0.41960787773132324" alpha="1" colorSpace="deviceRGB"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="7"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="TKC-zy-15j" secondAttribute="trailing" id="BLY-6J-JZJ"/>
                     <constraint firstItem="TKC-zy-15j" firstAttribute="leading" secondItem="unQ-pM-HgP" secondAttribute="leading" id="P9X-Hw-9zH"/>
                     <constraint firstItem="TKC-zy-15j" firstAttribute="top" secondItem="unQ-pM-HgP" secondAttribute="bottom" constant="5" id="RXe-wG-7QP"/>
-                    <constraint firstItem="unQ-pM-HgP" firstAttribute="leading" secondItem="l9k-Py-6l9" secondAttribute="leading" constant="15" id="gkL-Es-3qP"/>
-                    <constraint firstItem="unQ-pM-HgP" firstAttribute="top" secondItem="l9k-Py-6l9" secondAttribute="top" constant="15" id="zTS-Gn-TM8"/>
+                    <constraint firstItem="unQ-pM-HgP" firstAttribute="leading" secondItem="l9k-Py-6l9" secondAttribute="leading" constant="44" id="gkL-Es-3qP"/>
+                    <constraint firstItem="unQ-pM-HgP" firstAttribute="top" secondItem="l9k-Py-6l9" secondAttribute="top" constant="12" id="zTS-Gn-TM8"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="banco" destination="unQ-pM-HgP" id="zDS-CR-O9b"/>
-                <outlet property="codigo" destination="TKC-zy-15j" id="Gns-je-C9X"/>
+                <outlet property="descricao" destination="TKC-zy-15j" id="h6i-Ry-6RF"/>
+                <outlet property="segmento" destination="ktA-co-RMW" id="Ib5-OL-tFt"/>
+                <outlet property="titulo" destination="unQ-pM-HgP" id="3Yv-4B-lCt"/>
             </connections>
         </tableViewCell>
     </objects>

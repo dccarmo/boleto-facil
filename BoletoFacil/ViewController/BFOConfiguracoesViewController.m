@@ -11,6 +11,9 @@
 //App Delegate
 #import "BFOAppDelegate.h"
 
+//View Controllers
+#import "BFOLembretesViewController.h"
+
 typedef NS_ENUM(NSUInteger, BFOConfiguracoesViewControllerSecao)
 {
     BFOConfiguracoesViewControllerSecaoTelaPrincipal,
@@ -84,6 +87,10 @@ typedef NS_ENUM(NSUInteger, BFOConfiguracoesViewControllerSecao)
         [defaults setObject:[NSNumber numberWithInteger:indexPath.row] forKey:BFOOrdenacaoTelaPrincipalKey];
         
         [self.tableView reloadData];
+    }
+    
+    if (indexPath.section == BFOConfiguracoesViewControllerSecaoLembretes) {
+        [self.navigationController pushViewController:[BFOLembretesViewController new] animated:YES];
     }
 }
 

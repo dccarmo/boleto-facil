@@ -44,11 +44,5 @@
 		<key>nome</key>
 		<string>Multa</string>
 	</dict>
-	<dict>
-		<key>codigo</key>
-		<string>9</string>
-		<key>nome</key>
-		<string>Banco</string>
-	</dict>
 </array>
 </plist>

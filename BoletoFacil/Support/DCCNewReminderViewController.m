@@ -48,7 +48,7 @@ typedef NS_ENUM(NSUInteger, DCCNewReminderRow)
     self = [super initWithStyle:UITableViewStyleGrouped];
     if (self) {
         UIBarButtonItem *salvar = [[UIBarButtonItem alloc] initWithTitle:@"Salvar" style:UIBarButtonItemStyleDone target:self action:@selector(salvarLembrete)];
-        UIBarButtonItem *cancelar = [[UIBarButtonItem alloc] initWithTitle:@"Cancelar" style:UIBarButtonItemStyleDone target:self action:@selector(fechar)];
+        UIBarButtonItem *cancelar = [[UIBarButtonItem alloc] initWithTitle:@"Cancelar" style:UIBarButtonItemStylePlain target:self action:@selector(fechar)];
         
         _activity = activity;
         _boleto = boleto;
@@ -82,16 +82,7 @@ typedef NS_ENUM(NSUInteger, DCCNewReminderRow)
 }
 
 - (void)salvarLembrete
-{
-    UILocalNotification *notification = [UILocalNotification new];
-    
-    notification.alertBody = self.titleField.text;
-    notification.fireDate = self.datePicker.date;
-    notification.soundName = UILocalNotificationDefaultSoundName;
-    notification.applicationIconBadgeNumber = 1;
-    
-    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
-    
+{    
     [self.boleto agendarLembrete:self.titleField.text data:self.datePicker.date];
     [[BFOArmazenamentoBoleto sharedArmazenamentoBoleto] salvar];
     
@@ -102,15 +93,7 @@ typedef NS_ENUM(NSUInteger, DCCNewReminderRow)
 {
     if (!_titleField) {
         _titleField = [[UITextField alloc] initWithFrame:CGRectMake(self.tableView.separatorInset.left, 0, self.tableView.frame.size.width, 44.0f)];
-        _titleField.placeholder = @"";
-        
-//        if (self.boleto.tituloLembrete) {
-//            _titleField.text = self.boleto.tituloLembrete;
-//        } else {
-//            _titleField.text = [NSString stringWithFormat:@"Pagar boleto do %@", self.boleto.banco];
-//        }
-        
-        _titleField.text = [NSString stringWithFormat:@"Pagar boleto do %@", self.boleto.banco];
+        _titleField.placeholder = @"Pagar boleto...";
         _titleField.textColor = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1];
     }
     
@@ -137,21 +120,13 @@ typedef NS_ENUM(NSUInteger, DCCNewReminderRow)
         _datePicker.minimumDate = [NSDate date];
         _datePicker.datePickerMode = UIDatePickerModeDateAndTime;
         
-//        if (self.boleto.dataLembrete) {
-//            _datePicker.date = self.boleto.dataLembrete;
-//        } else {
-//            dateComponents = [[NSCalendar currentCalendar] components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit fromDate:self.boleto.dataVencimento];
-//            [dateComponents setHour:8];
-//            [dateComponents setMinute:0];
-//            
-//            _datePicker.date = [[NSCalendar currentCalendar] dateFromComponents:dateComponents];
-//        }
-        
-        dateComponents = [[NSCalendar currentCalendar] components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit fromDate:self.boleto.dataVencimento];
-        [dateComponents setHour:8];
-        [dateComponents setMinute:0];
-        
-        _datePicker.date = [[NSCalendar currentCalendar] dateFromComponents:dateComponents];
+        if (self.boleto.dataVencimento) {
+            dateComponents = [[NSCalendar currentCalendar] components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit fromDate:self.boleto.dataVencimento];
+            [dateComponents setHour:8];
+            [dateComponents setMinute:0];
+            
+            _datePicker.date = [[NSCalendar currentCalendar] dateFromComponents:dateComponents];
+        }
         
         [_datePicker addTarget:self action:@selector(datePickerChanged) forControlEvents:UIControlEventValueChanged];
     }

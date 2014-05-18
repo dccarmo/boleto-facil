@@ -44,7 +44,7 @@ static const NSUInteger alturaInicialEstadoServidorFundo = 30;
     
     switch (estado) {
         case BFOEstadoCriacaoServidorIniciando:
-            backgroundColor = [UIColor colorWithRed:0.105 green:0.792 blue:0.984 alpha:1];
+            backgroundColor = [UIColor colorWithRed:0.828 green:0.828 blue:0.828 alpha:1];
             break;
             
         case BFOEstadoCriacaoServidorSucesso:
@@ -52,7 +52,7 @@ static const NSUInteger alturaInicialEstadoServidorFundo = 30;
             break;
             
         case BFOEstadoCriacaoServidorAviso:
-            backgroundColor = [UIColor colorWithRed:1 green:0.8 blue:0.007 alpha:1];
+            backgroundColor = [UIColor colorWithRed:0.105 green:0.792 blue:0.984 alpha:1];
             break;
             
         case BFOEstadoCriacaoServidorFalha:
@@ -108,7 +108,7 @@ static const NSUInteger alturaInicialEstadoServidorFundo = 30;
     if (boleto.dataVencimento) {
         self.dataVencimento.text = [formatoData stringFromDate:boleto.dataVencimento];
     } else {
-        self.dataVencimento.text = @"Não informada";
+        self.dataVencimento.text = @"-";
     }
     
     self.valor.text = boleto.valorExtenso;

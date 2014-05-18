@@ -46,6 +46,44 @@
     return _boletos;
 }
 
+- (BFOBoleto *)adicionarBoletoComCodigoBarras:(NSString *)codigoBarras
+{
+    BFOBoleto *boleto;
+    
+    boleto = [self boletoComCodigoBarras:codigoBarras];
+    
+    if (!boleto) {
+        boleto = [[BFOBoleto alloc] initWithCodigoBarras:codigoBarras];
+        [_boletos addObject:boleto];
+        
+        [self salvar];
+    }
+    
+    return boleto;
+}
+
+- (void)removerBoleto:(BFOBoleto *)boleto
+{
+    for (UILocalNotification *lembrete in boleto.lembretes) {
+        [[UIApplication sharedApplication] cancelLocalNotification:lembrete];
+    }
+    
+    [_boletos removeObject:boleto];
+   
+    [self salvar];
+}
+
+- (BFOBoleto *)boletoComCodigoBarras:(NSString *)codigoBarras
+{
+    for (BFOBoleto *boleto in self.boletos) {
+        if ([boleto.codigoBarras isEqualToString:codigoBarras]) {
+            return boleto;
+        }
+    }
+    
+    return nil;
+}
+
 - (NSString *)caminhoArquivo
 {
     NSString *pastaDocuments = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];

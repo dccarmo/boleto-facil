@@ -17,9 +17,9 @@ static const NSUInteger diaBase = 07;
 
 @interface BFOBoleto () {
     NSString *_linhaDigitavel;
-    NSString *_banco;
-    NSString *_segmento;
     NSDate *_dataVencimento;
+    NSString *_codigoBanco;
+    NSString *_codigoSegmento;
     NSString *_valorExtenso;
     NSMutableArray *_lembretes;
 }
@@ -46,8 +46,8 @@ static const NSUInteger diaBase = 07;
     if (self) {
         _codigoBarras = [coder decodeObjectForKey:@"codigoBarras"];
         _data = [coder decodeObjectForKey:@"data"];
-        _banco = [coder decodeObjectForKey:@"banco"];
-        _segmento = [coder decodeObjectForKey:@"segmento"];
+        _codigoBanco = [coder decodeObjectForKey:@"codigoBanco"];
+        _codigoSegmento = [coder decodeObjectForKey:@"codigoSegmento"];
         _dataVencimento = [coder decodeObjectForKey:@"dataVencimento"];
         _valorExtenso = [coder decodeObjectForKey:@"valorExtenso"];
     }
@@ -58,8 +58,8 @@ static const NSUInteger diaBase = 07;
 {
     [coder encodeObject:self.codigoBarras forKey:@"codigoBarras"];
     [coder encodeObject:self.data forKey:@"data"];
-    [coder encodeObject:self.banco forKey:@"banco"];
-    [coder encodeObject:self.segmento forKey:@"segmento"];
+    [coder encodeObject:self.codigoBanco forKey:@"codigoBanco"];
+    [coder encodeObject:self.codigoSegmento forKey:@"codigoSegmento"];
     [coder encodeObject:self.dataVencimento forKey:@"dataVencimento"];
     [coder encodeObject:self.valorExtenso forKey:@"valorExtenso"];
 }
@@ -128,50 +128,60 @@ static const NSUInteger diaBase = 07;
     }
 }
 
-- (NSString *)banco
+- (NSString *)codigoBanco
 {
-    NSArray *listaBancos;
-    NSString *codigoBanco;
-    NSDictionary *banco;
-    
-    if (!_banco) {
-        _banco = @"";
-        listaBancos = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"BFOListaBancos" ofType:@"plist"]];
-        codigoBanco = [self.codigoBarras substringWithRange:NSRangeFromString(@"0-3")];
+    if (!_codigoBanco) {
+        _codigoBanco = [self.codigoBarras substringWithRange:NSRangeFromString(@"0-3")];
         
-        for (banco in listaBancos) {
-            if ([banco[@"codigo"] isEqualToString:codigoBanco]) {
-                _banco = banco[@"nome"];
-                
-                break;
-            }
+        if (self.tipo == BFOTipoBoletoArrecadacao) {
+            _codigoBanco = @"0";
         }
     }
     
-    return _banco;
+    return _codigoBanco;
+}
+
+- (NSString *)banco
+{
+    NSArray *listaBancos;
+    
+    listaBancos = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"BFOListaBancos" ofType:@"plist"]];
+    
+    for (NSDictionary *banco in listaBancos) {
+        if ([banco[@"codigo"] isEqualToString:self.codigoBanco]) {
+            return banco[@"nome"];
+        }
+    }
+    
+    return @"Banco não identificado";
+}
+
+- (NSString *)codigoSegmento
+{
+    if (!_codigoSegmento) {
+        _codigoSegmento = [self.codigoBarras substringWithRange:NSRangeFromString(@"1-1")];
+        
+        if (self.tipo == BFOTipoBoletoBancario) {
+            _codigoSegmento = @"0";
+        }
+    }
+    
+    return _codigoSegmento;
 }
 
 - (NSString *)segmento
 {
     NSArray *listaSegmentos;
-    NSString *codigoSegmento;
-    NSDictionary *segmento;
     
-    if (!_segmento) {
-        _segmento = @"";
-        listaSegmentos = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"BFOListaSegmentos" ofType:@"plist"]];
-        codigoSegmento = [self.codigoBarras substringWithRange:NSRangeFromString(@"1-1")];
-        
-        for (segmento in listaSegmentos) {
-            if ([segmento[@"codigo"] isEqualToString:codigoSegmento]) {
-                _segmento = segmento[@"nome"];
-                
-                break;
-            }
+    listaSegmentos = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"BFOListaSegmentos" ofType:@"plist"]];
+    
+    for (NSDictionary *segmento in listaSegmentos) {
+        if ([segmento[@"codigo"] isEqualToString:self.codigoSegmento]) {
+            return segmento[@"nome"];
         }
     }
     
-    return _segmento;
+    return @"Outros";
 }
 
 - (NSDate *)dataVencimento
@@ -214,14 +224,16 @@ static const NSUInteger diaBase = 07;
         
         switch (self.tipo) {
             case BFOTipoBoletoBancario:
-                valor = [[NSString stringWithFormat:@"%ld.%ld",
-                          (long)[[self.codigoBarras substringWithRange:NSRangeFromString(@"9-8")] integerValue],
-                          (long)[[self.codigoBarras substringWithRange:NSRangeFromString(@"17-2")] integerValue]] floatValue];
+                valor = [[NSString stringWithFormat:@"%d.%d",
+                          [[self.codigoBarras substringWithRange:NSRangeFromString(@"9-8")] intValue],
+                          [[self.codigoBarras substringWithRange:NSRangeFromString(@"17-2")] intValue]] floatValue];
+                break;
                 
             case BFOTipoBoletoArrecadacao:
-                valor = [[NSString stringWithFormat:@"%ld.%ld",
-                          (long)[[self.codigoBarras substringWithRange:NSRangeFromString(@"4-9")] integerValue],
-                          (long)[[self.codigoBarras substringWithRange:NSRangeFromString(@"13-2")] integerValue]] floatValue];
+                valor = [[NSString stringWithFormat:@"%d.%d",
+                          [[self.codigoBarras substringWithRange:NSRangeFromString(@"4-9")] intValue],
+                          [[self.codigoBarras substringWithRange:NSRangeFromString(@"13-2")] intValue]] floatValue];
+                break;
         }
         
         _valorExtenso = [formatoNumero stringFromNumber:[NSNumber numberWithFloat:valor]];
@@ -247,6 +259,8 @@ static const NSUInteger diaBase = 07;
     notificacao.fireDate = dataLembrete;
     notificacao.alertBody = titulo;
     notificacao.userInfo = @{@"codigoBarras":self.codigoBarras};
+    notificacao.soundName = UILocalNotificationDefaultSoundName;
+    notificacao.applicationIconBadgeNumber = 1;
     
     [[UIApplication sharedApplication] scheduleLocalNotification:notificacao];
     
@@ -255,6 +269,8 @@ static const NSUInteger diaBase = 07;
 
 - (void)cancelarLembrete:(UILocalNotification *)notificacao
 {
+    [[UIApplication sharedApplication] cancelLocalNotification:notificacao];
+    
     [_lembretes removeObject:notificacao];
 }
 
@@ -269,10 +285,5 @@ static const NSUInteger diaBase = 07;
 {
     return [self linhaDigitavelFormatada];
 }
-
-//- (UIImage *)activityViewController:(UIActivityViewController *)activityViewController thumbnailImageForActivityType:(NSString *)activityType suggestedSize:(CGSize)size
-//{
-//    return [UIImage imageWithImage:[UIImage imageNamed:kCustomURLImageName] scaledToFitToSize:size];
-//}
 
 @end

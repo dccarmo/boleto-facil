@@ -38,7 +38,7 @@
     self = [super initWithNibName:@"BFOListaBoletosView" bundle:nil];
     if (self) {
         UIImage *imagemEscanear = [UIImage imageNamed:@"botao_config_navbar"];
-        UIBarButtonItem *config = [[UIBarButtonItem alloc] initWithImage:imagemEscanear style:UIBarButtonItemStyleDone target:self action:@selector(abrirConfiguracao)];
+        UIBarButtonItem *config = [[UIBarButtonItem alloc] initWithImage:imagemEscanear style:UIBarButtonItemStylePlain target:self action:@selector(abrirConfiguracao)];
         UIBarButtonItem *adicionar = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(escanearCodigo)];
         
         self.navigationItem.title = @"Boletos";
@@ -82,7 +82,7 @@
     
     switch ([defaults integerForKey:BFOOrdenacaoTelaPrincipalKey]) {
         case BFOOrdenacaoTelaPrincipalDataInsercao:
-            self.boletos = [[BFOArmazenamentoBoleto sharedArmazenamentoBoleto].boletos sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"data" ascending:YES]]];
+            self.boletos = [[BFOArmazenamentoBoleto sharedArmazenamentoBoleto].boletos sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"data" ascending:NO]]];
             break;
             
         case BFOOrdenacaoTelaPrincipalDataVencimento:
@@ -133,8 +133,7 @@
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         boleto = self.boletos[indexPath.row];
-        [[BFOArmazenamentoBoleto sharedArmazenamentoBoleto].boletos removeObject:boleto];
-        [[BFOArmazenamentoBoleto sharedArmazenamentoBoleto] salvar];
+        [[BFOArmazenamentoBoleto sharedArmazenamentoBoleto] removerBoleto:boleto];
         
         [self carregarBoletos];
         
@@ -146,7 +145,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 70.0f;
+    return 60.0f;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

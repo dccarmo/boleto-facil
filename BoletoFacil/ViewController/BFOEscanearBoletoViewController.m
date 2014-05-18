@@ -131,9 +131,7 @@
             continue;
         }
         
-        boleto = [[BFOBoleto alloc] initWithCodigoBarras:codigoBarras];
-        [[BFOArmazenamentoBoleto sharedArmazenamentoBoleto].boletos addObject:boleto];
-        [[BFOArmazenamentoBoleto sharedArmazenamentoBoleto] salvar];
+        boleto = [[BFOArmazenamentoBoleto sharedArmazenamentoBoleto] adicionarBoletoComCodigoBarras:codigoBarras];
         
         [self.leitorView stop];
         

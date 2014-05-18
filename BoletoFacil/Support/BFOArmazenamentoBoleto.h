@@ -8,12 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
+@class BFOBoleto;
+
 @interface BFOArmazenamentoBoleto : NSObject
 
-@property (nonatomic, readonly) NSMutableArray *boletos;
+@property (nonatomic, readonly) NSArray *boletos;
 
 + (instancetype)sharedArmazenamentoBoleto;
 
+- (BFOBoleto *)adicionarBoletoComCodigoBarras:(NSString *)codigoBarras;
+- (void)removerBoleto:(BFOBoleto *)boleto;
+- (BFOBoleto *)boletoComCodigoBarras:(NSString *)codigoBarras;
 - (void)salvar;
 
 @end
