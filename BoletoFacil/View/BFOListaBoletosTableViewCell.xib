@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -20,7 +20,7 @@
                             <constraint firstAttribute="width" constant="243" id="F0M-1J-p9r"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
-                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="textColor" red="0.22813108563423157" green="0.22833389043807983" blue="0.2281624972820282" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="R$ 1.400,00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TKC-zy-15j">
@@ -51,6 +51,7 @@
                     <constraint firstItem="unQ-pM-HgP" firstAttribute="top" secondItem="l9k-Py-6l9" secondAttribute="top" constant="12" id="zTS-Gn-TM8"/>
                 </constraints>
             </tableViewCellContentView>
+            <inset key="separatorInset" minX="44" minY="0.0" maxX="0.0" maxY="0.0"/>
             <connections>
                 <outlet property="corCategoria" destination="ktA-co-RMW" id="ejD-bU-zyp"/>
                 <outlet property="descricao" destination="TKC-zy-15j" id="h6i-Ry-6RF"/>

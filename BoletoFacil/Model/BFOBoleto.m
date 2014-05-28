@@ -10,6 +10,7 @@
 
 //Support
 #import "DCCBoletoFormatter.h"
+#import "NSCalendar+Calculations.h"
 
 static const NSUInteger anoBase = 1997;
 static const NSUInteger mesBase = 10;
@@ -20,6 +21,7 @@ static const NSUInteger diaBase = 07;
     NSDate *_dataVencimento;
     NSString *_valorExtenso;
     NSMutableArray *_lembretes;
+    NSNumber *_pago;
 }
 
 @property (nonatomic) NSString *codigoBanco;
@@ -51,6 +53,7 @@ static const NSUInteger diaBase = 07;
         _codigoCategoria = [coder decodeObjectForKey:@"codigoCategoria"];
         _dataVencimento = [coder decodeObjectForKey:@"dataVencimento"];
         _valorExtenso = [coder decodeObjectForKey:@"valorExtenso"];
+        _pago = [coder decodeObjectForKey:@"pago"];
     }
     return self;
 }
@@ -63,6 +66,7 @@ static const NSUInteger diaBase = 07;
     [coder encodeObject:self.codigoCategoria forKey:@"codigoCategoria"];
     [coder encodeObject:self.dataVencimento forKey:@"dataVencimento"];
     [coder encodeObject:self.valorExtenso forKey:@"valorExtenso"];
+    [coder encodeObject:self.pago forKey:@"pago"];
 }
 
 #pragma mark - BFOBoleto
@@ -191,31 +195,31 @@ static const NSUInteger diaBase = 07;
     
     switch ([self.codigoCategoria integerValue]) {
         case 1:
-            cor = [UIColor colorWithRed:1 green:0.647 blue:0.007 alpha:1];
+            cor = [UIColor colorWithRed:1 green:0.647 blue:0.007 alpha:1]; //Laranja
             break;
             
         case 2:
-            cor = [UIColor colorWithRed:0 green:0.568 blue:1 alpha:1];
+            cor = [UIColor colorWithRed:0 green:0.568 blue:1 alpha:1]; //Azul
             break;
             
         case 3:
-            cor = [UIColor colorWithRed:1 green:0.823 blue:0.007 alpha:1];
+            cor = [UIColor colorWithRed:1 green:0.823 blue:0.007 alpha:1]; //Amarelo
             break;
             
         case 4:
-            cor = [UIColor colorWithRed:0.415 green:0.443 blue:0.894 alpha:1];
+            cor = [UIColor colorWithRed:0.415 green:0.443 blue:0.894 alpha:1]; //Roxo
             break;
             
         case 5:
-            cor = [UIColor colorWithRed:1 green:0.647 blue:0.007 alpha:1];
+            cor = [UIColor colorWithRed:1 green:0.647 blue:0.007 alpha:1]; //Laranja
             break;
             
         case 7:
-            cor = [UIColor colorWithRed:0.38 green:0.823 blue:0.996 alpha:1];
+            cor = [UIColor colorWithRed:0.38 green:0.823 blue:0.996 alpha:1]; //Azul claro
             break;
             
         default:
-            cor = [UIColor colorWithRed:0.282 green:0.858 blue:0.419 alpha:1];
+            cor = [UIColor colorWithRed:1 green:0.176 blue:0.333 alpha:1]; //Vermelho
             break;
     }
     
@@ -249,6 +253,26 @@ static const NSUInteger diaBase = 07;
     }
     
     return _dataVencimento;
+}
+
+- (NSInteger)diasAteVencimento
+{
+    NSInteger diasAteVencimento;
+    
+    if (self.dataVencimento) {
+        diasAteVencimento = [[NSCalendar currentCalendar] daysWithinEraFromDate:[NSDate date] toDate:self.dataVencimento];
+        
+        if (diasAteVencimento > 0) {
+            return diasAteVencimento;
+        }
+    }
+    
+    return 9999;
+}
+
+- (void)informarDataVencimento:(NSDate *)data
+{
+    _dataVencimento = data;
 }
 
 - (NSString *)valorExtenso
@@ -287,6 +311,20 @@ static const NSUInteger diaBase = 07;
     }
     
     return _lembretes;
+}
+
+- (NSNumber *)pago
+{
+    if (!_pago) {
+        _pago = @NO;
+    }
+    
+    return _pago;
+}
+
+- (void)alternaPago
+{
+    _pago = @(![_pago boolValue]);
 }
 
 - (void)agendarLembrete:(NSString *)titulo data:(NSDate *)dataLembrete

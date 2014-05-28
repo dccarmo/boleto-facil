@@ -10,6 +10,7 @@
 
 //View Controllers
 #import "BFOListaBoletosViewController.h"
+#import "BFOMostrarBoletoViewController.h"
 
 @interface BFONavegacaoPrincipalViewController ()
 
@@ -34,10 +35,21 @@
     return self;
 }
 
+#pragma mark - UIViewController
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+}
+
+#pragma mark - BFONavegacaoPrincipalViewController
+
+- (void)mostrarBoleto:(BFOBoleto *)boleto
+{
+    BFOMostrarBoletoViewController *mostrarBoleto = [[BFOMostrarBoletoViewController alloc] initWithBoleto:boleto];
+    
+    [self pushViewController:mostrarBoleto animated:NO];
 }
 
 @end

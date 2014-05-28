@@ -23,8 +23,8 @@ typedef NS_ENUM(NSUInteger, BFOConfiguracoesViewControllerSecao)
 
 @interface BFOConfiguracoesViewController ()
 
-@property (weak, nonatomic) IBOutlet UISwitch *mostrarBoletosPagos;
 @property (weak, nonatomic) IBOutlet UISwitch *mostrarBoletosVencidos;
+@property (weak, nonatomic) IBOutlet UISwitch *mostrarBoletosPagos;
 
 @end
 
@@ -32,7 +32,7 @@ typedef NS_ENUM(NSUInteger, BFOConfiguracoesViewControllerSecao)
 
 - (instancetype)init
 {
-    UIStoryboard* configuracoesStoryboard = [UIStoryboard storyboardWithName:@"BFOConfiguracoesStoryboard" bundle:nil];
+    UIStoryboard* configuracoesStoryboard = [UIStoryboard storyboardWithName:@"BFOConfiguracoes" bundle:nil];
     
     self = [configuracoesStoryboard instantiateInitialViewController];
     if (self) {
@@ -63,21 +63,13 @@ typedef NS_ENUM(NSUInteger, BFOConfiguracoesViewControllerSecao)
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    self.mostrarBoletosPagos.on = [defaults boolForKey:BFOMostrarBoletosPagosKey];
     self.mostrarBoletosVencidos.on = [defaults boolForKey:BFOMostrarBoletosVencidosKey];
+    self.mostrarBoletosPagos.on = [defaults boolForKey:BFOMostrarBoletosPagosKey];
 }
 
 - (IBAction)fechar:(id)sender
 {
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (IBAction)mostrarBoletosPagosAction:(id)sender
-{
-    UISwitch *interruptor = (UISwitch *) sender;
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    [defaults setObject:@(interruptor.on) forKey:BFOMostrarBoletosPagosKey];
 }
 
 - (IBAction)mostrarBoletosVencidosAction:(id)sender
@@ -86,6 +78,14 @@ typedef NS_ENUM(NSUInteger, BFOConfiguracoesViewControllerSecao)
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     [defaults setObject:@(interruptor.on) forKey:BFOMostrarBoletosVencidosKey];
+}
+
+- (IBAction)mostrarBoletosPagosAction:(id)sender
+{
+    UISwitch *interruptor = (UISwitch *) sender;
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    [defaults setObject:@(interruptor.on) forKey:BFOMostrarBoletosPagosKey];
 }
 
 #pragma mark - UITableViewDataSource

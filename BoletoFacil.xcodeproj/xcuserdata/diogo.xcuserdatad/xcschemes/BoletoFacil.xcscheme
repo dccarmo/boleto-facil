@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D9186BDD190D84CD008B03BB"
-               BuildableName = "BoletoFacil.app"
+               BuildableName = "Zebra.app"
                BlueprintName = "BoletoFacil"
                ReferencedContainer = "container:BoletoFacil.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D9186BDD190D84CD008B03BB"
-            BuildableName = "BoletoFacil.app"
+            BuildableName = "Zebra.app"
             BlueprintName = "BoletoFacil"
             ReferencedContainer = "container:BoletoFacil.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D9186BDD190D84CD008B03BB"
-            BuildableName = "BoletoFacil.app"
+            BuildableName = "Zebra.app"
             BlueprintName = "BoletoFacil"
             ReferencedContainer = "container:BoletoFacil.xcodeproj">
          </BuildableReference>
@@ -80,7 +80,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D9186BDD190D84CD008B03BB"
-            BuildableName = "BoletoFacil.app"
+            BuildableName = "Zebra.app"
             BlueprintName = "BoletoFacil"
             ReferencedContainer = "container:BoletoFacil.xcodeproj">
          </BuildableReference>

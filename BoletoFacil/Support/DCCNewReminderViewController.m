@@ -8,9 +8,6 @@
 
 #import "DCCNewReminderViewController.h"
 
-//Views
-#import "BFOAdicionarLembreteActivity.h"
-
 //Models
 #import "BFOBoleto.h"
 
@@ -32,7 +29,6 @@ typedef NS_ENUM(NSUInteger, DCCNewReminderRow)
 
 @interface DCCNewReminderViewController ()
 
-@property (nonatomic, weak) BFOAdicionarLembreteActivity *activity;
 @property (nonatomic) BFOBoleto *boleto;
 
 @property (nonatomic) UITextField *titleField;
@@ -43,14 +39,13 @@ typedef NS_ENUM(NSUInteger, DCCNewReminderRow)
 
 @implementation DCCNewReminderViewController
 
-- (instancetype)initWithActivity:(BFOAdicionarLembreteActivity *)activity boleto:(BFOBoleto *)boleto
+- (instancetype)initWithBoleto:(BFOBoleto *)boleto
 {
     self = [super initWithStyle:UITableViewStyleGrouped];
     if (self) {
         UIBarButtonItem *salvar = [[UIBarButtonItem alloc] initWithTitle:@"Salvar" style:UIBarButtonItemStyleDone target:self action:@selector(salvarLembrete)];
         UIBarButtonItem *cancelar = [[UIBarButtonItem alloc] initWithTitle:@"Cancelar" style:UIBarButtonItemStylePlain target:self action:@selector(fechar)];
         
-        _activity = activity;
         _boleto = boleto;
         
         self.navigationItem.title = @"Novo Lembrete";
@@ -78,7 +73,7 @@ typedef NS_ENUM(NSUInteger, DCCNewReminderRow)
 
 - (void)fechar
 {
-    [self.activity activityDidFinish:YES];
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)salvarLembrete

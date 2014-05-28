@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class BFOBoleto;
+
 @interface BFONavegacaoPrincipalViewController : UINavigationController
+
+- (void)mostrarBoleto:(BFOBoleto *)boleto;
 
 @end

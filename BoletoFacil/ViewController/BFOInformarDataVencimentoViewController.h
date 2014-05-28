@@ -1,8 +1,8 @@
 //
-//  BFOAdicionarLembreteActivity.h
+//  BFODataVencimentoViewController.h
 //  BoletoFacil
 //
-//  Created by Diogo do Carmo on 07/05/14.
+//  Created by Diogo do Carmo on 25/05/14.
 //  Copyright (c) 2014 Diogo do Carmo. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 
 @class BFOBoleto;
 
-@interface BFOAdicionarLembreteActivity : UIActivity
+@interface BFOInformarDataVencimentoViewController : UITableViewController
 
 - (instancetype)initWithBoleto:(BFOBoleto *)boleto;
 

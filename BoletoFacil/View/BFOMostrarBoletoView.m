@@ -99,6 +99,7 @@ static const NSUInteger alturaInicialEstadoServidorFundo = 30;
     [formatoData setDateStyle:NSDateFormatterShortStyle];
     [formatoData setDoesRelativeDateFormatting:YES];
     
+    self.corCategoria.backgroundColor = boleto.corCategoria;
     self.categoria.text = boleto.categoria;
     self.banco.text = boleto.banco;
     

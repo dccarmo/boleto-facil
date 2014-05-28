@@ -16,6 +16,8 @@
 #import "BFOMostrarBoletoViewController.h"
 #import "BFOConfiguracoesViewController.h"
 #import "BFOOrdenacaoListaBoletoViewController.h"
+#import "DCCNewReminderViewController.h"
+#import "BFOInformarDataVencimentoViewController.h"
 
 //Views
 #import "BFOListaBoletosTableViewCell.h"
@@ -26,9 +28,15 @@
 //Support
 #import "BFOArmazenamentoBoleto.h"
 
-@interface BFOListaBoletosViewController ()
+static NSString * const BFOBoletoActionSheetMarcarPago = @"Marcar como pago";
+static NSString * const BFOBoletoActionSheetMarcarNaoPago = @"Marcar como não pago";
+static NSString * const BFOBoletoActionSheetCriarLembrete = @"Criar lembrete";
+static NSString * const BFOBoletoActionSheetInformarDataVencimento = @"Informar data de vencimento";
+
+@interface BFOListaBoletosViewController () <UIActionSheetDelegate>
 
 @property (nonatomic) NSArray *boletos;
+@property (nonatomic) BFOBoleto *boletoSendoEditado;
 
 @end
 
@@ -79,22 +87,49 @@
 
 - (void)carregarBoletos
 {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    self.boletos = [BFOArmazenamentoBoleto sharedArmazenamentoBoleto].boletos;
     
-    switch ([defaults integerForKey:BFOOrdenacaoTelaPrincipalKey]) {
-        case BFOOrdenacaoTelaPrincipalDataInsercao:
-            self.boletos = [[BFOArmazenamentoBoleto sharedArmazenamentoBoleto].boletos sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"data" ascending:NO]]];
-            break;
-            
-        case BFOOrdenacaoTelaPrincipalDataVencimento:
-            self.boletos = [[BFOArmazenamentoBoleto sharedArmazenamentoBoleto].boletos sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"dataVencimento" ascending:YES]]];
-            break;
-    }
+    [self filtrarBoletos];
     
     if ([self.boletos count] == 0) {
         self.tableView.backgroundView = [[[NSBundle mainBundle] loadNibNamed:@"BFOListaBolestosVaziaView" owner:self options:nil] firstObject];
     } else {
         self.tableView.backgroundView = nil;
+    }
+}
+
+- (void)filtrarBoletos
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    if (![defaults boolForKey:BFOMostrarBoletosVencidosKey]) {
+        self.boletos = [self.boletos filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"dataVencimento > %@", [NSDate date]]];
+    }
+    
+    if (![defaults boolForKey:BFOMostrarBoletosPagosKey]) {
+        self.boletos = [self.boletos filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"pago == 0"]];
+    }
+    
+    switch ([defaults integerForKey:BFOOrdenacaoTelaPrincipalKey]) {
+        case BFOOrdenacaoTelaPrincipalDataInsercao:
+            self.boletos = [self.boletos sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"data" ascending:NO],
+                                                                       [NSSortDescriptor sortDescriptorWithKey:@"dataVencimento" ascending:NO]]];
+            break;
+            
+        case BFOOrdenacaoTelaPrincipalDataVencimento:
+            self.boletos = [self.boletos sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"diasAteVencimento" ascending:YES],
+                                                                       [NSSortDescriptor sortDescriptorWithKey:@"dataVencimento" ascending:NO]]];
+            break;
+            
+        case BFOOrdenacaoTelaPrincipalBanco:
+            self.boletos = [self.boletos sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"banco" ascending:NO],
+                                                                       [NSSortDescriptor sortDescriptorWithKey:@"data" ascending:NO]]];
+            break;
+            
+        case BFOOrdenacaoTelaPrincipalCategoria:
+            self.boletos = [self.boletos sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"categoria" ascending:YES],
+                                                                       [NSSortDescriptor sortDescriptorWithKey:@"data" ascending:NO]]];
+            break;
     }
 }
 
@@ -125,21 +160,55 @@
     
     [cell configurarTableViewCellComBoleto:boleto];
     
+    if ([boleto.pago boolValue]) {
+        [cell marcarComoPago];
+    } else {
+        [cell marcarComoNaoPago];
+    }
+    
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    BFOBoleto *boleto;
-    
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        boleto = self.boletos[indexPath.row];
-        [[BFOArmazenamentoBoleto sharedArmazenamentoBoleto] removerBoleto:boleto];
         
-        [self carregarBoletos];
-        
-        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
+}
+
+//Private API
+- (NSString *)tableView:(UITableView *)tableView titleForSwipeAccessoryButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return @"Mais";
+}
+
+//Private API
+- (void)tableView:(UITableView *)tableView swipeAccessoryButtonPushedForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    BFOBoleto *boleto = self.boletos[indexPath.row];
+    UIActionSheet *boletoActionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                             delegate:self
+                                                    cancelButtonTitle:nil
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:nil];
+    if ([boleto.pago boolValue]) {
+        [boletoActionSheet addButtonWithTitle:BFOBoletoActionSheetMarcarNaoPago];
+    } else {
+        [boletoActionSheet addButtonWithTitle:BFOBoletoActionSheetMarcarPago];
+    }
+    
+    if (!boleto.dataVencimento) {
+        [boletoActionSheet addButtonWithTitle:BFOBoletoActionSheetInformarDataVencimento];
+    }
+    
+    [boletoActionSheet addButtonWithTitle:BFOBoletoActionSheetCriarLembrete];
+    
+    [boletoActionSheet addButtonWithTitle:@"Cancelar"];
+    boletoActionSheet.cancelButtonIndex = boletoActionSheet.numberOfButtons - 1;
+    
+    [boletoActionSheet showInView:self.tableView];
+    
+    self.boletoSendoEditado = boleto;
 }
 
 #pragma mark - UITableViewDelegate
@@ -156,6 +225,47 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     [self.navigationController pushViewController:[[BFOMostrarBoletoViewController alloc] initWithBoleto:boleto] animated:YES];
+}
+
+#pragma mark -UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    BFOListaBoletosTableViewCell *cell;
+    NSIndexPath *indexPath;
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:BFOBoletoActionSheetMarcarPago] ||
+        [[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:BFOBoletoActionSheetMarcarNaoPago]) {
+        [self.boletoSendoEditado alternaPago];
+        [[BFOArmazenamentoBoleto sharedArmazenamentoBoleto] salvar];
+        
+        indexPath = [NSIndexPath indexPathForItem:[self.boletos indexOfObject:self.boletoSendoEditado] inSection:0];
+        
+        if ([defaults boolForKey:BFOMostrarBoletosPagosKey]) {
+            cell = (BFOListaBoletosTableViewCell *) [self.tableView cellForRowAtIndexPath:indexPath];
+            
+            if ([self.boletoSendoEditado.pago boolValue]) {
+                [cell marcarComoPago];
+            } else {
+                [cell marcarComoNaoPago];
+            }
+        } else {
+            [self filtrarBoletos];
+            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
+    }
+    
+    if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:BFOBoletoActionSheetInformarDataVencimento]) {
+        [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[[BFOInformarDataVencimentoViewController alloc] initWithBoleto:self.boletoSendoEditado]] animated:YES completion:nil];
+    }
+    
+    if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:BFOBoletoActionSheetCriarLembrete]) {
+        [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[[DCCNewReminderViewController alloc] initWithBoleto:self.boletoSendoEditado]] animated:YES completion:nil];
+    }
+    
+    self.boletoSendoEditado = nil;
+    [self setEditing:NO animated:YES];
 }
 
 @end

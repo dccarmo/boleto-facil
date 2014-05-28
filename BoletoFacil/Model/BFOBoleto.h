@@ -24,13 +24,20 @@ typedef NS_ENUM(NSUInteger, BFOTipoBoleto)
 @property (nonatomic, readonly) NSString *categoria;
 @property (nonatomic, readonly) UIColor *corCategoria;
 @property (nonatomic, readonly) NSDate *dataVencimento;
+@property (nonatomic ,readonly) NSInteger diasAteVencimento;
 @property (nonatomic, readonly) NSString *valorExtenso;
 @property (nonatomic, readonly) NSArray *lembretes;
+@property (nonatomic, readonly) NSNumber *pago;
 
 - (instancetype)initWithCodigoBarras:(NSString *)codigoBarras;
+
 - (NSArray *)sequenciasLinhaDigitavel;
 - (NSString *)linhaDigitavelFormatada;
+
 - (void)agendarLembrete:(NSString *)titulo data:(NSDate *)dataLembrete;
 - (void)cancelarLembrete:(UILocalNotification *)notificacao;
+
+- (void)informarDataVencimento:(NSDate *)data;
+- (void)alternaPago;
 
 @end

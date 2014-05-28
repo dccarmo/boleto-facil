@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@class BFOAdicionarLembreteActivity, BFOBoleto;
+@class BFOBoleto;
 
 @interface DCCNewReminderViewController : UITableViewController
 
-- (instancetype)initWithActivity:(BFOAdicionarLembreteActivity *)activity boleto:(BFOBoleto *)boleto;
+- (instancetype)initWithBoleto:(BFOBoleto *)boleto;
 
 @end

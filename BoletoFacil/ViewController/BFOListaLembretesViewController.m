@@ -83,6 +83,8 @@
     
     cell.detailTextLabel.text = [formatoData stringFromDate:notificacao.fireDate];
     
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     return cell;
 }
 

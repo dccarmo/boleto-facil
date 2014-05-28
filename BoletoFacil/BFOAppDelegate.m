@@ -11,10 +11,12 @@
 //View Controllers
 #import "BFONavegacaoPrincipalViewController.h"
 
+//Support
+#import "BFOArmazenamentoBoleto.h"
+
 NSString * const BFOOrdenacaoTelaPrincipalKey = @"OrdenacaoTelaPrincipal";
 NSString * const BFOMostrarBoletosVencidosKey = @"MostrarBoletosVencidos";
 NSString * const BFOMostrarBoletosPagosKey = @"MostrarBoletosPagos";
-
 
 @implementation BFOAppDelegate
 
@@ -29,16 +31,29 @@ NSString * const BFOMostrarBoletosPagosKey = @"MostrarBoletosPagos";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    UILocalNotification *notificacao;
+    BFONavegacaoPrincipalViewController *navegacaoPrincipal = [BFONavegacaoPrincipalViewController new];
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.rootViewController = [BFONavegacaoPrincipalViewController new];
+    self.window.rootViewController = navegacaoPrincipal;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
     [self setApplicationStyle];
     
+    if (launchOptions[UIApplicationLaunchOptionsLocalNotificationKey]) {
+        notificacao = launchOptions[UIApplicationLaunchOptionsLocalNotificationKey];
+        [navegacaoPrincipal mostrarBoleto:[[BFOArmazenamentoBoleto sharedArmazenamentoBoleto] boletoComCodigoBarras:notificacao.userInfo[@"codigoBarras"]]];
+    }
+    
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    
     return YES;
+}
+
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
+    NSLog(@"Oi");
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

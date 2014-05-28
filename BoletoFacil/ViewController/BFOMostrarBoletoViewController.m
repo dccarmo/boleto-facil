@@ -13,7 +13,6 @@
 
 //Views
 #import "BFOMostrarBoletoView.h"
-#import "BFOAdicionarLembreteActivity.h"
 
 //Models
 #import "BFOBoleto.h"
@@ -85,17 +84,9 @@
 
 - (void)compartilharBoleto
 {
-    BFOAdicionarLembreteActivity *adicionarLembrete;
     UIActivityViewController *opcoesCompartilhamento;
     
-    adicionarLembrete = [[BFOAdicionarLembreteActivity alloc] initWithBoleto:self.boleto];
-    
-    if ([[UIApplication sharedApplication].scheduledLocalNotifications count] < 64) {
-        opcoesCompartilhamento = [[UIActivityViewController alloc] initWithActivityItems:@[self.boleto] applicationActivities:@[adicionarLembrete]];
-    } else {
-        opcoesCompartilhamento = [[UIActivityViewController alloc] initWithActivityItems:@[self.boleto] applicationActivities:nil];
-    }
-    
+    opcoesCompartilhamento = [[UIActivityViewController alloc] initWithActivityItems:@[self.boleto] applicationActivities:nil];
     opcoesCompartilhamento.excludedActivityTypes = @[UIActivityTypePostToFacebook, UIActivityTypePostToTwitter, UIActivityTypePostToWeibo, UIActivityTypePostToTencentWeibo];
     
     [self presentViewController:opcoesCompartilhamento animated:YES completion:nil];

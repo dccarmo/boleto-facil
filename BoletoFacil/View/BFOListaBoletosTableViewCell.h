@@ -13,5 +13,7 @@
 @interface BFOListaBoletosTableViewCell : UITableViewCell
 
 - (void)configurarTableViewCellComBoleto:(BFOBoleto *)boleto;
+- (void)marcarComoPago;
+- (void)marcarComoNaoPago;
 
 @end

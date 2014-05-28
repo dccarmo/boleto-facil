@@ -18,6 +18,8 @@
 @property (weak, nonatomic) IBOutlet UIView *cameraPreviewView;
 @property (weak, nonatomic) IBOutlet UIButton *botaoFlash;
 @property (weak, nonatomic) IBOutlet UIButton *botaoFechar;
+@property (weak, nonatomic) IBOutlet UIView *linhaEsquerda;
+@property (weak, nonatomic) IBOutlet UIView *linhaDireita;
 
 @property (nonatomic) UIDynamicAnimator *animador;
 
@@ -37,6 +39,9 @@
 {
     self.botaoFechar.hidden = YES;
     self.botaoFlash.hidden = YES;
+    
+    self.linhaEsquerda.hidden = YES;
+    self.linhaDireita.hidden = YES;
     
     [self rotacionarBotoes];
     [self adicionarEfeitoMovimentoBotoes];
@@ -81,6 +86,8 @@
                                                                                                  self.botaoFlash.center.y + (self.botaoFlash.frame.size.height + 20))];
 
     [self.animador addBehavior:snapBehavior];
+    
+    [self mostrarLinhas];
     
     [self performSelector:@selector(rotacionarBotoes) withObject:nil afterDelay:1.2]; //Hack muito feio
 }
@@ -137,6 +144,20 @@
     
     [self.botaoFlash addMotionEffect:efeitoX];
     [self.botaoFlash addMotionEffect:efeitoY];
+}
+
+- (void)mostrarLinhas
+{
+    self.linhaEsquerda.alpha = 0;
+    self.linhaDireita.alpha = 0;
+    
+    self.linhaEsquerda.hidden = NO;
+    self.linhaDireita.hidden = NO;
+    
+    [UIView animateWithDuration:0.5f animations:^{
+        self.linhaEsquerda.alpha = 0.5f;
+        self.linhaDireita.alpha = 0.5f;
+    }];
 }
 
 @end

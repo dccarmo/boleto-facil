@@ -12,19 +12,19 @@
 		<key>codigo</key>
 		<string>2</string>
 		<key>nome</key>
-		<string>Saneamento</string>
+		<string>Água</string>
 	</dict>
 	<dict>
 		<key>codigo</key>
 		<string>3</string>
 		<key>nome</key>
-		<string>Energia Elétrica ou Gás</string>
+		<string>Energia Elétrica/Gás</string>
 	</dict>
 	<dict>
 		<key>codigo</key>
 		<string>4</string>
 		<key>nome</key>
-		<string>Telefonia</string>
+		<string>Telefone</string>
 	</dict>
 	<dict>
 		<key>codigo</key>

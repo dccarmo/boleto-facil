@@ -8,6 +8,9 @@
 
 #import "BFOListaBoletosTableViewCell.h"
 
+//Views
+#import "BFOListaBoletosActionButtonsView.h"
+
 //Models
 #import "BFOBoleto.h"
 
@@ -20,6 +23,8 @@
 @end
 
 @implementation BFOListaBoletosTableViewCell
+
+#pragma mark - BFOListaBoletosTableViewCell
 
 - (void)configurarTableViewCellComBoleto:(BFOBoleto *)boleto
 {
@@ -41,6 +46,25 @@
     }
     
     self.corCategoria.backgroundColor = boleto.corCategoria;
+}
+
+- (void)marcarComoPago
+{
+    NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] initWithString:self.titulo.text];
+    [attributeString addAttribute:NSStrikethroughStyleAttributeName
+                            value:@1
+                            range:NSMakeRange(0, [attributeString length])];
+    
+    self.titulo.attributedText = attributeString;
+    self.titulo.textColor = [UIColor lightGrayColor];
+}
+
+- (void)marcarComoNaoPago
+{
+    NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] initWithString:self.titulo.text];
+    
+    self.titulo.attributedText = attributeString;
+    self.titulo.textColor = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1];
 }
 
 @end

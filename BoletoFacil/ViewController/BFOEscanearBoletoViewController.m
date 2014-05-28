@@ -30,7 +30,6 @@
 @interface BFOEscanearBoletoViewController () <ZBarReaderViewDelegate>
 
 @property (nonatomic) ZBarReaderView *leitorView;
-@property (nonatomic) UIDynamicAnimator *animador;
 
 @end
 

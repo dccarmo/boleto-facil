@@ -92,12 +92,14 @@ static NSString * const erroSemConexaoWifi = @"Você não está conectado à wi-
 
 - (BOOL)mostrarBoleto:(BFOBoleto *)boleto mensagemErro:(NSString **)mensagemErro
 {
-    NSString *codigo = boleto.codigoBarras;
+    NSString *html;
     
     if (![self.servidor isRunning]) {
         *mensagemErro = self.mensagemErro ? self.mensagemErro : @"Erro desconhecido";
         return NO;
     }
+    
+    html = [self HTMLFormatadoComBoleto:boleto];
     
     [self.servidor removeAllHandlers];
     
@@ -105,10 +107,39 @@ static NSString * const erroSemConexaoWifi = @"Você não está conectado à wi-
                                  requestClass:[GCDWebServerRequest class]
                                  processBlock:^GCDWebServerResponse *(GCDWebServerRequest* request) {
                                      
-                                     return [GCDWebServerDataResponse responseWithHTML:[NSString stringWithFormat:@"<html><body><p>Seu código de barras é: %@</p></body></html>", codigo]];
+                                     return [GCDWebServerDataResponse responseWithHTML:html];
                                  }];
     
     return YES;
+}
+
+- (NSString *)HTMLFormatadoComBoleto:(BFOBoleto *)boleto
+{
+    NSString *html = [[NSString alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"BFOBoletoHTML" ofType:@"html"] usedEncoding:nil error:nil];
+    NSDateFormatter *formatoData = [NSDateFormatter new];
+    
+    [formatoData setDateStyle:NSDateFormatterShortStyle];
+    [formatoData setDoesRelativeDateFormatting:YES];
+    
+    html = [html stringByReplacingOccurrencesOfString:@"%@TITULO@%" withString:@"Zebra"];
+    
+    html = [html stringByReplacingOccurrencesOfString:@"%@CATEGORIA@%" withString:boleto.categoria];
+    html = [html stringByReplacingOccurrencesOfString:@"%@BANCO@%" withString:boleto.banco];
+    
+    if (boleto.dataVencimento) {
+        html = [html stringByReplacingOccurrencesOfString:@"%@DATA-VENCIMENTO@%" withString:[formatoData stringFromDate:boleto.dataVencimento]];
+    } else {
+        html = [html stringByReplacingOccurrencesOfString:@"%@DATA-VENCIMENTO@%" withString:@"-"];
+    }
+    
+    html = [html stringByReplacingOccurrencesOfString:@"%@VALOR@%" withString:boleto.valorExtenso];
+    
+    html = [html stringByReplacingOccurrencesOfString:@"%@LINHA-DIGITAVEL-FORMATADA@%" withString:boleto.linhaDigitavelFormatada];
+    html = [html stringByReplacingOccurrencesOfString:@"%@LINHA-DIGITAVEL@%" withString:boleto.linhaDigitavel];
+    
+    html = [html stringByReplacingOccurrencesOfString:@"%@CODIGO-BARRA@%" withString:boleto.codigoBarras];
+    
+    return html;
 }
 
 #pragma mark - NSNotificationCenter
