@@ -77,8 +77,13 @@ typedef NS_ENUM(NSUInteger, DCCNewReminderRow)
 }
 
 - (void)salvarLembrete
-{    
-    [self.boleto agendarLembrete:self.titleField.text data:self.datePicker.date];
+{
+    if ([self.titleField.text length] == 0) {
+        [self.boleto agendarLembrete:@"Pagar boleto" data:self.datePicker.date];
+    } else {
+        [self.boleto agendarLembrete:self.titleField.text data:self.datePicker.date];
+    }
+    
     [[BFOArmazenamentoBoleto sharedArmazenamentoBoleto] salvar];
     
     [self fechar];

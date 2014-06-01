@@ -40,11 +40,13 @@
     self.botaoFechar.hidden = YES;
     self.botaoFlash.hidden = YES;
     
+    self.botaoFechar.center = CGPointMake(self.botaoFechar.center.x, self.frame.size.height - self.botaoFechar.frame.size.height/2 - 20); //para se adaptar a tela menor
+    
     self.linhaEsquerda.hidden = YES;
     self.linhaDireita.hidden = YES;
     
     [self rotacionarBotoes];
-    [self adicionarEfeitoMovimentoBotoes];
+//    [self adicionarEfeitoMovimentoBotoes];
     
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rotacionarBotoes) name:UIDeviceOrientationDidChangeNotification object:nil];

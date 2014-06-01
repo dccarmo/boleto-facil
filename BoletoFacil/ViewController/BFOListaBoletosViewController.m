@@ -73,6 +73,8 @@ static NSString * const BFOBoletoActionSheetInformarDataVencimento = @"Informar 
     
     self.tableView.tableFooterView = [UIView new];
     [self.tableView registerNib:[UINib nibWithNibName:@"BFOListaBoletosTableViewCell" bundle:nil] forCellReuseIdentifier:@"BFOListaBoletosTableViewCell"];
+    
+    [[BFOArmazenamentoBoleto sharedArmazenamentoBoleto] adicionarBoletoComCodigoBarras:@"82610000001873500600011020361895405142140606"];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -101,6 +103,7 @@ static NSString * const BFOBoletoActionSheetInformarDataVencimento = @"Informar 
 - (void)filtrarBoletos
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSArray *boletosIntermediario;
     
     if (![defaults boolForKey:BFOMostrarBoletosVencidosKey]) {
         self.boletos = [self.boletos filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"dataVencimento > %@", [NSDate date]]];
@@ -122,8 +125,14 @@ static NSString * const BFOBoletoActionSheetInformarDataVencimento = @"Informar 
             break;
             
         case BFOOrdenacaoTelaPrincipalBanco:
-            self.boletos = [self.boletos sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"banco" ascending:NO],
-                                                                       [NSSortDescriptor sortDescriptorWithKey:@"data" ascending:NO]]];
+            boletosIntermediario = [self.boletos filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"banco != %@",@"-"]];
+            boletosIntermediario = [boletosIntermediario sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"banco" ascending:YES],
+                                                                                       [NSSortDescriptor sortDescriptorWithKey:@"data" ascending:NO]]];
+            
+            self.boletos = [self.boletos filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"banco == %@",@"-"]];
+            self.boletos = [self.boletos sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"data" ascending:NO],
+                                                                       [NSSortDescriptor sortDescriptorWithKey:@"dataVencimento" ascending:NO]]];
+            self.boletos = [boletosIntermediario arrayByAddingObjectsFromArray:self.boletos];
             break;
             
         case BFOOrdenacaoTelaPrincipalCategoria:
@@ -171,8 +180,14 @@ static NSString * const BFOBoletoActionSheetInformarDataVencimento = @"Informar 
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    BFOBoleto *boleto = self.boletos[indexPath.row];
+    
     if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [[BFOArmazenamentoBoleto sharedArmazenamentoBoleto] removerBoleto:boleto];
+        [self carregarBoletos];
         
+        [self setEditing:NO animated:NO];
+        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
 }
 
@@ -251,7 +266,7 @@ static NSString * const BFOBoletoActionSheetInformarDataVencimento = @"Informar 
                 [cell marcarComoNaoPago];
             }
         } else {
-            [self filtrarBoletos];
+            [self carregarBoletos];
             [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         }
     }

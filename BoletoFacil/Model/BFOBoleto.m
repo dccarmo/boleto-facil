@@ -262,7 +262,7 @@ static const NSUInteger diaBase = 07;
     if (self.dataVencimento) {
         diasAteVencimento = [[NSCalendar currentCalendar] daysWithinEraFromDate:[NSDate date] toDate:self.dataVencimento];
         
-        if (diasAteVencimento > 0) {
+        if (diasAteVencimento >= 0) {
             return diasAteVencimento;
         }
     }
