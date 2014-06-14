@@ -73,8 +73,6 @@ static NSString * const BFOBoletoActionSheetInformarDataVencimento = @"Informar 
     
     self.tableView.tableFooterView = [UIView new];
     [self.tableView registerNib:[UINib nibWithNibName:@"BFOListaBoletosTableViewCell" bundle:nil] forCellReuseIdentifier:@"BFOListaBoletosTableViewCell"];
-    
-    [[BFOArmazenamentoBoleto sharedArmazenamentoBoleto] adicionarBoletoComCodigoBarras:@"82610000001873500600011020361895405142140606"];
 }
 
 - (void)viewWillAppear:(BOOL)animated

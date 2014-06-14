@@ -238,6 +238,11 @@ static const NSUInteger diaBase = 07;
         }
         
         fatorVencimento = [self.codigoBarras substringWithRange:NSRangeFromString(@"5-4")];
+        
+        if ([fatorVencimento integerValue] <= 0) {
+            return nil;
+        }
+        
         componentesDataInicio = [NSDateComponents new];
         componentesDataSoma = [NSDateComponents new];
         

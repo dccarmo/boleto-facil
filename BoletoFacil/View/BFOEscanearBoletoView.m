@@ -37,6 +37,8 @@
 
 - (void)awakeFromNib
 {
+    self.frame = [UIScreen mainScreen].bounds;
+    
     self.botaoFechar.hidden = YES;
     self.botaoFlash.hidden = YES;
     
