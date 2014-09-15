@@ -54,6 +54,11 @@
     [super viewDidLoad];
     
     [self capturarCodigoBarra];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
@@ -61,7 +66,7 @@
         NSString *title = @"Ajuda";
         NSString *message = @"Alinhe o código de barras do boleto entre as duas barras e o aplicativo irá lê-lo automaticamente.";
         
-        if (SYSTEM_VERSION_GREATER_THAN(@"8.0")) {
+        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
             [alertController addAction:[UIAlertAction actionWithTitle:@"Entendi" style:UIAlertActionStyleDefault handler:nil]];
             
@@ -71,11 +76,6 @@
             [alertView show];
         }
     }
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
     
     BFOEscanearBoletoView *view = (BFOEscanearBoletoView *) self.view;
    
@@ -138,7 +138,6 @@
     BFOEscanearBoletoView *view = (BFOEscanearBoletoView *) self.view;
     NSString *codigoBarras;
     DCCBoletoFormatter *formatoBoleto = [DCCBoletoFormatter new];
-    BFOBoleto *boleto;
     
     for (ZBarSymbol *symbol in symbols) {
         codigoBarras = symbol.data;
@@ -149,21 +148,17 @@
             continue;
         }
         
-        boleto = [[BFOArmazenamentoBoleto sharedArmazenamentoBoleto] adicionarBoletoComCodigoBarras:codigoBarras];
+        self.boleto = [[BFOArmazenamentoBoleto sharedArmazenamentoBoleto] adicionarBoletoComCodigoBarras:codigoBarras];
         
         [self.leitorView stop];
         
-        [navegacaoPrincipal pushViewController:[[BFOMostrarBoletoViewController alloc] initWithBoleto:boleto] animated:NO];
-        
         [view alterarBotaoFecharParaBotaoSucesso];
-        
-        if (self.leitorView.torchMode == AVCaptureTorchModeOn) {
-            
-        }
         
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         [userDefaults setObject:@NO forKey:BFONenhumBoletoLidoKey];
         [userDefaults synchronize];
+        
+        [[navegacaoPrincipal topViewController] performSegueWithIdentifier:@"mostrarBoletoSegue" sender:self];
         
         [self performSelector:@selector(fecharAction:) withObject:nil afterDelay:2.0f];
         

@@ -12,6 +12,8 @@
 
 @interface BFOInformarDataVencimentoViewController : UITableViewController
 
-- (instancetype)initWithBoleto:(BFOBoleto *)boleto;
+@property (nonatomic) BFOBoleto *boleto;
+
+//- (instancetype)initWithBoleto:(BFOBoleto *)boleto;
 
 @end

@@ -126,9 +126,9 @@ static const NSUInteger alturaInicialEstadoServidorFundo = 30;
     for (NSString *sequencia in sequenciasLinhaDigitavel) {
         
         if ([sequencia isEqual:[sequenciasLinhaDigitavel firstObject]]) {
-            frameCampoSequencia =  CGRectMake(self.containerLinhaDigitavel.frame.size.width/2, 0, self.containerLinhaDigitavel.frame.size.width, self.containerLinhaDigitavel.frame.size.height);
+            frameCampoSequencia =  CGRectMake(self.frame.size.width/2, 0, self.frame.size.width, self.frame.size.height);
         } else  {
-            frameCampoSequencia =  CGRectMake(textoSequencia.frame.origin.x + textoSequencia.frame.size.width + margemNumerosLinhaDigitavel, 0, self.containerLinhaDigitavel.frame.size.width, self.containerLinhaDigitavel.frame.size.height);
+            frameCampoSequencia =  CGRectMake(textoSequencia.frame.origin.x + textoSequencia.frame.size.width + margemNumerosLinhaDigitavel, 0, self.frame.size.width, self.containerLinhaDigitavel.frame.size.height);
         }
         
         textoSequencia = [[BFOSequenciaLabel alloc] initWithFrame:frameCampoSequencia];
@@ -137,7 +137,7 @@ static const NSUInteger alturaInicialEstadoServidorFundo = 30;
         [textoSequencia sizeToFit];
         
         if ([sequencia isEqual:[sequenciasLinhaDigitavel firstObject]]) {
-            textoSequencia.center = CGPointMake(self.containerLinhaDigitavel.frame.size.width/2, textoSequencia.center.y);
+            textoSequencia.center = CGPointMake(self.frame.size.width/2, textoSequencia.center.y);
         }
         
         [self.containerLinhaDigitavel addSubview:textoSequencia];
@@ -146,13 +146,13 @@ static const NSUInteger alturaInicialEstadoServidorFundo = 30;
     if (textoSequencia.frame.size.width >= self.containerCodigoBarras.frame.size.width/2) {
         self.containerLinhaDigitavel.contentSize = CGSizeMake(textoSequencia.frame.origin.x + textoSequencia.frame.size.width + margemLateralView, self.containerLinhaDigitavel.contentSize.height);
     } else {
-        self.containerLinhaDigitavel.contentSize = CGSizeMake(textoSequencia.frame.origin.x + textoSequencia.frame.size.width + self.containerLinhaDigitavel.frame.size.width/2, self.containerLinhaDigitavel.contentSize.height);
+        self.containerLinhaDigitavel.contentSize = CGSizeMake(textoSequencia.frame.origin.x + textoSequencia.frame.size.width + self.frame.size.width/2, self.containerLinhaDigitavel.contentSize.height);
     }
 }
 
 - (void)configurarContainerCodigoBarrasComBoleto:(BFOBoleto *)boleto
 {
-    BFOSequenciaLabel *textoSequencia = [[BFOSequenciaLabel alloc] initWithFrame:CGRectMake(20, 0, self.containerCodigoBarras.frame.size.width, self.containerCodigoBarras.frame.size.width)];
+    BFOSequenciaLabel *textoSequencia = [[BFOSequenciaLabel alloc] initWithFrame:CGRectMake(margemLateralView, 0, self.frame.size.width, self.frame.size.width)];
     
     textoSequencia.text = boleto.codigoBarras;
     [textoSequencia sizeToFit];
@@ -174,9 +174,9 @@ static const NSUInteger alturaInicialEstadoServidorFundo = 30;
         }
         
         deslocamentoTextoSequencia = textoSequencia.center.x - self.containerLinhaDigitavel.contentOffset.x;
-        distanciaDoCentro = abs(deslocamentoTextoSequencia - self.containerLinhaDigitavel.center.x);
+        distanciaDoCentro = abs(deslocamentoTextoSequencia - self.center.x);
         
-        transparenciaTextoSequencia = distanciaDoCentro/self.containerLinhaDigitavel.center.x;
+        transparenciaTextoSequencia = distanciaDoCentro/self.center.x;
         
         if (transparenciaTextoSequencia >= 0.9f) {
             transparenciaTextoSequencia = 0.9f;

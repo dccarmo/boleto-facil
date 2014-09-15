@@ -16,8 +16,6 @@
 
 @interface BFOInformarDataVencimentoViewController ()
 
-@property (nonatomic) BFOBoleto *boleto;
-
 @property (weak, nonatomic) IBOutlet UILabel *data;
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
 
@@ -25,16 +23,16 @@
 
 @implementation BFOInformarDataVencimentoViewController
 
-- (instancetype)initWithBoleto:(BFOBoleto *)boleto
-{
-    UIStoryboard* dataVencimentoStoryboard = [UIStoryboard storyboardWithName:@"BFOInformarDataVencimento" bundle:nil];
-    
-    self = [dataVencimentoStoryboard instantiateInitialViewController];
-    if (self) {
-        self.boleto = boleto;
-    }
-    return self;
-}
+//- (instancetype)initWithBoleto:(BFOBoleto *)boleto
+//{
+//    UIStoryboard* dataVencimentoStoryboard = [UIStoryboard storyboardWithName:@"BFOInformarDataVencimento" bundle:nil];
+//    
+//    self = [dataVencimentoStoryboard instantiateInitialViewController];
+//    if (self) {
+//        self.boleto = boleto;
+//    }
+//    return self;
+//}
 
 #pragma mark - UIViewController
 

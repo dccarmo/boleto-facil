@@ -25,32 +25,31 @@
 
 @interface BFOMostrarBoletoViewController ()
 
-@property (nonatomic) BFOBoleto *boleto;
 @property (nonatomic) BOOL dataVencimentoRelativa;
 
 @end
 
 @implementation BFOMostrarBoletoViewController
 
-- (instancetype)initWithBoleto:(BFOBoleto *)boleto
-{
-    self = [super initWithNibName:@"BFOMostrarBoletoView" bundle:nil];
-    if (self) {
-        UIBarButtonItem *botaoCompartilhar = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(compartilharBoleto)];
-        
-        self.navigationItem.title = @"Detalhe";
-        self.navigationItem.rightBarButtonItem = botaoCompartilhar;
-        
-        self.boleto = boleto;
-    }
-    return self;
-}
+//- (instancetype)initWithBoleto:(BFOBoleto *)boleto
+//{
+//    self = [super initWithNibName:@"BFOMostrarBoletoView" bundle:nil];
+//    if (self) {
+//        UIBarButtonItem *botaoCompartilhar = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(compartilharBoleto)];
+//        
+//        self.navigationItem.title = @"Detalhe";
+//        self.navigationItem.rightBarButtonItem = botaoCompartilhar;
+//        
+//        self.boleto = boleto;
+//    }
+//    return self;
+//}
 
-- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [self initWithBoleto:nil];
-    return self;
-}
+//- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+//{
+//    self = [self initWithBoleto:nil];
+//    return self;
+//}
 
 #pragma mark - UIViewController
 
@@ -58,12 +57,31 @@
 {
     [super viewDidLoad];
     
+//    BFOMostrarBoletoView *view = (BFOMostrarBoletoView *) self.view;
+//    
+//    [view configurarViewComBoleto:self.boleto];
+//    [view alterarEstadoCriacaoServidor:BFOEstadoCriacaoServidorIniciando mensagem:@"Carregando servidor..."];
+//    
+//    self.dataVencimentoRelativa = YES;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
     BFOMostrarBoletoView *view = (BFOMostrarBoletoView *) self.view;
     
     [view configurarViewComBoleto:self.boleto];
     [view alterarEstadoCriacaoServidor:BFOEstadoCriacaoServidorIniciando mensagem:@"Carregando servidor..."];
     
     self.dataVencimentoRelativa = YES;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [self adicionarAcessoWeb];
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
@@ -71,7 +89,7 @@
         NSString *title = @"Ajuda";
         NSString *message = @"Aqui você tem todas as informações que o aplicativo conseguiu extrair do código de barras. Para acessá-las no seu computador, digite o endereço que aparece no quadro verde.";
         
-        if (SYSTEM_VERSION_GREATER_THAN(@"8.0")) {
+        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
             [alertController addAction:[UIAlertAction actionWithTitle:@"Entendi" style:UIAlertActionStyleDefault handler:nil]];
             
@@ -81,13 +99,7 @@
             [alertView show];
         }
     }
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [self adicionarAcessoWeb];
     
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setObject:@NO forKey:BFONenhumBoletoVisualizadoKey];
     [userDefaults synchronize];
 }
@@ -106,7 +118,7 @@
     }
 }
 
-- (void)compartilharBoleto
+- (IBAction)compartilharBoletoAction:(id)sender
 {
     UIActivityViewController *opcoesCompartilhamento;
     

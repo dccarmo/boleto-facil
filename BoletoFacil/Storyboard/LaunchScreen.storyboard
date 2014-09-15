@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14A343f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ylW-fY-Nxi">
+    <dependencies>
+        <deployment defaultVersion="1808" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+    </dependencies>
+    <scenes>
+        <!--Boletos-->
+        <scene sceneID="kMY-wy-SjR">
+            <objects>
+                <tableViewController id="q3d-0m-rK5" customClass="BFOListaBoletosViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="xqx-ni-r6s">
+                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="q3d-0m-rK5" id="WtH-0p-9xp"/>
+                            <outlet property="delegate" destination="q3d-0m-rK5" id="0wh-nQ-OpO"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Boletos" id="A7G-Ok-pEp">
+                        <barButtonItem key="leftBarButtonItem" image="botao_config_navbar" id="Rbg-2h-82C">
+                            <color key="tintColor" red="0.98823529409999999" green="0.17254901959999999" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="L3z-LG-obB">
+                            <color key="tintColor" red="0.98823529409999999" green="0.17254901959999999" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3J2-Ke-zeZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="956" y="410"/>
+        </scene>
+        <!--Navegacao Principal View Controller-->
+        <scene sceneID="DyC-Us-rPv">
+            <objects>
+                <navigationController id="ylW-fY-Nxi" customClass="BFONavegacaoPrincipalViewController" sceneMemberID="viewController">
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="cOj-tw-X3g">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="q3d-0m-rK5" kind="relationship" relationship="rootViewController" id="7y5-Nq-d1D"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1rg-p6-p1t" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="253" y="410"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="botao_config_navbar" width="25" height="25"/>
+    </resources>
+</document>

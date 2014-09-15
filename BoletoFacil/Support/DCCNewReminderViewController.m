@@ -66,7 +66,7 @@ typedef NS_ENUM(NSUInteger, DCCNewReminderRow)
     
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
     
-    if (SYSTEM_VERSION_GREATER_THAN(@"8.0")) {
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
         UIMutableUserNotificationAction *pagoAction = [UIMutableUserNotificationAction new];
         pagoAction.identifier = BFOPagoActionIdentifier;
         pagoAction.title = @"Já paguei";

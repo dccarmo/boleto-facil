@@ -18,22 +18,29 @@
 
 @implementation BFONavegacaoPrincipalViewController
 
-- (instancetype)init
+- (void)awakeFromNib
 {
-    BFOListaBoletosViewController *listaBoletos = [BFOListaBoletosViewController new];
+    [super awakeFromNib];
     
-    self = [super initWithRootViewController:listaBoletos];
-    if (self) {
-        self.navigationBar.translucent = NO;
-    }
-    return self;
+    self.navigationBar.translucent = NO;
 }
 
-- (instancetype)initWithRootViewController:(UIViewController *)rootViewController
-{
-    self = [self init];
-    return self;
-}
+//- (instancetype)init
+//{
+//    BFOListaBoletosViewController *listaBoletos = [BFOListaBoletosViewController new];
+//    
+//    self = [super initWithRootViewController:listaBoletos];
+//    if (self) {
+//        self.navigationBar.translucent = NO;
+//    }
+//    return self;
+//}
+//
+//- (instancetype)initWithRootViewController:(UIViewController *)rootViewController
+//{
+//    self = [self init];
+//    return self;
+//}
 
 #pragma mark - UIViewController
 
@@ -47,9 +54,7 @@
 
 - (void)mostrarBoleto:(BFOBoleto *)boleto
 {
-    BFOMostrarBoletoViewController *mostrarBoleto = [[BFOMostrarBoletoViewController alloc] initWithBoleto:boleto];
-    
-    [self pushViewController:mostrarBoleto animated:NO];
+    [self.topViewController performSegueWithIdentifier:@"mostrarBoletoSegue" sender:boleto];
 }
 
 @end

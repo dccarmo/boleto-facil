@@ -121,17 +121,17 @@ typedef NS_ENUM(NSUInteger, BFOConfiguracoesViewControllerSecao)
 
 #pragma mark - UITableViewDelegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    if (indexPath.section == BFOConfiguracoesViewControllerSecaoTelaPrincipal ) {
-        [self.navigationController pushViewController:[BFOOrdenacaoListaBoletoViewController new] animated:YES];
-    }
-    
-    if (indexPath.section == BFOConfiguracoesViewControllerSecaoLembretes) {
-        [self.navigationController pushViewController:[BFOListaLembretesViewController new] animated:YES];
-    }
-}
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+//    
+//    if (indexPath.section == BFOConfiguracoesViewControllerSecaoTelaPrincipal ) {
+//        [self.navigationController pushViewController:[BFOOrdenacaoListaBoletoViewController new] animated:YES];
+//    }
+//    
+//    if (indexPath.section == BFOConfiguracoesViewControllerSecaoLembretes) {
+//        [self.navigationController pushViewController:[BFOListaLembretesViewController new] animated:YES];
+//    }
+//}
 
 @end

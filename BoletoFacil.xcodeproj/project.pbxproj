@@ -19,18 +19,16 @@
 		D9186C1C190D8846008B03BB /* BFOEscanearBoletoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9186C1B190D8846008B03BB /* BFOEscanearBoletoViewController.m */; };
 		D9186C1F190D8897008B03BB /* BFOMostrarBoletoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9186C1E190D8897008B03BB /* BFOMostrarBoletoViewController.m */; };
 		D9186C22190DDEC3008B03BB /* BFOEscanearBoletoView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9186C21190DDEC3008B03BB /* BFOEscanearBoletoView.m */; };
-		D9186C24190DDECD008B03BB /* BFOEscanearBoletoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9186C23190DDECD008B03BB /* BFOEscanearBoletoView.xib */; };
-		D9186C29190F1541008B03BB /* BFOMostrarBoletoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9186C28190F1541008B03BB /* BFOMostrarBoletoView.xib */; };
 		D9186C2C190F1787008B03BB /* BFOMostrarBoletoView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9186C2B190F1787008B03BB /* BFOMostrarBoletoView.m */; };
 		D9186C2F19129C87008B03BB /* BFOArmazenamentoBoleto.m in Sources */ = {isa = PBXBuildFile; fileRef = D9186C2E19129C87008B03BB /* BFOArmazenamentoBoleto.m */; };
 		D9186C321913C6C2008B03BB /* BFONavegacaoPrincipalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9186C311913C6C2008B03BB /* BFONavegacaoPrincipalViewController.m */; };
-		D9186C341913CA8B008B03BB /* BFOListaBoletosView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9186C331913CA8B008B03BB /* BFOListaBoletosView.xib */; };
 		D9186C371913CF48008B03BB /* BFOListaBoletosView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9186C361913CF48008B03BB /* BFOListaBoletosView.m */; };
-		D9186C391913FC78008B03BB /* BFOListaBoletosTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9186C381913FC78008B03BB /* BFOListaBoletosTableViewCell.xib */; };
 		D9186C3C1913FEE1008B03BB /* BFOListaBoletosTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9186C3B1913FEE1008B03BB /* BFOListaBoletosTableViewCell.m */; };
 		D9186C3E19141111008B03BB /* BFOListaBolestosVaziaView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9186C3D19141111008B03BB /* BFOListaBolestosVaziaView.xib */; };
 		D9186C4919156FE8008B03BB /* BFOListaBancos.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9186C4819156FE8008B03BB /* BFOListaBancos.plist */; };
 		D9186C541916DE81008B03BB /* BFOServidorInternet.m in Sources */ = {isa = PBXBuildFile; fileRef = D9186C531916DE81008B03BB /* BFOServidorInternet.m */; };
+		D924795319C7163500D44970 /* Principal.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D924795219C7163500D44970 /* Principal.storyboard */; };
+		D924795519C71E6200D44970 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D924795419C71E6200D44970 /* LaunchScreen.storyboard */; };
 		D9B56336192573C800C53A05 /* BFOConfiguracoesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B56335192573C800C53A05 /* BFOConfiguracoesViewController.m */; };
 		D9B5633C1926568000C53A05 /* DCCBoletoFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B5633B1926568000C53A05 /* DCCBoletoFormatter.m */; };
 		D9B5633E1926585300C53A05 /* BFOListaCategorias.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9B5633D1926585300C53A05 /* BFOListaCategorias.plist */; };
@@ -42,11 +40,7 @@
 		D9D1CF15191855190015C8EB /* BFOBoleto.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D1CF14191855190015C8EB /* BFOBoleto.m */; };
 		D9D1CF18191879230015C8EB /* BFOSequenciaLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D1CF17191879230015C8EB /* BFOSequenciaLabel.m */; };
 		D9D1CF21191AC7120015C8EB /* DCCNewReminderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D1CF20191AC7120015C8EB /* DCCNewReminderViewController.m */; };
-		D9EA68A0192E192200FDFBB8 /* BFOListaBoletosActionButtonsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9EA689F192E192200FDFBB8 /* BFOListaBoletosActionButtonsView.xib */; };
-		D9EA68A3192EBC1900FDFBB8 /* BFOListaBoletosActionButtonsView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EA68A2192EBC1900FDFBB8 /* BFOListaBoletosActionButtonsView.m */; };
 		D9EA68E51932BB1600FDFBB8 /* BFOInformarDataVencimentoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EA68E41932BB1600FDFBB8 /* BFOInformarDataVencimentoViewController.m */; };
-		D9EA68EC19341E0C00FDFBB8 /* BFOConfiguracoes.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9EA68EA19341E0C00FDFBB8 /* BFOConfiguracoes.storyboard */; };
-		D9EA68ED19341E0C00FDFBB8 /* BFOInformarDataVencimento.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9EA68EB19341E0C00FDFBB8 /* BFOInformarDataVencimento.storyboard */; };
 		D9EA68F019356C1200FDFBB8 /* NSCalendar+Calculations.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EA68EF19356C1200FDFBB8 /* NSCalendar+Calculations.m */; };
 /* End PBXBuildFile section */
 
@@ -73,24 +67,22 @@
 		D9186C1E190D8897008B03BB /* BFOMostrarBoletoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFOMostrarBoletoViewController.m; sourceTree = "<group>"; };
 		D9186C20190DDEC3008B03BB /* BFOEscanearBoletoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFOEscanearBoletoView.h; sourceTree = "<group>"; };
 		D9186C21190DDEC3008B03BB /* BFOEscanearBoletoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFOEscanearBoletoView.m; sourceTree = "<group>"; };
-		D9186C23190DDECD008B03BB /* BFOEscanearBoletoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BFOEscanearBoletoView.xib; sourceTree = "<group>"; };
-		D9186C28190F1541008B03BB /* BFOMostrarBoletoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BFOMostrarBoletoView.xib; sourceTree = "<group>"; };
 		D9186C2A190F1787008B03BB /* BFOMostrarBoletoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFOMostrarBoletoView.h; sourceTree = "<group>"; };
 		D9186C2B190F1787008B03BB /* BFOMostrarBoletoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFOMostrarBoletoView.m; sourceTree = "<group>"; };
 		D9186C2D19129C87008B03BB /* BFOArmazenamentoBoleto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFOArmazenamentoBoleto.h; sourceTree = "<group>"; };
 		D9186C2E19129C87008B03BB /* BFOArmazenamentoBoleto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFOArmazenamentoBoleto.m; sourceTree = "<group>"; };
 		D9186C301913C6C2008B03BB /* BFONavegacaoPrincipalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFONavegacaoPrincipalViewController.h; sourceTree = "<group>"; };
 		D9186C311913C6C2008B03BB /* BFONavegacaoPrincipalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFONavegacaoPrincipalViewController.m; sourceTree = "<group>"; };
-		D9186C331913CA8B008B03BB /* BFOListaBoletosView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BFOListaBoletosView.xib; sourceTree = "<group>"; };
 		D9186C351913CF48008B03BB /* BFOListaBoletosView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFOListaBoletosView.h; sourceTree = "<group>"; };
 		D9186C361913CF48008B03BB /* BFOListaBoletosView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFOListaBoletosView.m; sourceTree = "<group>"; };
-		D9186C381913FC78008B03BB /* BFOListaBoletosTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BFOListaBoletosTableViewCell.xib; sourceTree = "<group>"; };
 		D9186C3A1913FEE1008B03BB /* BFOListaBoletosTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFOListaBoletosTableViewCell.h; sourceTree = "<group>"; };
 		D9186C3B1913FEE1008B03BB /* BFOListaBoletosTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFOListaBoletosTableViewCell.m; sourceTree = "<group>"; };
 		D9186C3D19141111008B03BB /* BFOListaBolestosVaziaView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BFOListaBolestosVaziaView.xib; sourceTree = "<group>"; };
 		D9186C4819156FE8008B03BB /* BFOListaBancos.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BFOListaBancos.plist; sourceTree = "<group>"; };
 		D9186C521916DE81008B03BB /* BFOServidorInternet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFOServidorInternet.h; sourceTree = "<group>"; };
 		D9186C531916DE81008B03BB /* BFOServidorInternet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFOServidorInternet.m; sourceTree = "<group>"; };
+		D924795219C7163500D44970 /* Principal.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Principal.storyboard; sourceTree = "<group>"; };
+		D924795419C71E6200D44970 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D9B56334192573C800C53A05 /* BFOConfiguracoesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFOConfiguracoesViewController.h; sourceTree = "<group>"; };
 		D9B56335192573C800C53A05 /* BFOConfiguracoesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFOConfiguracoesViewController.m; sourceTree = "<group>"; };
 		D9B5633A1926568000C53A05 /* DCCBoletoFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCCBoletoFormatter.h; sourceTree = "<group>"; };
@@ -110,13 +102,8 @@
 		D9D1CF17191879230015C8EB /* BFOSequenciaLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFOSequenciaLabel.m; sourceTree = "<group>"; };
 		D9D1CF1F191AC7120015C8EB /* DCCNewReminderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCCNewReminderViewController.h; sourceTree = "<group>"; };
 		D9D1CF20191AC7120015C8EB /* DCCNewReminderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCCNewReminderViewController.m; sourceTree = "<group>"; };
-		D9EA689F192E192200FDFBB8 /* BFOListaBoletosActionButtonsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BFOListaBoletosActionButtonsView.xib; sourceTree = "<group>"; };
-		D9EA68A1192EBC1900FDFBB8 /* BFOListaBoletosActionButtonsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFOListaBoletosActionButtonsView.h; sourceTree = "<group>"; };
-		D9EA68A2192EBC1900FDFBB8 /* BFOListaBoletosActionButtonsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFOListaBoletosActionButtonsView.m; sourceTree = "<group>"; };
 		D9EA68E31932BB1600FDFBB8 /* BFOInformarDataVencimentoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFOInformarDataVencimentoViewController.h; sourceTree = "<group>"; };
 		D9EA68E41932BB1600FDFBB8 /* BFOInformarDataVencimentoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFOInformarDataVencimentoViewController.m; sourceTree = "<group>"; };
-		D9EA68EA19341E0C00FDFBB8 /* BFOConfiguracoes.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BFOConfiguracoes.storyboard; sourceTree = "<group>"; };
-		D9EA68EB19341E0C00FDFBB8 /* BFOInformarDataVencimento.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BFOInformarDataVencimento.storyboard; sourceTree = "<group>"; };
 		D9EA68EE19356C1200FDFBB8 /* NSCalendar+Calculations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCalendar+Calculations.h"; sourceTree = "<group>"; };
 		D9EA68EF19356C1200FDFBB8 /* NSCalendar+Calculations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCalendar+Calculations.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -171,6 +158,7 @@
 			children = (
 				D9186BF0190D84CD008B03BB /* BFOAppDelegate.h */,
 				D9186BF1190D84CD008B03BB /* BFOAppDelegate.m */,
+				D924795119C7159F00D44970 /* Storyboard */,
 				D9186C10190D874B008B03BB /* Library */,
 				D9186C13190D874B008B03BB /* View */,
 				D9186C14190D874B008B03BB /* ViewController */,
@@ -227,22 +215,15 @@
 			children = (
 				D9186C20190DDEC3008B03BB /* BFOEscanearBoletoView.h */,
 				D9186C21190DDEC3008B03BB /* BFOEscanearBoletoView.m */,
-				D9186C23190DDECD008B03BB /* BFOEscanearBoletoView.xib */,
 				D9D1CF16191879230015C8EB /* BFOSequenciaLabel.h */,
 				D9D1CF17191879230015C8EB /* BFOSequenciaLabel.m */,
 				D9186C2A190F1787008B03BB /* BFOMostrarBoletoView.h */,
 				D9186C2B190F1787008B03BB /* BFOMostrarBoletoView.m */,
-				D9186C28190F1541008B03BB /* BFOMostrarBoletoView.xib */,
 				D9186C351913CF48008B03BB /* BFOListaBoletosView.h */,
 				D9186C361913CF48008B03BB /* BFOListaBoletosView.m */,
-				D9186C331913CA8B008B03BB /* BFOListaBoletosView.xib */,
 				D9186C3D19141111008B03BB /* BFOListaBolestosVaziaView.xib */,
 				D9186C3A1913FEE1008B03BB /* BFOListaBoletosTableViewCell.h */,
 				D9186C3B1913FEE1008B03BB /* BFOListaBoletosTableViewCell.m */,
-				D9186C381913FC78008B03BB /* BFOListaBoletosTableViewCell.xib */,
-				D9EA68A1192EBC1900FDFBB8 /* BFOListaBoletosActionButtonsView.h */,
-				D9EA68A2192EBC1900FDFBB8 /* BFOListaBoletosActionButtonsView.m */,
-				D9EA689F192E192200FDFBB8 /* BFOListaBoletosActionButtonsView.xib */,
 				D9B56347192977F800C53A05 /* BFOListaLembretesVaziaView.xib */,
 			);
 			path = View;
@@ -253,7 +234,6 @@
 			children = (
 				D9186C17190D87B9008B03BB /* BFOListaBoletosViewController.h */,
 				D9186C18190D87B9008B03BB /* BFOListaBoletosViewController.m */,
-				D9EA68EB19341E0C00FDFBB8 /* BFOInformarDataVencimento.storyboard */,
 				D9EA68E31932BB1600FDFBB8 /* BFOInformarDataVencimentoViewController.h */,
 				D9EA68E41932BB1600FDFBB8 /* BFOInformarDataVencimentoViewController.m */,
 				D9186C301913C6C2008B03BB /* BFONavegacaoPrincipalViewController.h */,
@@ -262,7 +242,6 @@
 				D9186C1B190D8846008B03BB /* BFOEscanearBoletoViewController.m */,
 				D9186C1D190D8897008B03BB /* BFOMostrarBoletoViewController.h */,
 				D9186C1E190D8897008B03BB /* BFOMostrarBoletoViewController.m */,
-				D9EA68EA19341E0C00FDFBB8 /* BFOConfiguracoes.storyboard */,
 				D9B56334192573C800C53A05 /* BFOConfiguracoesViewController.h */,
 				D9B56335192573C800C53A05 /* BFOConfiguracoesViewController.m */,
 				D9B5634419296E7800C53A05 /* BFOOrdenacaoListaBoletoViewController.h */,
@@ -271,6 +250,15 @@
 				D9B563421928452500C53A05 /* BFOListaLembretesViewController.m */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		D924795119C7159F00D44970 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				D924795219C7163500D44970 /* Principal.storyboard */,
+				D924795419C71E6200D44970 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboard;
 			sourceTree = "<group>";
 		};
 		D9D1CF121918550A0015C8EB /* Model */ = {
@@ -315,7 +303,6 @@
 				ORGANIZATIONNAME = "Diogo do Carmo";
 				TargetAttributes = {
 					D9186BDD190D84CD008B03BB = {
-						DevelopmentTeam = NGYV2XXS3X;
 						SystemCapabilities = {
 							com.apple.InterAppAudio = {
 								enabled = 0;
@@ -348,16 +335,11 @@
 			files = (
 				D9B5633E1926585300C53A05 /* BFOListaCategorias.plist in Resources */,
 				D9186C4919156FE8008B03BB /* BFOListaBancos.plist in Resources */,
-				D9186C29190F1541008B03BB /* BFOMostrarBoletoView.xib in Resources */,
-				D9186C24190DDECD008B03BB /* BFOEscanearBoletoView.xib in Resources */,
-				D9EA68EC19341E0C00FDFBB8 /* BFOConfiguracoes.storyboard in Resources */,
+				D924795319C7163500D44970 /* Principal.storyboard in Resources */,
+				D924795519C71E6200D44970 /* LaunchScreen.storyboard in Resources */,
 				D9B56348192977F800C53A05 /* BFOListaLembretesVaziaView.xib in Resources */,
 				D9186C3E19141111008B03BB /* BFOListaBolestosVaziaView.xib in Resources */,
-				D9EA68ED19341E0C00FDFBB8 /* BFOInformarDataVencimento.storyboard in Resources */,
-				D9186C341913CA8B008B03BB /* BFOListaBoletosView.xib in Resources */,
 				D9186BEC190D84CD008B03BB /* InfoPlist.strings in Resources */,
-				D9186C391913FC78008B03BB /* BFOListaBoletosTableViewCell.xib in Resources */,
-				D9EA68A0192E192200FDFBB8 /* BFOListaBoletosActionButtonsView.xib in Resources */,
 				D9B5634A192982E500C53A05 /* BFOBoletoHTML.html in Resources */,
 				D9186BF4190D84CD008B03BB /* Images.xcassets in Resources */,
 			);
@@ -407,7 +389,6 @@
 				D9186C2C190F1787008B03BB /* BFOMostrarBoletoView.m in Sources */,
 				D9D1CF15191855190015C8EB /* BFOBoleto.m in Sources */,
 				D9186C3C1913FEE1008B03BB /* BFOListaBoletosTableViewCell.m in Sources */,
-				D9EA68A3192EBC1900FDFBB8 /* BFOListaBoletosActionButtonsView.m in Sources */,
 				D9186BF2190D84CD008B03BB /* BFOAppDelegate.m in Sources */,
 				D9EA68E51932BB1600FDFBB8 /* BFOInformarDataVencimentoViewController.m in Sources */,
 				D9D1CF11191850FD0015C8EB /* Reachability.m in Sources */,
@@ -520,14 +501,13 @@
 			baseConfigurationReference = 46B23A6EF2A64E91B016FB47 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Diogo Carmo (NGYV2XXS3X)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BoletoFacil/BoletoFacil-Prefix.pch";
 				INFOPLIST_FILE = "BoletoFacil/BoletoFacil-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = Zebra;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "5d82daea-5497-41b3-aa10-4ee2838dbba2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -537,14 +517,13 @@
 			baseConfigurationReference = 46B23A6EF2A64E91B016FB47 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Diogo Carmo (NGYV2XXS3X)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BoletoFacil/BoletoFacil-Prefix.pch";
 				INFOPLIST_FILE = "BoletoFacil/BoletoFacil-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = Zebra;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "5d82daea-5497-41b3-aa10-4ee2838dbba2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

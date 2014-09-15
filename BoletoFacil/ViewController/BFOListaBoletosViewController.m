@@ -42,27 +42,19 @@ static NSString * const BFOBoletoActionSheetInformarDataVencimento = @"Informar 
 
 @implementation BFOListaBoletosViewController
 
-- (instancetype)init
+- (void)awakeFromNib
 {
-    self = [super initWithNibName:@"BFOListaBoletosView" bundle:nil];
-    if (self) {
-        UIImage *imagemEscanear = [UIImage imageNamed:@"botao_config_navbar"];
-        UIBarButtonItem *config = [[UIBarButtonItem alloc] initWithImage:imagemEscanear style:UIBarButtonItemStylePlain target:self action:@selector(abrirConfiguracao)];
-        UIBarButtonItem *adicionar = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(escanearCodigo)];
-        
-        self.navigationItem.title = @"Boletos";
-        self.navigationItem.leftBarButtonItem = config;
-        self.navigationItem.rightBarButtonItem = adicionar;
-        
-        self.navigationController.navigationBar.translucent = NO;
-    }
-    return self;
-}
-
-- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [self init];
-    return self;
+    [super awakeFromNib];
+    
+//    UIImage *imagemEscanear = [UIImage imageNamed:@"botao_config_navbar"];
+//    UIBarButtonItem *config = [[UIBarButtonItem alloc] initWithImage:imagemEscanear style:UIBarButtonItemStylePlain target:self action:@selector(abrirConfiguracao)];
+//    UIBarButtonItem *adicionar = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(escanearCodigo)];
+//    
+//    self.navigationItem.title = @"Boletos";
+//    self.navigationItem.leftBarButtonItem = config;
+//    self.navigationItem.rightBarButtonItem = adicionar;
+    
+    self.navigationController.navigationBar.translucent = NO;
 }
 
 #pragma mark - UIViewController
@@ -72,7 +64,8 @@ static NSString * const BFOBoletoActionSheetInformarDataVencimento = @"Informar 
     [super viewDidLoad];
     
     self.tableView.tableFooterView = [UIView new];
-    [self.tableView registerNib:[UINib nibWithNibName:@"BFOListaBoletosTableViewCell" bundle:nil] forCellReuseIdentifier:@"BFOListaBoletosTableViewCell"];
+    
+    [[BFOArmazenamentoBoleto sharedArmazenamentoBoleto] adicionarBoletoComCodigoBarras:@"75692602900000359191301002035469414265164001"];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -81,6 +74,34 @@ static NSString * const BFOBoletoActionSheetInformarDataVencimento = @"Informar 
     
     [self carregarBoletos];
     [self.tableView reloadData];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"mostrarBoletoSegue"]) {
+        BFOMostrarBoletoViewController *mostrarBoleto = segue.destinationViewController;
+        
+        if ([sender isKindOfClass:[BFOEscanearBoletoViewController class]]) {
+            BFOEscanearBoletoViewController *escanearBoleto = sender;
+            
+            mostrarBoleto.boleto = escanearBoleto.boleto;
+        }
+        
+        if ([sender isKindOfClass:[UITableViewCell class]]) {
+            mostrarBoleto.boleto = self.boletos[[self.tableView indexPathForSelectedRow].row];
+        }
+        
+        if ([sender isKindOfClass:[BFOBoleto class]]) {
+            mostrarBoleto.boleto = sender;
+        }
+    }
+    
+    if ([segue.identifier isEqualToString:@"informarDataVencimentoSegue"]) {
+        UINavigationController *navigationController = segue.destinationViewController;
+        BFOInformarDataVencimentoViewController *informarDataVencimento = (BFOInformarDataVencimentoViewController *) [navigationController topViewController];
+        
+        informarDataVencimento.boleto = self.boletoSendoEditado;
+    }
 }
 
 #pragma mark - BFOListaBoletosViewController
@@ -140,18 +161,18 @@ static NSString * const BFOBoletoActionSheetInformarDataVencimento = @"Informar 
     }
 }
 
-- (void)abrirConfiguracao
-{
-    BFOConfiguracoesViewController *configuracoes = [BFOConfiguracoesViewController new];
-    UINavigationController *navegacao = [[UINavigationController alloc] initWithRootViewController:configuracoes];
-    
-    [self presentViewController:navegacao animated:YES completion:nil];
-}
-
-- (void)escanearCodigo
-{
-    [self presentViewController:[BFOEscanearBoletoViewController new] animated:YES completion:nil];
-}
+//- (void)abrirConfiguracao
+//{
+//    BFOConfiguracoesViewController *configuracoes = [BFOConfiguracoesViewController new];
+//    UINavigationController *navegacao = [[UINavigationController alloc] initWithRootViewController:configuracoes];
+//    
+//    [self presentViewController:navegacao animated:YES completion:nil];
+//}
+//
+//- (void)escanearCodigo
+//{
+//    [self presentViewController:[BFOEscanearBoletoViewController new] animated:YES completion:nil];
+//}
 
 #pragma mark - UITableViewDataSource
 
@@ -233,11 +254,7 @@ static NSString * const BFOBoletoActionSheetInformarDataVencimento = @"Informar 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    BFOBoleto *boleto = self.boletos[indexPath.row];
-    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    [self.navigationController pushViewController:[[BFOMostrarBoletoViewController alloc] initWithBoleto:boleto] animated:YES];
 }
 
 #pragma mark -UIActionSheetDelegate
@@ -270,7 +287,8 @@ static NSString * const BFOBoletoActionSheetInformarDataVencimento = @"Informar 
     }
     
     if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:BFOBoletoActionSheetInformarDataVencimento]) {
-        [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[[BFOInformarDataVencimentoViewController alloc] initWithBoleto:self.boletoSendoEditado]] animated:YES completion:nil];
+//        [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[[BFOInformarDataVencimentoViewController alloc] initWithBoleto:self.boletoSendoEditado]] animated:YES completion:nil];
+        [self performSegueWithIdentifier:@"informarDataVencimentoSegue" sender:self];
     }
     
     if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:BFOBoletoActionSheetCriarLembrete]) {

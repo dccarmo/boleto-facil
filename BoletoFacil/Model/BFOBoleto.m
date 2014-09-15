@@ -345,7 +345,7 @@ static const NSUInteger diaBase = 07;
     notificacao.soundName = UILocalNotificationDefaultSoundName;
     notificacao.applicationIconBadgeNumber = 1;
     
-    if (SYSTEM_VERSION_GREATER_THAN(@"8.0")) {
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
         notificacao.category = BFOPagoCategoryIdentifier;
     }
     

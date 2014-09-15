@@ -45,16 +45,17 @@ NSString *const BFOPagoCategoryIdentifier = @"PagoCategoryIdentifier";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    BFONavegacaoPrincipalViewController *navegacaoPrincipal = [BFONavegacaoPrincipalViewController new];
-
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.rootViewController = navegacaoPrincipal;
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
+//    BFONavegacaoPrincipalViewController *navegacaoPrincipal = [BFONavegacaoPrincipalViewController new];
+//
+//    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+//    self.window.rootViewController = navegacaoPrincipal;
+//    self.window.backgroundColor = [UIColor whiteColor];
+//    [self.window makeKeyAndVisible];
     
     [self setApplicationStyle];
     
     if (launchOptions[UIApplicationLaunchOptionsLocalNotificationKey]) {
+        BFONavegacaoPrincipalViewController *navegacaoPrincipal = (BFONavegacaoPrincipalViewController *) self.window.rootViewController;
         UILocalNotification *notificacao;
         
         notificacao = launchOptions[UIApplicationLaunchOptionsLocalNotificationKey];
@@ -66,7 +67,16 @@ NSString *const BFOPagoCategoryIdentifier = @"PagoCategoryIdentifier";
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-  [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
+        UIUserNotificationSettings *userNotificationSettings = application.currentUserNotificationSettings;
+        
+        if ((userNotificationSettings.types & UIUserNotificationTypeBadge) != 0) {
+            [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+        }
+        
+    } else {
+        [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    }
 }
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
@@ -114,10 +124,6 @@ NSString *const BFOPagoCategoryIdentifier = @"PagoCategoryIdentifier";
     [UINavigationBar appearance].backgroundColor = navigationBarBackgroundColor;
     [UINavigationBar appearance].titleTextAttributes = @{NSForegroundColorAttributeName:preto};
     [UINavigationBar appearance].barTintColor = navigationBarBackgroundColor;
-    
-    if (SYSTEM_VERSION_GREATER_THAN(@"8.0")) {
-        [UIActionSheet appearance].tintColor = [UIColor blackColor];
-    }
 }
 
 @end

@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@class BFOArmazenamentoBoleto;
+@class BFOBoleto;
 
 @interface BFOEscanearBoletoViewController : UIViewController
+
+@property (nonatomic) BFOBoleto *boleto;
 
 @end

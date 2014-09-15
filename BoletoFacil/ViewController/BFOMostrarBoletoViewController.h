@@ -15,6 +15,8 @@
 /**
  *  Designated initializer
  */
-- (instancetype)initWithBoleto:(BFOBoleto *)boleto;
+//- (instancetype)initWithBoleto:(BFOBoleto *)boleto;
+
+@property (nonatomic) BFOBoleto *boleto;
 
 @end
