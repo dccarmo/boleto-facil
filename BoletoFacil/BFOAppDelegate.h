@@ -8,9 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-extern NSString * const BFOOrdenacaoTelaPrincipalKey;
-extern NSString * const BFOMostrarBoletosVencidosKey;
-extern NSString * const BFOMostrarBoletosPagosKey;
+extern NSString *const BFOOrdenacaoTelaPrincipalKey;
+extern NSString *const BFOMostrarBoletosVencidosKey;
+extern NSString *const BFOMostrarBoletosPagosKey;
+extern NSString *const BFONenhumBoletoLidoKey;
+extern NSString *const BFONenhumBoletoVisualizadoKey;
+
+extern NSString *const BFOConfiguracoesDeNotificacoesAlteradaNotification;
+
+extern NSString *const BFOPagoActionIdentifier;
+extern NSString *const BFOPagoCategoryIdentifier;
 
 @interface BFOAppDelegate : UIResponder <UIApplicationDelegate>
 

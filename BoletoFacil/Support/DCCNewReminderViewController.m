@@ -8,6 +8,9 @@
 
 #import "DCCNewReminderViewController.h"
 
+//App Delegate
+#import "BFOAppDelegate.h"
+
 //Models
 #import "BFOBoleto.h"
 
@@ -62,6 +65,25 @@ typedef NS_ENUM(NSUInteger, DCCNewReminderRow)
     [super viewDidLoad];
     
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
+    
+    if (SYSTEM_VERSION_GREATER_THAN(@"8.0")) {
+        UIMutableUserNotificationAction *pagoAction = [UIMutableUserNotificationAction new];
+        pagoAction.identifier = BFOPagoActionIdentifier;
+        pagoAction.title = @"Já paguei";
+        pagoAction.activationMode = UIUserNotificationActivationModeBackground;
+        
+        UIMutableUserNotificationCategory *pagoCategory = [UIMutableUserNotificationCategory new];
+        pagoCategory.identifier = BFOPagoCategoryIdentifier;
+        [pagoCategory setActions:@[pagoAction] forContext:UIUserNotificationActionContextMinimal];
+        
+        UIUserNotificationSettings *userNotificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound
+                                                                                                 categories:[NSSet setWithArray:@[pagoCategory]]];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:userNotificationSettings];
+        
+        [self verificaConfiguracaoNotificacao:[UIApplication sharedApplication].currentUserNotificationSettings];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(configuracaoNotificacaoAlterada:) name:BFOConfiguracoesDeNotificacoesAlteradaNotification object:nil];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -70,6 +92,37 @@ typedef NS_ENUM(NSUInteger, DCCNewReminderRow)
 }
 
 #pragma mark - DCCNewReminderViewController
+
+- (void)configuracaoNotificacaoAlterada:(id)sender
+{
+    NSNotification *notification = sender;
+    UIUserNotificationSettings *userNotificationSettings = notification.object;
+    
+    [self verificaConfiguracaoNotificacao:userNotificationSettings];
+}
+
+- (void)verificaConfiguracaoNotificacao:(UIUserNotificationSettings *)userNotificationSettings
+{
+    if (userNotificationSettings.types == UIUserNotificationTypeNone) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Aviso"
+                                                                                 message:@"Notificações para o Zebra estão desabilitadas. Você pode alterar esta opção em Configurações."
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+        
+        [self presentViewController:alertController animated:YES completion:^{
+            [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+        }];
+    }
+    
+    if (userNotificationSettings.types != (UIUserNotificationTypeSound | UIUserNotificationTypeBadge | UIUserNotificationTypeAlert)) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Aviso"
+                                                                                 message:@"Algumas notificações para o Zebra estão desabilitadas. Talvez você não seja notificado corretamente."
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
+}
 
 - (void)fechar
 {

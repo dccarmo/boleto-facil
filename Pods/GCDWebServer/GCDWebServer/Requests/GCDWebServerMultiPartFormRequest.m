@@ -29,13 +29,19 @@
 
 #define kMultiPartBufferSize (256 * 1024)
 
-enum {
+typedef enum {
   kParserState_Undefined = 0,
   kParserState_Start,
   kParserState_Headers,
   kParserState_Content,
   kParserState_End
-};
+} ParserState;
+
+@interface GCDWebServerMIMEStreamParser : NSObject
+- (id)initWithBoundary:(NSString*)boundary defaultControlName:(NSString*)name arguments:(NSMutableArray*)arguments files:(NSMutableArray*)files;
+- (BOOL)appendBytes:(const void*)bytes length:(NSUInteger)length;
+- (BOOL)isAtEnd;
+@end
 
 static NSData* _newlineData = nil;
 static NSData* _newlinesData = nil;
@@ -43,6 +49,7 @@ static NSData* _dashNewlineData = nil;
 
 @interface GCDWebServerMultiPart () {
 @private
+  NSString* _controlName;
   NSString* _contentType;
   NSString* _mimeType;
 }
@@ -50,17 +57,19 @@ static NSData* _dashNewlineData = nil;
 
 @implementation GCDWebServerMultiPart
 
-@synthesize contentType=_contentType, mimeType=_mimeType;
+@synthesize controlName=_controlName, contentType=_contentType, mimeType=_mimeType;
 
-- (id)initWithContentType:(NSString*)contentType {
+- (id)initWithControlName:(NSString*)name contentType:(NSString*)type {
   if ((self = [super init])) {
-    _contentType = [contentType copy];
+    _controlName = [name copy];
+    _contentType = [type copy];
     _mimeType = ARC_RETAIN(GCDWebServerTruncateHeaderValue(_contentType));
   }
   return self;
 }
 
 - (void)dealloc {
+  ARC_RELEASE(_controlName);
   ARC_RELEASE(_contentType);
   ARC_RELEASE(_mimeType);
   
@@ -80,8 +89,8 @@ static NSData* _dashNewlineData = nil;
 
 @synthesize data=_data, string=_string;
 
-- (id)initWithContentType:(NSString*)contentType data:(NSData*)data {
-  if ((self = [super initWithContentType:contentType])) {
+- (id)initWithControlName:(NSString*)name contentType:(NSString*)type data:(NSData*)data {
+  if ((self = [super initWithControlName:name contentType:type])) {
     _data = ARC_RETAIN(data);
     
     if ([self.contentType hasPrefix:@"text/"]) {
@@ -116,8 +125,8 @@ static NSData* _dashNewlineData = nil;
 
 @synthesize fileName=_fileName, temporaryPath=_temporaryPath;
 
-- (id)initWithContentType:(NSString*)contentType fileName:(NSString*)fileName temporaryPath:(NSString*)temporaryPath {
-  if ((self = [super initWithContentType:contentType])) {
+- (id)initWithControlName:(NSString*)name contentType:(NSString*)type fileName:(NSString*)fileName temporaryPath:(NSString*)temporaryPath {
+  if ((self = [super initWithControlName:name contentType:type])) {
     _fileName = [fileName copy];
     _temporaryPath = [temporaryPath copy];
   }
@@ -139,26 +148,25 @@ static NSData* _dashNewlineData = nil;
 
 @end
 
-@interface GCDWebServerMultiPartFormRequest () {
+@interface GCDWebServerMIMEStreamParser () {
 @private
   NSData* _boundary;
+  NSString* _defaultcontrolName;
+  ParserState _state;
+  NSMutableData* _data;
+  NSMutableArray* _arguments;
+  NSMutableArray* _files;
   
-  NSUInteger _parserState;
-  NSMutableData* _parserData;
   NSString* _controlName;
   NSString* _fileName;
   NSString* _contentType;
   NSString* _tmpPath;
   int _tmpFile;
-  
-  NSMutableDictionary* _arguments;
-  NSMutableDictionary* _files;
+  GCDWebServerMIMEStreamParser* _subParser;
 }
 @end
 
-@implementation GCDWebServerMultiPartFormRequest
-
-@synthesize arguments=_arguments, files=_files;
+@implementation GCDWebServerMIMEStreamParser
 
 + (void)initialize {
   if (_newlineData == nil) {
@@ -175,49 +183,50 @@ static NSData* _dashNewlineData = nil;
   }
 }
 
-+ (NSString*)mimeType {
-  return @"multipart/form-data";
-}
-
-- (instancetype)initWithMethod:(NSString*)method url:(NSURL*)url headers:(NSDictionary*)headers path:(NSString*)path query:(NSDictionary*)query {
-  if ((self = [super initWithMethod:method url:url headers:headers path:path query:query])) {
-    NSString* boundary = GCDWebServerExtractHeaderValueParameter(self.contentType, @"boundary");
-    if (boundary) {
-      NSData* data = [[NSString stringWithFormat:@"--%@", boundary] dataUsingEncoding:NSASCIIStringEncoding];
-      _boundary = ARC_RETAIN(data);
-    }
-    if (_boundary == nil) {
-      DNOT_REACHED();
-      ARC_RELEASE(self);
-      return nil;
-    }
-    
-    _arguments = [[NSMutableDictionary alloc] init];
-    _files = [[NSMutableDictionary alloc] init];
+- (id)initWithBoundary:(NSString*)boundary defaultControlName:(NSString*)name arguments:(NSMutableArray*)arguments files:(NSMutableArray*)files {
+  NSData* data = boundary.length ? [[NSString stringWithFormat:@"--%@", boundary] dataUsingEncoding:NSASCIIStringEncoding] : nil;
+  if (data == nil) {
+    DNOT_REACHED();
+    ARC_RELEASE(self);
+    return nil;
+  }
+  if ((self = [super init])) {
+    _boundary = ARC_RETAIN(data);
+    _defaultcontrolName = ARC_RETAIN(name);
+    _arguments = ARC_RETAIN(arguments);
+    _files = ARC_RETAIN(files);
+    _data = [[NSMutableData alloc] initWithCapacity:kMultiPartBufferSize];
+    _state = kParserState_Start;
   }
   return self;
 }
 
 - (void)dealloc {
+  ARC_RELEASE(_boundary);
+  ARC_RELEASE(_defaultcontrolName);
+  ARC_RELEASE(_data);
   ARC_RELEASE(_arguments);
   ARC_RELEASE(_files);
-  ARC_RELEASE(_boundary);
+  
+  ARC_RELEASE(_controlName);
+  ARC_RELEASE(_fileName);
+  ARC_RELEASE(_contentType);
+  if (_tmpFile > 0) {
+    close(_tmpFile);
+    unlink([_tmpPath fileSystemRepresentation]);
+  }
+  ARC_RELEASE(_tmpPath);
+  ARC_RELEASE(_subParser);
   
   ARC_DEALLOC(super);
-}
-
-- (BOOL)open:(NSError**)error {
-  _parserData = [[NSMutableData alloc] initWithCapacity:kMultiPartBufferSize];
-  _parserState = kParserState_Start;
-  return YES;
 }
 
 // http://www.w3.org/TR/html401/interact/forms.html#h-17.13.4.2
 - (BOOL)_parseData {
   BOOL success = YES;
   
-  if (_parserState == kParserState_Headers) {
-    NSRange range = [_parserData rangeOfData:_newlinesData options:0 range:NSMakeRange(0, _parserData.length)];
+  if (_state == kParserState_Headers) {
+    NSRange range = [_data rangeOfData:_newlinesData options:0 range:NSMakeRange(0, _data.length)];
     if (range.location != NSNotFound) {
       
       ARC_RELEASE(_controlName);
@@ -228,7 +237,9 @@ static NSData* _dashNewlineData = nil;
       _contentType = nil;
       ARC_RELEASE(_tmpPath);
       _tmpPath = nil;
-      NSString* headers = [[NSString alloc] initWithData:[_parserData subdataWithRange:NSMakeRange(0, range.location)] encoding:NSUTF8StringEncoding];
+      ARC_RELEASE(_subParser);
+      _subParser = nil;
+      NSString* headers = [[NSString alloc] initWithData:[_data subdataWithRange:NSMakeRange(0, range.location)] encoding:NSUTF8StringEncoding];
       if (headers) {
         for (NSString* header in [headers componentsSeparatedByString:@"\r\n"]) {
           NSRange subRange = [header rangeOfString:@":"];
@@ -241,6 +252,9 @@ static NSData* _dashNewlineData = nil;
               NSString* contentDisposition = GCDWebServerNormalizeHeaderValue(value);
               if ([GCDWebServerTruncateHeaderValue(contentDisposition) isEqualToString:@"form-data"]) {
                 _controlName = ARC_RETAIN(GCDWebServerExtractHeaderValueParameter(contentDisposition, @"name"));
+                _fileName = ARC_RETAIN(GCDWebServerExtractHeaderValueParameter(contentDisposition, @"filename"));
+              } else if ([GCDWebServerTruncateHeaderValue(contentDisposition) isEqualToString:@"file"]) {
+                _controlName = ARC_RETAIN(_defaultcontrolName);
                 _fileName = ARC_RETAIN(GCDWebServerExtractHeaderValueParameter(contentDisposition, @"filename"));
               }
             }
@@ -257,7 +271,14 @@ static NSData* _dashNewlineData = nil;
         DNOT_REACHED();
       }
       if (_controlName) {
-        if (_fileName) {
+        if ([GCDWebServerTruncateHeaderValue(_contentType) isEqualToString:@"multipart/mixed"]) {
+          NSString* boundary = GCDWebServerExtractHeaderValueParameter(_contentType, @"boundary");
+          _subParser = [[GCDWebServerMIMEStreamParser alloc] initWithBoundary:boundary defaultControlName:_controlName arguments:_arguments files:_files];
+          if (_subParser == nil) {
+            DNOT_REACHED();
+            success = NO;
+          }
+        } else if (_fileName) {
           NSString* path = [NSTemporaryDirectory() stringByAppendingPathComponent:[[NSProcessInfo processInfo] globallyUniqueString]];
           _tmpFile = open([path fileSystemRepresentation], O_CREAT | O_TRUNC | O_WRONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
           if (_tmpFile > 0) {
@@ -272,29 +293,36 @@ static NSData* _dashNewlineData = nil;
         success = NO;
       }
       
-      [_parserData replaceBytesInRange:NSMakeRange(0, range.location + range.length) withBytes:NULL length:0];
-      _parserState = kParserState_Content;
+      [_data replaceBytesInRange:NSMakeRange(0, range.location + range.length) withBytes:NULL length:0];
+      _state = kParserState_Content;
     }
   }
   
-  if ((_parserState == kParserState_Start) || (_parserState == kParserState_Content)) {
-    NSRange range = [_parserData rangeOfData:_boundary options:0 range:NSMakeRange(0, _parserData.length)];
+  if ((_state == kParserState_Start) || (_state == kParserState_Content)) {
+    NSRange range = [_data rangeOfData:_boundary options:0 range:NSMakeRange(0, _data.length)];
     if (range.location != NSNotFound) {
-      NSRange subRange = NSMakeRange(range.location + range.length, _parserData.length - range.location - range.length);
-      NSRange subRange1 = [_parserData rangeOfData:_newlineData options:NSDataSearchAnchored range:subRange];
-      NSRange subRange2 = [_parserData rangeOfData:_dashNewlineData options:NSDataSearchAnchored range:subRange];
+      NSRange subRange = NSMakeRange(range.location + range.length, _data.length - range.location - range.length);
+      NSRange subRange1 = [_data rangeOfData:_newlineData options:NSDataSearchAnchored range:subRange];
+      NSRange subRange2 = [_data rangeOfData:_dashNewlineData options:NSDataSearchAnchored range:subRange];
       if ((subRange1.location != NSNotFound) || (subRange2.location != NSNotFound)) {
         
-        if (_parserState == kParserState_Content) {
-          const void* dataBytes = _parserData.bytes;
+        if (_state == kParserState_Content) {
+          const void* dataBytes = _data.bytes;
           NSUInteger dataLength = range.location - 2;
-          if (_tmpPath) {
+          if (_subParser) {
+            if (![_subParser appendBytes:dataBytes length:(dataLength + 2)] || ![_subParser isAtEnd]) {
+              DNOT_REACHED();
+              success = NO;
+            }
+            ARC_RELEASE(_subParser);
+            _subParser = nil;
+          } else if (_tmpPath) {
             ssize_t result = write(_tmpFile, dataBytes, dataLength);
             if (result == (ssize_t)dataLength) {
               if (close(_tmpFile) == 0) {
                 _tmpFile = 0;
-                GCDWebServerMultiPartFile* file = [[GCDWebServerMultiPartFile alloc] initWithContentType:_contentType fileName:_fileName temporaryPath:_tmpPath];
-                [_files setObject:file forKey:_controlName];
+                GCDWebServerMultiPartFile* file = [[GCDWebServerMultiPartFile alloc] initWithControlName:_controlName contentType:_contentType fileName:_fileName temporaryPath:_tmpPath];
+                [_files addObject:file];
                 ARC_RELEASE(file);
               } else {
                 DNOT_REACHED();
@@ -308,85 +336,150 @@ static NSData* _dashNewlineData = nil;
             _tmpPath = nil;
           } else {
             NSData* data = [[NSData alloc] initWithBytes:(void*)dataBytes length:dataLength];
-            GCDWebServerMultiPartArgument* argument = [[GCDWebServerMultiPartArgument alloc] initWithContentType:_contentType data:data];
-            [_arguments setObject:argument forKey:_controlName];
+            GCDWebServerMultiPartArgument* argument = [[GCDWebServerMultiPartArgument alloc] initWithControlName:_controlName contentType:_contentType data:data];
+            [_arguments addObject:argument];
             ARC_RELEASE(argument);
             ARC_RELEASE(data);
           }
         }
         
         if (subRange1.location != NSNotFound) {
-          [_parserData replaceBytesInRange:NSMakeRange(0, subRange1.location + subRange1.length) withBytes:NULL length:0];
-          _parserState = kParserState_Headers;
+          [_data replaceBytesInRange:NSMakeRange(0, subRange1.location + subRange1.length) withBytes:NULL length:0];
+          _state = kParserState_Headers;
           success = [self _parseData];
         } else {
-          _parserState = kParserState_End;
+          _state = kParserState_End;
         }
       }
     } else {
       NSUInteger margin = 2 * _boundary.length;
-      if (_tmpPath && (_parserData.length > margin)) {
-        NSUInteger length = _parserData.length - margin;
-        ssize_t result = write(_tmpFile, _parserData.bytes, length);
-        if (result == (ssize_t)length) {
-          [_parserData replaceBytesInRange:NSMakeRange(0, length) withBytes:NULL length:0];
-        } else {
-          DNOT_REACHED();
-          success = NO;
+      if (_data.length > margin) {
+        NSUInteger length = _data.length - margin;
+        if (_subParser) {
+          if ([_subParser appendBytes:_data.bytes length:length]) {
+            [_data replaceBytesInRange:NSMakeRange(0, length) withBytes:NULL length:0];
+          } else {
+            DNOT_REACHED();
+            success = NO;
+          }
+        } else if (_tmpPath) {
+          ssize_t result = write(_tmpFile, _data.bytes, length);
+          if (result == (ssize_t)length) {
+            [_data replaceBytesInRange:NSMakeRange(0, length) withBytes:NULL length:0];
+          } else {
+            DNOT_REACHED();
+            success = NO;
+          }
         }
       }
     }
   }
+  
   return success;
 }
 
+- (BOOL)appendBytes:(const void*)bytes length:(NSUInteger)length {
+  [_data appendBytes:bytes length:length];
+  return [self _parseData];
+}
+
+- (BOOL)isAtEnd {
+  return (_state == kParserState_End);
+}
+
+@end
+
+@interface GCDWebServerMultiPartFormRequest () {
+@private
+  GCDWebServerMIMEStreamParser* _parser;
+  NSMutableArray* _arguments;
+  NSMutableArray* _files;
+}
+@end
+
+@implementation GCDWebServerMultiPartFormRequest
+
+@synthesize arguments=_arguments, files=_files;
+
++ (NSString*)mimeType {
+  return @"multipart/form-data";
+}
+
+- (instancetype)initWithMethod:(NSString*)method url:(NSURL*)url headers:(NSDictionary*)headers path:(NSString*)path query:(NSDictionary*)query {
+  if ((self = [super initWithMethod:method url:url headers:headers path:path query:query])) {
+    _arguments = [[NSMutableArray alloc] init];
+    _files = [[NSMutableArray alloc] init];
+  }
+  return self;
+}
+
+- (void)dealloc {
+  ARC_RELEASE(_arguments);
+  ARC_RELEASE(_files);
+  
+  ARC_DEALLOC(super);
+}
+
+- (BOOL)open:(NSError**)error {
+  NSString* boundary = GCDWebServerExtractHeaderValueParameter(self.contentType, @"boundary");
+  _parser = [[GCDWebServerMIMEStreamParser alloc] initWithBoundary:boundary defaultControlName:nil arguments:_arguments files:_files];
+  if (_parser == nil) {
+    *error = [NSError errorWithDomain:kGCDWebServerErrorDomain code:-1 userInfo:@{NSLocalizedDescriptionKey: @"Failed starting to parse multipart form data"}];
+    return NO;
+  }
+  return YES;
+}
+
 - (BOOL)writeData:(NSData*)data error:(NSError**)error {
-  [_parserData appendBytes:data.bytes length:data.length];
-  if (![self _parseData]) {
-    *error = [NSError errorWithDomain:kGCDWebServerErrorDomain code:-1 userInfo:@{NSLocalizedDescriptionKey: @"Failed parsing multipart form data"}];
+  if (![_parser appendBytes:data.bytes length:data.length]) {
+    *error = [NSError errorWithDomain:kGCDWebServerErrorDomain code:-1 userInfo:@{NSLocalizedDescriptionKey: @"Failed continuing to parse multipart form data"}];
     return NO;
   }
   return YES;
 }
 
 - (BOOL)close:(NSError**)error {
-  ARC_RELEASE(_parserData);
-  _parserData = nil;
-  ARC_RELEASE(_controlName);
-  _controlName = nil;
-  ARC_RELEASE(_fileName);
-  _fileName = nil;
-  ARC_RELEASE(_contentType);
-  _contentType = nil;
-  if (_tmpFile > 0) {
-    close(_tmpFile);
-    unlink([_tmpPath fileSystemRepresentation]);
-    _tmpFile = 0;
-  }
-  ARC_RELEASE(_tmpPath);
-  _tmpPath = nil;
-  if (_parserState != kParserState_End) {
-    *error = [NSError errorWithDomain:kGCDWebServerErrorDomain code:-1 userInfo:@{NSLocalizedDescriptionKey: @"Failed parsing multipart form data"}];
+  BOOL atEnd = [_parser isAtEnd];
+  ARC_RELEASE(_parser);
+  _parser = nil;
+  if (!atEnd) {
+    *error = [NSError errorWithDomain:kGCDWebServerErrorDomain code:-1 userInfo:@{NSLocalizedDescriptionKey: @"Failed finishing to parse multipart form data"}];
     return NO;
   }
   return YES;
+}
+
+- (GCDWebServerMultiPartArgument*)firstArgumentForControlName:(NSString*)name {
+  for (GCDWebServerMultiPartArgument* argument in _arguments) {
+    if ([argument.controlName isEqualToString:name]) {
+      return argument;
+    }
+  }
+  return nil;
+}
+
+- (GCDWebServerMultiPartFile*)firstFileForControlName:(NSString*)name {
+  for (GCDWebServerMultiPartFile* file in _files) {
+    if ([file.controlName isEqualToString:name]) {
+      return file;
+    }
+  }
+  return nil;
 }
 
 - (NSString*)description {
   NSMutableString* description = [NSMutableString stringWithString:[super description]];
   if (_arguments.count) {
     [description appendString:@"\n"];
-    for (NSString* key in [[_arguments allKeys] sortedArrayUsingSelector:@selector(compare:)]) {
-      GCDWebServerMultiPartArgument* argument = [_arguments objectForKey:key];
-      [description appendFormat:@"\n%@ (%@)\n", key, argument.contentType];
+    for (GCDWebServerMultiPartArgument* argument in _arguments) {
+      [description appendFormat:@"\n%@ (%@)\n", argument.controlName, argument.contentType];
       [description appendString:GCDWebServerDescribeData(argument.data, argument.contentType)];
     }
   }
   if (_files.count) {
     [description appendString:@"\n"];
-    for (NSString* key in [[_files allKeys] sortedArrayUsingSelector:@selector(compare:)]) {
-      GCDWebServerMultiPartFile* file = [_files objectForKey:key];
-      [description appendFormat:@"\n%@ (%@): %@\n{%@}", key, file.contentType, file.fileName, file.temporaryPath];
+    for (GCDWebServerMultiPartFile* file in _files) {
+      [description appendFormat:@"\n%@ (%@): %@\n{%@}", file.controlName, file.contentType, file.fileName, file.temporaryPath];
     }
   }
   return description;

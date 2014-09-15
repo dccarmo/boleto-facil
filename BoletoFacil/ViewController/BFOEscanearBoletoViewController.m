@@ -10,6 +10,9 @@
 
 #import "BFOEscanearBoletoViewController.h"
 
+//App Delegate
+#import "BFOAppDelegate.h"
+
 //View Controllers
 #import "BFOMostrarBoletoViewController.h"
 #import "BFONavegacaoPrincipalViewController.h"
@@ -49,9 +52,25 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
     [self capturarCodigoBarra];
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    if ([userDefaults boolForKey:BFONenhumBoletoLidoKey]) {
+        NSString *title = @"Ajuda";
+        NSString *message = @"Alinhe o código de barras do boleto entre as duas barras e o aplicativo irá lê-lo automaticamente.";
+        
+        if (SYSTEM_VERSION_GREATER_THAN(@"8.0")) {
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+            [alertController addAction:[UIAlertAction actionWithTitle:@"Entendi" style:UIAlertActionStyleDefault handler:nil]];
+            
+            [self presentViewController:alertController animated:YES completion:nil];
+        } else {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Entendi", nil];
+            [alertView show];
+        }
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -141,6 +160,10 @@
         if (self.leitorView.torchMode == AVCaptureTorchModeOn) {
             
         }
+        
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setObject:@NO forKey:BFONenhumBoletoLidoKey];
+        [userDefaults synchronize];
         
         [self performSelector:@selector(fecharAction:) withObject:nil afterDelay:2.0f];
         

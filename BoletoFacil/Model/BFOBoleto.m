@@ -8,6 +8,9 @@
 
 #import "BFOBoleto.h"
 
+//App Delegate
+#import "BFOAppDelegate.h"
+
 //Support
 #import "DCCBoletoFormatter.h"
 #import "NSCalendar+Calculations.h"
@@ -335,13 +338,16 @@ static const NSUInteger diaBase = 07;
 - (void)agendarLembrete:(NSString *)titulo data:(NSDate *)dataLembrete
 {
     UILocalNotification *notificacao;
-    
     notificacao = [UILocalNotification new];
     notificacao.fireDate = dataLembrete;
     notificacao.alertBody = titulo;
     notificacao.userInfo = @{@"codigoBarras":self.codigoBarras};
     notificacao.soundName = UILocalNotificationDefaultSoundName;
     notificacao.applicationIconBadgeNumber = 1;
+    
+    if (SYSTEM_VERSION_GREATER_THAN(@"8.0")) {
+        notificacao.category = BFOPagoCategoryIdentifier;
+    }
     
     [[UIApplication sharedApplication] scheduleLocalNotification:notificacao];
     

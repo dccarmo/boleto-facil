@@ -1,6 +1,5 @@
 //
 //  DCCBoletoFormatter.m
-//  BoletoFacil
 //
 //  Created by Diogo do Carmo on 16/05/14.
 //  Copyright (c) 2014 Diogo do Carmo. All rights reserved.
@@ -51,11 +50,42 @@ static const NSUInteger tamanhoMaximoCodigoBarras = 44;
 
 - (NSString *)codigoBarraDaLinhaDigitavel:(NSString *)linhaDigitavel
 {
-    //    NSString *codigoBarra;
-    //
-    //    [self getObjectValue:codigoBarra forString:linhaDigitavel errorDescription:nil];
+
+    switch ([linhaDigitavel characterAtIndex:0]) {
+        case '8':
+            return [self criarCodigoBarrasBoletoArrecadacao:linhaDigitavel];
+            
+        default:
+            return [self criarCodigoBarrasBoletoBancario:linhaDigitavel];
+    }
+}
+
+- (NSString *)criarCodigoBarrasBoletoArrecadacao:(NSString *)linha
+{
+    NSString *codigoBarras;
     
-    return nil;
+    codigoBarras = [NSString stringWithFormat:@"%@%@%@%@",
+                    [linha substringWithRange:NSRangeFromString(@"0-11")],
+                    [linha substringWithRange:NSRangeFromString(@"12-11")],
+                    [linha substringWithRange:NSRangeFromString(@"24-11")],
+                    [linha substringWithRange:NSRangeFromString(@"36-11")]];
+    
+    return codigoBarras;
+}
+
+- (NSString *)criarCodigoBarrasBoletoBancario:(NSString *)linha
+{
+    NSString *codigoBarras;
+    
+    codigoBarras = [NSString stringWithFormat:@"%@%@%@%@%@%@",
+                    [linha substringWithRange:NSRangeFromString(@"0-4")],
+                    [linha substringWithRange:NSRangeFromString(@"32-1")],
+                    [linha substringWithRange:NSRangeFromString(@"33-14")],
+                    [linha substringWithRange:NSRangeFromString(@"4-5")],
+                    [linha substringWithRange:NSRangeFromString(@"10-10")],
+                    [linha substringWithRange:NSRangeFromString(@"21-10")]];
+    
+    return codigoBarras;
 }
 
 - (NSString *)criarSequenciaBoletoArrecadacao:(NSString *)codigo

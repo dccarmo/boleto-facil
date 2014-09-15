@@ -8,6 +8,9 @@
 
 #import "BFOMostrarBoletoViewController.h"
 
+//App Delegate
+#import "BFOAppDelegate.h"
+
 //View Controllers
 #import "BFOListaBoletosViewController.h"
 
@@ -61,11 +64,32 @@
     [view alterarEstadoCriacaoServidor:BFOEstadoCriacaoServidorIniciando mensagem:@"Carregando servidor..."];
     
     self.dataVencimentoRelativa = YES;
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    if ([userDefaults boolForKey:BFONenhumBoletoVisualizadoKey]) {
+        NSString *title = @"Ajuda";
+        NSString *message = @"Aqui você tem todas as informações que o aplicativo conseguiu extrair do código de barras. Para acessá-las no seu computador, digite o endereço que aparece no quadro verde.";
+        
+        if (SYSTEM_VERSION_GREATER_THAN(@"8.0")) {
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+            [alertController addAction:[UIAlertAction actionWithTitle:@"Entendi" style:UIAlertActionStyleDefault handler:nil]];
+            
+            [self presentViewController:alertController animated:YES completion:nil];
+        } else {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Entendi", nil];
+            [alertView show];
+        }
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [self adicionarAcessoWeb];
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:@NO forKey:BFONenhumBoletoVisualizadoKey];
+    [userDefaults synchronize];
 }
 
 #pragma mark - BFOMostrarBoletoViewController

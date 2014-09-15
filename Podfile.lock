@@ -1,15 +1,20 @@
 PODS:
-  - GCDWebServer (2.3.2):
+  - GCDWebServer (2.5.1):
     - GCDWebServer/Core
-  - GCDWebServer/Core (2.3.2)
+  - GCDWebServer/Core (2.5.1)
   - ZBarSDK (1.3.1)
 
 DEPENDENCIES:
-  - GCDWebServer (~> 2.0)
+  - GCDWebServer (from `https://github.com/swisspol/GCDWebServer.git`, branch `bonjour_fix`)
   - ZBarSDK (~> 1.3)
 
-SPEC CHECKSUMS:
-  GCDWebServer: b79038630071a8110ece267b0e490fb1f388e58e
-  ZBarSDK: cb47d922d1178f9dd696b18c30e103022cfa4cc7
+EXTERNAL SOURCES:
+  GCDWebServer:
+    :branch: bonjour_fix
+    :git: https://github.com/swisspol/GCDWebServer.git
 
-COCOAPODS: 0.32.1
+SPEC CHECKSUMS:
+  GCDWebServer: a5c88bf02175f25177c128b61fb3628ff83e9e59
+  ZBarSDK: 3ed560856963f765b66d834f464590bd6ba13b44
+
+COCOAPODS: 0.33.1
