@@ -54,6 +54,8 @@
     [super viewDidLoad];
     
     [self capturarCodigoBarra];
+    
+    self.title = @"Escanear boleto";
 }
 
 - (void)viewDidAppear:(BOOL)animated

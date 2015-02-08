@@ -25,6 +25,10 @@
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#if !__has_feature(objc_arc)
+#error GCDWebServer requires ARC
+#endif
+
 #import "GCDWebServerPrivate.h"
 
 @interface GCDWebServerDataRequest () {
@@ -40,14 +44,6 @@
 
 @synthesize data=_data;
 
-- (void)dealloc {
-  ARC_RELEASE(_data);
-  ARC_RELEASE(_text);
-  ARC_RELEASE(_jsonObject);
-  
-  ARC_DEALLOC(super);
-}
-
 - (BOOL)open:(NSError**)error {
   if (self.contentLength != NSUIntegerMax) {
     _data = [[NSMutableData alloc] initWithCapacity:self.contentLength];
@@ -55,7 +51,9 @@
     _data = [[NSMutableData alloc] init];
   }
   if (_data == nil) {
-    *error = [NSError errorWithDomain:kGCDWebServerErrorDomain code:-1 userInfo:@{NSLocalizedDescriptionKey: @"Failed allocating memory"}];
+    if (error) {
+      *error = [NSError errorWithDomain:kGCDWebServerErrorDomain code:-1 userInfo:@{NSLocalizedDescriptionKey: @"Failed allocating memory"}];
+    }
     return NO;
   }
   return YES;
@@ -89,7 +87,7 @@
       NSString* charset = GCDWebServerExtractHeaderValueParameter(self.contentType, @"charset");
       _text = [[NSString alloc] initWithData:self.data encoding:GCDWebServerStringEncodingFromCharset(charset)];
     } else {
-      DNOT_REACHED();
+      GWS_DNOT_REACHED();
     }
   }
   return _text;
@@ -99,9 +97,9 @@
   if (_jsonObject == nil) {
     NSString* mimeType = GCDWebServerTruncateHeaderValue(self.contentType);
     if ([mimeType isEqualToString:@"application/json"] || [mimeType isEqualToString:@"text/json"] || [mimeType isEqualToString:@"text/javascript"]) {
-      _jsonObject = ARC_RETAIN([NSJSONSerialization JSONObjectWithData:_data options:0 error:NULL]);
+      _jsonObject = [NSJSONSerialization JSONObjectWithData:_data options:0 error:NULL];
     } else {
-      DNOT_REACHED();
+      GWS_DNOT_REACHED();
     }
   }
   return _jsonObject;

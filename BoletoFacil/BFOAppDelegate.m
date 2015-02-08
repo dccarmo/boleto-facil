@@ -17,6 +17,9 @@
 //Support
 #import "BFOArmazenamentoBoleto.h"
 
+//Pods
+#import <GAI.h>
+
 NSString *const BFOOrdenacaoTelaPrincipalKey = @"OrdenacaoTelaPrincipal";
 NSString *const BFOMostrarBoletosVencidosKey = @"MostrarBoletosVencidos";
 NSString *const BFOMostrarBoletosPagosKey = @"MostrarBoletosPagos";
@@ -61,6 +64,8 @@ NSString *const BFOPagoCategoryIdentifier = @"PagoCategoryIdentifier";
         notificacao = launchOptions[UIApplicationLaunchOptionsLocalNotificationKey];
         [navegacaoPrincipal mostrarBoleto:[[BFOArmazenamentoBoleto sharedArmazenamentoBoleto] boletoComCodigoBarras:notificacao.userInfo[@"codigoBarras"]]];
     }
+    
+    [[GAI sharedInstance] trackerWithTrackingId:@"UA-9367655-6"];
     
     return YES;
 }

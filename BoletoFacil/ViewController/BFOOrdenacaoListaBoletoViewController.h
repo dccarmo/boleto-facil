@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BFOBaseTableViewController.h"
 
 typedef NS_ENUM(NSUInteger, BFOOrdenacaoTelaPrincipal)
 {
@@ -21,6 +22,6 @@ extern NSString * const BFOOrdenacaoTelaPrincipalDataVencimentoTexto;
 extern NSString * const BFOOrdenacaoTelaPrincipalCategoriaTexto;
 extern NSString * const BFOOrdenacaoTelaPrincipalBancoTexto;
 
-@interface BFOOrdenacaoListaBoletoViewController : UITableViewController
+@interface BFOOrdenacaoListaBoletoViewController : BFOBaseTableViewController
 
 @end

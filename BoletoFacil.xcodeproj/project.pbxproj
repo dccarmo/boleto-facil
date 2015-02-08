@@ -40,6 +40,12 @@
 		D9D1CF15191855190015C8EB /* BFOBoleto.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D1CF14191855190015C8EB /* BFOBoleto.m */; };
 		D9D1CF18191879230015C8EB /* BFOSequenciaLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D1CF17191879230015C8EB /* BFOSequenciaLabel.m */; };
 		D9D1CF21191AC7120015C8EB /* DCCNewReminderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D1CF20191AC7120015C8EB /* DCCNewReminderViewController.m */; };
+		D9DB074A1A86D92300DF2E6B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9DB07491A86D92300DF2E6B /* CoreData.framework */; };
+		D9DB074C1A86D93000DF2E6B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9DB074B1A86D93000DF2E6B /* SystemConfiguration.framework */; };
+		D9DB074E1A86D93D00DF2E6B /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D9DB074D1A86D93D00DF2E6B /* libz.dylib */; };
+		D9DB07501A86D94600DF2E6B /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D9DB074F1A86D94600DF2E6B /* libsqlite3.dylib */; };
+		D9DB07531A86DA5000DF2E6B /* BFOBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DB07521A86DA5000DF2E6B /* BFOBaseViewController.m */; };
+		D9DB07561A86DA5D00DF2E6B /* BFOBaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DB07551A86DA5D00DF2E6B /* BFOBaseTableViewController.m */; };
 		D9EA68E51932BB1600FDFBB8 /* BFOInformarDataVencimentoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EA68E41932BB1600FDFBB8 /* BFOInformarDataVencimentoViewController.m */; };
 		D9EA68F019356C1200FDFBB8 /* NSCalendar+Calculations.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EA68EF19356C1200FDFBB8 /* NSCalendar+Calculations.m */; };
 /* End PBXBuildFile section */
@@ -102,6 +108,14 @@
 		D9D1CF17191879230015C8EB /* BFOSequenciaLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFOSequenciaLabel.m; sourceTree = "<group>"; };
 		D9D1CF1F191AC7120015C8EB /* DCCNewReminderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCCNewReminderViewController.h; sourceTree = "<group>"; };
 		D9D1CF20191AC7120015C8EB /* DCCNewReminderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCCNewReminderViewController.m; sourceTree = "<group>"; };
+		D9DB07491A86D92300DF2E6B /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		D9DB074B1A86D93000DF2E6B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		D9DB074D1A86D93D00DF2E6B /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		D9DB074F1A86D94600DF2E6B /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		D9DB07511A86DA5000DF2E6B /* BFOBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFOBaseViewController.h; sourceTree = "<group>"; };
+		D9DB07521A86DA5000DF2E6B /* BFOBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFOBaseViewController.m; sourceTree = "<group>"; };
+		D9DB07541A86DA5D00DF2E6B /* BFOBaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFOBaseTableViewController.h; sourceTree = "<group>"; };
+		D9DB07551A86DA5D00DF2E6B /* BFOBaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFOBaseTableViewController.m; sourceTree = "<group>"; };
 		D9EA68E31932BB1600FDFBB8 /* BFOInformarDataVencimentoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFOInformarDataVencimentoViewController.h; sourceTree = "<group>"; };
 		D9EA68E41932BB1600FDFBB8 /* BFOInformarDataVencimentoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFOInformarDataVencimentoViewController.m; sourceTree = "<group>"; };
 		D9EA68EE19356C1200FDFBB8 /* NSCalendar+Calculations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCalendar+Calculations.h"; sourceTree = "<group>"; };
@@ -113,6 +127,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9DB07501A86D94600DF2E6B /* libsqlite3.dylib in Frameworks */,
+				D9DB074E1A86D93D00DF2E6B /* libz.dylib in Frameworks */,
+				D9DB074C1A86D93000DF2E6B /* SystemConfiguration.framework in Frameworks */,
+				D9DB074A1A86D92300DF2E6B /* CoreData.framework in Frameworks */,
 				D9186BE4190D84CD008B03BB /* CoreGraphics.framework in Frameworks */,
 				D9186BE6190D84CD008B03BB /* UIKit.framework in Frameworks */,
 				D9186BE2190D84CD008B03BB /* Foundation.framework in Frameworks */,
@@ -144,6 +162,10 @@
 		D9186BE0190D84CD008B03BB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D9DB074F1A86D94600DF2E6B /* libsqlite3.dylib */,
+				D9DB074D1A86D93D00DF2E6B /* libz.dylib */,
+				D9DB074B1A86D93000DF2E6B /* SystemConfiguration.framework */,
+				D9DB07491A86D92300DF2E6B /* CoreData.framework */,
 				D9186BE1190D84CD008B03BB /* Foundation.framework */,
 				D9186BE3190D84CD008B03BB /* CoreGraphics.framework */,
 				D9186BE5190D84CD008B03BB /* UIKit.framework */,
@@ -248,6 +270,10 @@
 				D9B5634519296E7800C53A05 /* BFOOrdenacaoListaBoletoViewController.m */,
 				D9B563411928452500C53A05 /* BFOListaLembretesViewController.h */,
 				D9B563421928452500C53A05 /* BFOListaLembretesViewController.m */,
+				D9DB07511A86DA5000DF2E6B /* BFOBaseViewController.h */,
+				D9DB07521A86DA5000DF2E6B /* BFOBaseViewController.m */,
+				D9DB07541A86DA5D00DF2E6B /* BFOBaseTableViewController.h */,
+				D9DB07551A86DA5D00DF2E6B /* BFOBaseTableViewController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -388,10 +414,12 @@
 				D9D1CF18191879230015C8EB /* BFOSequenciaLabel.m in Sources */,
 				D9186C2C190F1787008B03BB /* BFOMostrarBoletoView.m in Sources */,
 				D9D1CF15191855190015C8EB /* BFOBoleto.m in Sources */,
+				D9DB07531A86DA5000DF2E6B /* BFOBaseViewController.m in Sources */,
 				D9186C3C1913FEE1008B03BB /* BFOListaBoletosTableViewCell.m in Sources */,
 				D9186BF2190D84CD008B03BB /* BFOAppDelegate.m in Sources */,
 				D9EA68E51932BB1600FDFBB8 /* BFOInformarDataVencimentoViewController.m in Sources */,
 				D9D1CF11191850FD0015C8EB /* Reachability.m in Sources */,
+				D9DB07561A86DA5D00DF2E6B /* BFOBaseTableViewController.m in Sources */,
 				D9186C22190DDEC3008B03BB /* BFOEscanearBoletoView.m in Sources */,
 				D9186C19190D87B9008B03BB /* BFOListaBoletosViewController.m in Sources */,
 				D9186BEE190D84CD008B03BB /* main.m in Sources */,
@@ -501,13 +529,14 @@
 			baseConfigurationReference = 46B23A6EF2A64E91B016FB47 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Diogo Carmo (NGYV2XXS3X)";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Diogo do Carmo (JLVB96E8A8)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BoletoFacil/BoletoFacil-Prefix.pch";
 				INFOPLIST_FILE = "BoletoFacil/BoletoFacil-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = Zebra;
-				PROVISIONING_PROFILE = "5d82daea-5497-41b3-aa10-4ee2838dbba2";
+				PROVISIONING_PROFILE = "DF0A784F-BE71-4FA4-8682-BD3ACD17563A";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -517,13 +546,14 @@
 			baseConfigurationReference = 46B23A6EF2A64E91B016FB47 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Diogo Carmo (NGYV2XXS3X)";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Diogo do Carmo (JLVB96E8A8)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BoletoFacil/BoletoFacil-Prefix.pch";
 				INFOPLIST_FILE = "BoletoFacil/BoletoFacil-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = Zebra;
-				PROVISIONING_PROFILE = "5d82daea-5497-41b3-aa10-4ee2838dbba2";
+				PROVISIONING_PROFILE = "DF0A784F-BE71-4FA4-8682-BD3ACD17563A";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

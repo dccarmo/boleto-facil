@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BFOBaseTableViewController.h"
 
-@interface BFOListaLembretesViewController : UITableViewController
+@interface BFOListaLembretesViewController : BFOBaseTableViewController
 
 @end

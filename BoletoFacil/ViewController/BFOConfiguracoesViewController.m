@@ -48,6 +48,8 @@ typedef NS_ENUM(NSUInteger, BFOConfiguracoesViewControllerSecao)
     [super viewDidLoad];
     
     [self configurarInterruptores];
+    
+    self.title = @"Configurações";
 }
 
 - (void)viewWillAppear:(BOOL)animated

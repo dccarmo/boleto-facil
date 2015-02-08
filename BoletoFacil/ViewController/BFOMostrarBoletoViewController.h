@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BFOBaseViewController.h"
 
 @class BFOBoleto;
 
-@interface BFOMostrarBoletoViewController : UIViewController
+@interface BFOMostrarBoletoViewController : BFOBaseViewController
 
 /**
  *  Designated initializer

@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BFOBaseTableViewController.h"
 
 @class BFOBoleto;
 
-@interface DCCNewReminderViewController : UITableViewController
+@interface DCCNewReminderViewController : BFOBaseTableViewController
 
 - (instancetype)initWithBoleto:(BFOBoleto *)boleto;
 

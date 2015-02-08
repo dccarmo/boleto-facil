@@ -25,6 +25,10 @@
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#if !__has_feature(objc_arc)
+#error GCDWebServer requires ARC
+#endif
+
 #import <sys/stat.h>
 
 #import "GCDWebServerPrivate.h"
@@ -43,19 +47,19 @@
 @implementation GCDWebServerFileResponse
 
 + (instancetype)responseWithFile:(NSString*)path {
-  return ARC_AUTORELEASE([[[self class] alloc] initWithFile:path]);
+  return [[[self class] alloc] initWithFile:path];
 }
 
 + (instancetype)responseWithFile:(NSString*)path isAttachment:(BOOL)attachment {
-  return ARC_AUTORELEASE([[[self class] alloc] initWithFile:path isAttachment:attachment]);
+  return [[[self class] alloc] initWithFile:path isAttachment:attachment];
 }
 
 + (instancetype)responseWithFile:(NSString*)path byteRange:(NSRange)range {
-  return ARC_AUTORELEASE([[[self class] alloc] initWithFile:path byteRange:range]);
+  return [[[self class] alloc] initWithFile:path byteRange:range];
 }
 
 + (instancetype)responseWithFile:(NSString*)path byteRange:(NSRange)range isAttachment:(BOOL)attachment {
-  return ARC_AUTORELEASE([[[self class] alloc] initWithFile:path byteRange:range isAttachment:attachment]);
+  return [[[self class] alloc] initWithFile:path byteRange:range isAttachment:attachment];
 }
 
 - (instancetype)initWithFile:(NSString*)path {
@@ -77,14 +81,12 @@ static inline NSDate* _NSDateFromTimeSpec(const struct timespec* t) {
 - (instancetype)initWithFile:(NSString*)path byteRange:(NSRange)range isAttachment:(BOOL)attachment {
   struct stat info;
   if (lstat([path fileSystemRepresentation], &info) || !(info.st_mode & S_IFREG)) {
-    DNOT_REACHED();
-    ARC_RELEASE(self);
+    GWS_DNOT_REACHED();
     return nil;
   }
 #ifndef __LP64__
   if (info.st_size >= (off_t)4294967295) {  // In 32 bit mode, we can't handle files greater than 4 GiBs (don't use "NSUIntegerMax" here to avoid potential unsigned to signed conversion issues)
-    DNOT_REACHED();
-    ARC_RELEASE(self);
+    GWS_DNOT_REACHED();
     return nil;
   }
 #endif
@@ -100,7 +102,6 @@ static inline NSDate* _NSDateFromTimeSpec(const struct timespec* t) {
       range.location = fileSize - range.length;
     }
     if (range.length == 0) {
-      ARC_RELEASE(self);
       return nil;  // TODO: Return 416 status code and "Content-Range: bytes */{file length}" header
     }
   } else {
@@ -115,7 +116,7 @@ static inline NSDate* _NSDateFromTimeSpec(const struct timespec* t) {
     if (hasByteRange) {
       [self setStatusCode:kGCDWebServerHTTPStatusCode_PartialContent];
       [self setValue:[NSString stringWithFormat:@"bytes %lu-%lu/%lu", (unsigned long)_offset, (unsigned long)(_offset + _size - 1), (unsigned long)fileSize] forAdditionalHeader:@"Content-Range"];
-      LOG_DEBUG(@"Using content bytes range [%lu-%lu] for file \"%@\"", (unsigned long)_offset, (unsigned long)(_offset + _size - 1), path);
+      GWS_LOG_DEBUG(@"Using content bytes range [%lu-%lu] for file \"%@\"", (unsigned long)_offset, (unsigned long)(_offset + _size - 1), path);
     }
     
     if (attachment) {
@@ -125,9 +126,8 @@ static inline NSDate* _NSDateFromTimeSpec(const struct timespec* t) {
       if (lossyFileName) {
         NSString* value = [NSString stringWithFormat:@"attachment; filename=\"%@\"; filename*=UTF-8''%@", lossyFileName, GCDWebServerEscapeURLString(fileName)];
         [self setValue:value forAdditionalHeader:@"Content-Disposition"];
-        ARC_RELEASE(lossyFileName);
       } else {
-        DNOT_REACHED();
+        GWS_DNOT_REACHED();
       }
     }
     
@@ -139,20 +139,18 @@ static inline NSDate* _NSDateFromTimeSpec(const struct timespec* t) {
   return self;
 }
 
-- (void)dealloc {
-  ARC_RELEASE(_path);
-  
-  ARC_DEALLOC(super);
-}
-
 - (BOOL)open:(NSError**)error {
   _file = open([_path fileSystemRepresentation], O_NOFOLLOW | O_RDONLY);
   if (_file <= 0) {
-    *error = GCDWebServerMakePosixError(errno);
+    if (error) {
+      *error = GCDWebServerMakePosixError(errno);
+    }
     return NO;
   }
   if (lseek(_file, _offset, SEEK_SET) != (off_t)_offset) {
-    *error = GCDWebServerMakePosixError(errno);
+    if (error) {
+      *error = GCDWebServerMakePosixError(errno);
+    }
     close(_file);
     return NO;
   }
@@ -164,14 +162,16 @@ static inline NSDate* _NSDateFromTimeSpec(const struct timespec* t) {
   NSMutableData* data = [[NSMutableData alloc] initWithLength:length];
   ssize_t result = read(_file, data.mutableBytes, length);
   if (result < 0) {
-    *error = GCDWebServerMakePosixError(errno);
+    if (error) {
+      *error = GCDWebServerMakePosixError(errno);
+    }
     return nil;
   }
   if (result > 0) {
     [data setLength:result];
     _size -= result;
   }
-  return ARC_AUTORELEASE(data);
+  return data;
 }
 
 - (void)close {

@@ -28,6 +28,7 @@
 //Support
 #import "BFOArmazenamentoBoleto.h"
 
+
 static NSString * const BFOBoletoActionSheetMarcarPago = @"Marcar como pago";
 static NSString * const BFOBoletoActionSheetMarcarNaoPago = @"Marcar como não pago";
 static NSString * const BFOBoletoActionSheetCriarLembrete = @"Criar lembrete";
@@ -65,7 +66,14 @@ static NSString * const BFOBoletoActionSheetInformarDataVencimento = @"Informar 
     
     self.tableView.tableFooterView = [UIView new];
     
-    [[BFOArmazenamentoBoleto sharedArmazenamentoBoleto] adicionarBoletoComCodigoBarras:@"75692602900000359191301002035469414265164001"];
+//    [[BFOArmazenamentoBoleto sharedArmazenamentoBoleto] adicionarBoletoComCodigoBarras:@"02191618900000166510010847800017732009402163"];
+//    [[BFOArmazenamentoBoleto sharedArmazenamentoBoleto] adicionarBoletoComCodigoBarras:@"39991611800001264300010847800017732009402163"];
+//    [[BFOArmazenamentoBoleto sharedArmazenamentoBoleto] adicionarBoletoComCodigoBarras:@"84680000001563000820999989421070019693993499"];
+//    [[BFOArmazenamentoBoleto sharedArmazenamentoBoleto] adicionarBoletoComCodigoBarras:@"85680000001200000820999989421070019693993499"];
+//    [[BFOArmazenamentoBoleto sharedArmazenamentoBoleto] adicionarBoletoComCodigoBarras:@"82680000002304000820999989421070019693993499"];
+//    [[BFOArmazenamentoBoleto sharedArmazenamentoBoleto] adicionarBoletoComCodigoBarras:@"83680000000560000820999989421070019693993499"];
+    
+    self.title = @"Boletos";
 }
 
 - (void)viewWillAppear:(BOOL)animated

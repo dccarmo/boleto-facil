@@ -12,6 +12,9 @@
 #import "BFOListaBoletosViewController.h"
 #import "BFOMostrarBoletoViewController.h"
 
+//Pods
+#import "GAITrackedViewController.h"
+
 @interface BFONavegacaoPrincipalViewController ()
 
 @end

@@ -14,6 +14,7 @@
 //Support
 #import "BFOArmazenamentoBoleto.h"
 
+
 @interface BFOInformarDataVencimentoViewController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *data;
@@ -46,6 +47,8 @@
     self.datePicker.maximumDate = [[NSCalendar currentCalendar] dateFromComponents:componentesData];
     
     [self dataMudouAction:nil];
+    
+    self.title = @"Data de vencimento";
 }
 
 #pragma mark - BFODataVencimentoViewController

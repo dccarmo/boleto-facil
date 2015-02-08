@@ -63,6 +63,8 @@
 //    [view alterarEstadoCriacaoServidor:BFOEstadoCriacaoServidorIniciando mensagem:@"Carregando servidor..."];
 //    
 //    self.dataVencimentoRelativa = YES;
+    
+    self.title = @"Detalhe";
 }
 
 - (void)viewWillAppear:(BOOL)animated

@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BFOBaseTableViewController.h"
 
 @class BFOBoleto;
 
-@interface BFOInformarDataVencimentoViewController : UITableViewController
+@interface BFOInformarDataVencimentoViewController : BFOBaseTableViewController
 
 @property (nonatomic) BFOBoleto *boleto;
 

@@ -25,6 +25,10 @@
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#if !__has_feature(objc_arc)
+#error GCDWebServer requires ARC
+#endif
+
 #import "GCDWebServerPrivate.h"
 
 @interface GCDWebServerFileRequest () {
@@ -40,22 +44,21 @@
 
 - (instancetype)initWithMethod:(NSString*)method url:(NSURL*)url headers:(NSDictionary*)headers path:(NSString*)path query:(NSDictionary*)query {
   if ((self = [super initWithMethod:method url:url headers:headers path:path query:query])) {
-    _temporaryPath = ARC_RETAIN([NSTemporaryDirectory() stringByAppendingPathComponent:[[NSProcessInfo processInfo] globallyUniqueString]]);
+    _temporaryPath = [NSTemporaryDirectory() stringByAppendingPathComponent:[[NSProcessInfo processInfo] globallyUniqueString]];
   }
   return self;
 }
 
 - (void)dealloc {
   unlink([_temporaryPath fileSystemRepresentation]);
-  ARC_RELEASE(_temporaryPath);
-  
-  ARC_DEALLOC(super);
 }
 
 - (BOOL)open:(NSError**)error {
   _file = open([_temporaryPath fileSystemRepresentation], O_CREAT | O_TRUNC | O_WRONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
   if (_file <= 0) {
-    *error = GCDWebServerMakePosixError(errno);
+    if (error) {
+      *error = GCDWebServerMakePosixError(errno);
+    }
     return NO;
   }
   return YES;
@@ -63,7 +66,9 @@
 
 - (BOOL)writeData:(NSData*)data error:(NSError**)error {
   if (write(_file, data.bytes, data.length) != (ssize_t)data.length) {
-    *error = GCDWebServerMakePosixError(errno);
+    if (error) {
+      *error = GCDWebServerMakePosixError(errno);
+    }
     return NO;
   }
   return YES;
@@ -71,7 +76,9 @@
 
 - (BOOL)close:(NSError**)error {
   if (close(_file) < 0) {
-    *error = GCDWebServerMakePosixError(errno);
+    if (error) {
+      *error = GCDWebServerMakePosixError(errno);
+    }
     return NO;
   }
 #ifdef __GCDWEBSERVER_ENABLE_TESTING__

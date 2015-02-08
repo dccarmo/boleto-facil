@@ -37,6 +37,7 @@
 {
     [super viewDidLoad];
     
+     self.title = @"Lembretes";
 }
 
 - (void)viewWillAppear:(BOOL)animated

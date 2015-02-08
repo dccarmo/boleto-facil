@@ -38,7 +38,8 @@ NSString * const BFOOrdenacaoTelaPrincipalBancoTexto = @"Banco";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
+    self.title = @"Ordenar por";
 }
 
 #pragma mark - UITableViewDataSource

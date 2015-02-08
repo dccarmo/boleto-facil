@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BFOBaseViewController.h"
 
 @class BFOBoleto;
 
-@interface BFOEscanearBoletoViewController : UIViewController
+@interface BFOEscanearBoletoViewController : BFOBaseViewController
 
 @property (nonatomic) BFOBoleto *boleto;
 
