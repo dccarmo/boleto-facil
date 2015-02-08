@@ -10,6 +10,7 @@
 
 //Views
 #import "BFOSequenciaLabel.h"
+#import "BFOLinhaDigitavelScrollView.h"
 
 //Models
 #import "BFOBoleto.h"
@@ -30,8 +31,10 @@ static const NSUInteger alturaInicialEstadoServidorFundo = 30;
 @property (weak, nonatomic) IBOutlet UILabel *banco;
 @property (weak, nonatomic) IBOutlet UILabel *dataVencimento;
 @property (weak, nonatomic) IBOutlet UILabel *valor;
-@property (weak, nonatomic) IBOutlet UIScrollView *containerLinhaDigitavel;
+@property (weak, nonatomic) IBOutlet BFOLinhaDigitavelScrollView *containerLinhaDigitavel;
 @property (weak, nonatomic) IBOutlet UIScrollView *containerCodigoBarras;
+
+@property (weak, nonatomic) NSString *linhaDigitavelCompleta;
 
 @end
 
@@ -111,6 +114,8 @@ static const NSUInteger alturaInicialEstadoServidorFundo = 30;
     
     self.valor.text = boleto.valorExtenso;
     
+    self.linhaDigitavelCompleta = [boleto linhaDigitavel];
+    
     [self configurarContainerLinhaDigitavelComBoleto:boleto];
     [self calcularTransparenciaContainerLinhaDigitavel];
     
@@ -148,17 +153,52 @@ static const NSUInteger alturaInicialEstadoServidorFundo = 30;
     } else {
         self.containerLinhaDigitavel.contentSize = CGSizeMake(textoSequencia.frame.origin.x + textoSequencia.frame.size.width + self.frame.size.width/2, self.containerLinhaDigitavel.contentSize.height);
     }
+    
+    UILongPressGestureRecognizer *toqueCopiarTudo = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(abrirMenuCopiarTudo:)];
+    self.containerLinhaDigitavel.userInteractionEnabled = YES;
+    [self.containerLinhaDigitavel addGestureRecognizer:toqueCopiarTudo];
 }
 
-- (void)configurarContainerCodigoBarrasComBoleto:(BFOBoleto *)boleto
+- (void)abrirMenuCopiarTudo:(id)sender
 {
-    BFOSequenciaLabel *textoSequencia = [[BFOSequenciaLabel alloc] initWithFrame:CGRectMake(margemLateralView, 0, self.frame.size.width, self.frame.size.width)];
+    UILongPressGestureRecognizer *toqueCopiarTudo = (UILongPressGestureRecognizer *) sender;
     
-    textoSequencia.text = boleto.codigoBarras;
-    [textoSequencia sizeToFit];
+    if (toqueCopiarTudo.state == UIGestureRecognizerStateBegan) {
+        UIMenuController *menuController;
+        UIMenuItem *copiar;
+        
+        [self.containerLinhaDigitavel becomeFirstResponder];
+        
+        menuController = [UIMenuController sharedMenuController];
+        copiar = [[UIMenuItem alloc] initWithTitle:@"Copiar linha" action:@selector(copiarTudo)];
+        
+        UIMenuItem *copiarAtual = menuController.menuItems.firstObject;
+        
+        if (copiarAtual && ![copiarAtual.title isEqualToString:copiar.title]) {
+            [menuController setMenuVisible:NO animated:YES];
+        }
+        
+        menuController.menuItems = @[copiar];
+        
+        if (self.containerLinhaDigitavel.frame.size.width > self.containerLinhaDigitavel.superview.frame.size.width) {
+            [menuController setTargetRect:self.containerLinhaDigitavel.superview.bounds inView:self.containerLinhaDigitavel];
+        } else {
+            [menuController setTargetRect:self.containerLinhaDigitavel.bounds inView:self.containerLinhaDigitavel];
+        }
+        
+        if ([menuController isMenuVisible]) {
+            [menuController setMenuVisible:NO animated:YES];
+        } else {
+            [menuController setMenuVisible:YES animated:YES];
+        }
+    }
+}
+
+- (void)copiarTudo
+{
+    UIPasteboard *areaDeTransferencia = [UIPasteboard generalPasteboard];
     
-    [self.containerCodigoBarras addSubview:textoSequencia];
-    self.containerCodigoBarras.contentSize = CGSizeMake(textoSequencia.frame.origin.x + textoSequencia.frame.size.width + margemLateralView, self.containerCodigoBarras.contentSize.height);
+    areaDeTransferencia.string = self.linhaDigitavelCompleta;
 }
 
 - (void)calcularTransparenciaContainerLinhaDigitavel
@@ -184,6 +224,17 @@ static const NSUInteger alturaInicialEstadoServidorFundo = 30;
         
         textoSequencia.alpha = 1.0f - transparenciaTextoSequencia;
     }
+}
+
+- (void)configurarContainerCodigoBarrasComBoleto:(BFOBoleto *)boleto
+{
+    BFOSequenciaLabel *textoSequencia = [[BFOSequenciaLabel alloc] initWithFrame:CGRectMake(margemLateralView, 0, self.frame.size.width, self.frame.size.width)];
+    
+    textoSequencia.text = boleto.codigoBarras;
+    [textoSequencia sizeToFit];
+    
+    [self.containerCodigoBarras addSubview:textoSequencia];
+    self.containerCodigoBarras.contentSize = CGSizeMake(textoSequencia.frame.origin.x + textoSequencia.frame.size.width + margemLateralView, self.containerCodigoBarras.contentSize.height);
 }
 
 #pragma mark - UIScrollViewDelegate

@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A6EA78633C9F4C0189E434CA"
+               BlueprintIdentifier = "C95E3B8260E0421C927733D4"
                BuildableName = "libPods-GCDWebServer.a"
                BlueprintName = "Pods-GCDWebServer"
                ReferencedContainer = "container:Pods.xcodeproj">

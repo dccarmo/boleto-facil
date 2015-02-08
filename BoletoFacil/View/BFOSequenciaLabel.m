@@ -36,6 +36,12 @@
     menuController = [UIMenuController sharedMenuController];
     copiar = [[UIMenuItem alloc] initWithTitle:@"Copiar" action:@selector(copiarSequencia)];
     
+    UIMenuItem *copiarAtual = menuController.menuItems.firstObject;
+    
+    if (copiarAtual && ![copiarAtual.title isEqualToString:copiar.title]) {
+        [menuController setMenuVisible:NO animated:YES];
+    }
+    
     menuController.menuItems = @[copiar];
     
     if (self.frame.size.width > self.superview.frame.size.width) {

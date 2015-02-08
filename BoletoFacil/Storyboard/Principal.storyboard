@@ -221,7 +221,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xqc-Ej-FeI">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xqc-Ej-FeI" customClass="BFOLinhaDigitavelScrollView">
                                 <rect key="frame" x="0.0" y="203" width="600" height="42"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="42" id="R0o-Ko-jJC"/>

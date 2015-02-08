@@ -68,21 +68,6 @@ static NSString * const erroSemConexaoWifi = @"Você não está conectado à wi-
 {
     self.servidor = [GCDWebServer new];
     self.servidor.delegate = self;
-    
-    [self iniciarServidor];
-}
-
-- (void)iniciarServidor
-{
-    if ([self.servidor isRunning]) {
-        [self.servidor stop];
-    }
-    
-    if (self.reachability.currentReachabilityStatus == ReachableViaWiFi) {
-        [self.servidor start];
-    } else {
-        self.mensagemErro = erroSemConexaoWifi;
-    }
 }
 
 - (NSString *)URLServidor
@@ -94,9 +79,8 @@ static NSString * const erroSemConexaoWifi = @"Você não está conectado à wi-
 {
     NSString *html;
     
-    if (![self.servidor isRunning]) {
-        *mensagemErro = self.mensagemErro ? self.mensagemErro : @"Erro desconhecido";
-        return NO;
+    if ([self.servidor isRunning]) {
+        [self.servidor stop];
     }
     
     html = [self HTMLFormatadoComBoleto:boleto];
@@ -109,6 +93,8 @@ static NSString * const erroSemConexaoWifi = @"Você não está conectado à wi-
                                      
                                      return [GCDWebServerDataResponse responseWithHTML:html];
                                  }];
+    
+    [self.servidor start];
     
     return YES;
 }
@@ -146,19 +132,9 @@ static NSString * const erroSemConexaoWifi = @"Você não está conectado à wi-
 
 - (void)reachabilityMudou
 {
-    [self iniciarServidor];
-}
-
-#pragma mark - GCDWebServerDelegate
-
-- (void)webServerDidStart:(GCDWebServer *)server
-{
-    
-}
-
-- (void)webServerDidStop:(GCDWebServer *)server
-{
-    
+    if (self.reachability.currentReachabilityStatus != ReachableViaWiFi) {
+        self.mensagemErro = erroSemConexaoWifi;
+    }
 }
 
 @end
