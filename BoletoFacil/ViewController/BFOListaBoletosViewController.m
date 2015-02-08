@@ -28,7 +28,6 @@
 //Support
 #import "BFOArmazenamentoBoleto.h"
 
-
 static NSString * const BFOBoletoActionSheetMarcarPago = @"Marcar como pago";
 static NSString * const BFOBoletoActionSheetMarcarNaoPago = @"Marcar como não pago";
 static NSString * const BFOBoletoActionSheetCriarLembrete = @"Criar lembrete";
@@ -82,6 +81,22 @@ static NSString * const BFOBoletoActionSheetInformarDataVencimento = @"Informar 
     
     [self carregarBoletos];
     [self.tableView reloadData];
+}
+
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
+{
+    if ([identifier isEqualToString:@"escanearBoletoSegue"]) {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        
+        if ([defaults integerForKey:BFONumeroBoletosLidosKey] >= 3 && ![defaults boolForKey:BFOAplicativoDesbloqueadoKey]) {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Obrigado por testar!" message:@"Para continuar lendo boletos, por favor desbloqueie este recurso através do menu 'Configuração', que pode ser acessado tocando no botão no canto superior esquerdo desta tela. Caso já tenha comprado o aplicativo antes, nada será cobrado pelo desbloqueio." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alertView show];
+            
+            return NO;
+        }
+    }
+    
+    return YES;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+extern NSString *const BFONumeroBoletosLidosKey;
+extern NSString *const BFOAplicativoDesbloqueadoKey;
 extern NSString *const BFOOrdenacaoTelaPrincipalKey;
 extern NSString *const BFOMostrarBoletosVencidosKey;
 extern NSString *const BFOMostrarBoletosPagosKey;

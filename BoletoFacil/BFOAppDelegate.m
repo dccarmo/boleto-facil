@@ -20,6 +20,8 @@
 //Pods
 #import <GAI.h>
 
+NSString *const BFONumeroBoletosLidosKey = @"NumeroBoletosLidos";
+NSString *const BFOAplicativoDesbloqueadoKey = @"AplicativoDesbloqueado";
 NSString *const BFOOrdenacaoTelaPrincipalKey = @"OrdenacaoTelaPrincipal";
 NSString *const BFOMostrarBoletosVencidosKey = @"MostrarBoletosVencidos";
 NSString *const BFOMostrarBoletosPagosKey = @"MostrarBoletosPagos";
@@ -39,7 +41,9 @@ NSString *const BFOPagoCategoryIdentifier = @"PagoCategoryIdentifier";
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    [defaults registerDefaults:@{BFOOrdenacaoTelaPrincipalKey: @0,
+    [defaults registerDefaults:@{BFONumeroBoletosLidosKey: @0,
+                                 BFOOrdenacaoTelaPrincipalKey: @0,
+                                 BFOAplicativoDesbloqueadoKey: @NO,
                                  BFOMostrarBoletosVencidosKey: @YES,
                                  BFOMostrarBoletosPagosKey: @YES,
                                  BFONenhumBoletoLidoKey: @YES,

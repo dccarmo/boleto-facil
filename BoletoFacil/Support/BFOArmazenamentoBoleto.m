@@ -8,6 +8,9 @@
 
 #import "BFOArmazenamentoBoleto.h"
 
+//App Delegate
+#import "BFOAppDelegate.h"
+
 //Models
 #import "BFOBoleto.h"
 
@@ -96,6 +99,11 @@
     if (![NSKeyedArchiver archiveRootObject:self.boletos toFile:[self caminhoArquivo]]) {
         NSLog(@"Erro ao salvar boletos");
     }
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSUInteger numeroBoletosLidos = [defaults integerForKey:BFONumeroBoletosLidosKey];
+    [defaults setObject:@(numeroBoletosLidos + 1) forKey:BFONumeroBoletosLidosKey];
+    [defaults synchronize];
 }
 
 @end

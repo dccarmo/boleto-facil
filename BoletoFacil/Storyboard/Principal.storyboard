@@ -79,7 +79,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="F6B-Ez-cNA">
                             <connections>
-                                <segue destination="ig3-mO-DES" kind="presentation" id="Ag5-xV-ona"/>
+                                <segue destination="ig3-mO-DES" kind="presentation" identifier="escanearBoletoSegue" id="Ag5-xV-ona"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -563,8 +563,14 @@
                                 <action selector="fechar:" destination="Qir-Ke-Lpu" id="5p0-JR-jrI"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Desbloquear" id="dfW-ls-0HS">
+                            <connections>
+                                <action selector="comprarButtonAction:" destination="Qir-Ke-Lpu" id="QoN-Gi-jXd"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="comprarButton" destination="dfW-ls-0HS" id="RDg-8e-aUi"/>
                         <outlet property="mostrarBoletosPagos" destination="ndE-OE-XM8" id="6Ru-FF-d1a"/>
                         <outlet property="mostrarBoletosVencidos" destination="J0U-JN-HR7" id="5aY-kT-O4S"/>
                     </connections>

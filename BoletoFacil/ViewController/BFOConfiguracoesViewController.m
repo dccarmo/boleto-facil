@@ -7,6 +7,7 @@
 //
 
 #import "BFOConfiguracoesViewController.h"
+#import <StoreKit/StoreKit.h>
 
 //App Delegate
 #import "BFOAppDelegate.h"
@@ -15,20 +16,23 @@
 #import "BFOOrdenacaoListaBoletoViewController.h"
 #import "BFOListaLembretesViewController.h"
 
+#define kRemoveAdsProductIdentifier @"me.dcarmo.zebra.unlock"
+
 typedef NS_ENUM(NSUInteger, BFOConfiguracoesViewControllerSecao)
 {
     BFOConfiguracoesViewControllerSecaoTelaPrincipal,
     BFOConfiguracoesViewControllerSecaoLembretes
 };
 
-@interface BFOConfiguracoesViewController ()
+@interface BFOConfiguracoesViewController() <SKProductsRequestDelegate, SKPaymentTransactionObserver, UIAlertViewDelegate>
 
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *comprarButton;
 @property (weak, nonatomic) IBOutlet UISwitch *mostrarBoletosVencidos;
 @property (weak, nonatomic) IBOutlet UISwitch *mostrarBoletosPagos;
 
 @end
 
-@implementation BFOConfiguracoesViewController
+@implementation BFOConfiguracoesViewController 
 
 - (instancetype)init
 {
@@ -48,6 +52,11 @@ typedef NS_ENUM(NSUInteger, BFOConfiguracoesViewControllerSecao)
     [super viewDidLoad];
     
     [self configurarInterruptores];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults boolForKey:BFOAplicativoDesbloqueadoKey]) {
+        self.navigationItem.rightBarButtonItem = nil;
+    }
     
     self.title = @"Configurações";
 }
@@ -69,6 +78,15 @@ typedef NS_ENUM(NSUInteger, BFOConfiguracoesViewControllerSecao)
     self.mostrarBoletosPagos.on = [defaults boolForKey:BFOMostrarBoletosPagosKey];
 }
 
+- (void)desbloquearAplicativo
+{    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:@(YES) forKey:BFOAplicativoDesbloqueadoKey];
+    [defaults synchronize];
+    
+    self.navigationItem.rightBarButtonItem = nil;
+}
+
 - (IBAction)fechar:(id)sender
 {
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
@@ -88,6 +106,11 @@ typedef NS_ENUM(NSUInteger, BFOConfiguracoesViewControllerSecao)
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     [defaults setObject:@(interruptor.on) forKey:BFOMostrarBoletosPagosKey];
+}
+
+- (IBAction)comprarButtonAction:(id)sender {
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Desbloquear" message:@"Obrigado pelo seu interesse no Zebra! Caso já tenha comprado o aplicativo antes, escolha 'Restaurar'. Ou toque em 'Comprar' para desbloquear o número de leituras de boletos." delegate:self cancelButtonTitle:@"Cancelar" otherButtonTitles:@"Comprar", @"Restaurar", nil];
+    [alertView show];
 }
 
 #pragma mark - UITableViewDataSource
@@ -135,5 +158,91 @@ typedef NS_ENUM(NSUInteger, BFOConfiguracoesViewControllerSecao)
 //        [self.navigationController pushViewController:[BFOListaLembretesViewController new] animated:YES];
 //    }
 //}
+
+#pragma mark - SKProductsRequestDelegate
+
+- (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response{
+    SKProduct *validProduct = nil;
+    NSUInteger count = [response.products count];
+    if (count > 0) {
+        validProduct = [response.products objectAtIndex:0];
+        
+        SKPayment *payment = [SKPayment paymentWithProduct:validProduct];
+        
+        [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+        [[SKPaymentQueue defaultQueue] addPayment:payment];
+    }
+    else if (!validProduct) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Erro" message:@"Erro interno" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alertView show];
+    }
+}
+
+#pragma mark - SKPaymentTransactionObserver
+
+- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions
+{
+    for(SKPaymentTransaction *transaction in transactions){
+        switch (transaction.transactionState){
+            case SKPaymentTransactionStateRestored:
+            case SKPaymentTransactionStatePurchased:
+                [self desbloquearAplicativo];
+                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+                break;
+                
+            case SKPaymentTransactionStateFailed:
+                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+                break;
+                
+            default:
+                break;
+        }
+    }
+}
+
+- (void)paymentQueueRestoreCompletedTransactionsFinished:(SKPaymentQueue *)queue
+{
+    for (SKPaymentTransaction *transaction in queue.transactions) {
+        if (transaction.transactionState == SKPaymentTransactionStateRestored || transaction.transactionState == SKPaymentTransactionStatePurchased) {
+            [self desbloquearAplicativo];
+            [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+            
+            return;
+        }
+    }
+    
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Erro ao restaurar a compra" message:@"Nenhuma compra anterior foi encontrada" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alertView show];
+}
+
+- (void)paymentQueue:(SKPaymentQueue *)queue restoreCompletedTransactionsFailedWithError:(NSError *)error
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Erro" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alertView show];
+}
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex != alertView.cancelButtonIndex) {
+        if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Comprar"]) {
+            if ([SKPaymentQueue canMakePayments]) {
+                SKProductsRequest *productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:kRemoveAdsProductIdentifier]];
+                productsRequest.delegate = self;
+                [productsRequest start];
+                
+            } else {
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Não foi possível comprar" message:@"Você não está autorizado a realizar transações" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [alertView show];
+            }
+        }
+        
+        if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Restaurar"]) {
+            [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+            [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
+        }
+    }
+}
 
 @end
