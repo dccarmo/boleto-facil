@@ -14,6 +14,9 @@
 //Models
 #import "BFOBoleto.h"
 
+//Pods
+#import <iRate.h>
+
 @interface BFOArmazenamentoBoleto() {
     NSMutableArray *_boletos;
 }
@@ -104,6 +107,8 @@
     NSUInteger numeroBoletosLidos = [defaults integerForKey:BFONumeroBoletosLidosKey];
     [defaults setObject:@(numeroBoletosLidos + 1) forKey:BFONumeroBoletosLidosKey];
     [defaults synchronize];
+    
+    [[iRate sharedInstance] logEvent:YES];
 }
 
 @end

@@ -89,7 +89,7 @@ static NSString * const BFOBoletoActionSheetInformarDataVencimento = @"Informar 
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         
         if ([defaults integerForKey:BFONumeroBoletosLidosKey] >= 3 && ![defaults boolForKey:BFOAplicativoDesbloqueadoKey]) {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Obrigado por testar!" message:@"Para continuar lendo boletos, por favor desbloqueie este recurso através do menu 'Configuração', que pode ser acessado tocando no botão no canto superior esquerdo desta tela. Caso já tenha comprado o aplicativo antes, nada será cobrado pelo desbloqueio." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Obrigado por testar!" message:@"Para continuar lendo boletos, por favor desbloqueie este recurso através do menu 'Configuração', que pode ser acessado tocando no botão no canto superior esquerdo desta tela." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alertView show];
             
             return NO;

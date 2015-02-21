@@ -14,7 +14,22 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-OpenSSL.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-RMStore.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-ZBarSDK.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-iRate.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -27,22 +42,37 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>23E410D1D2294FF29CD27907</key>
+		<key>2CD3ECDA21FAC4E1D2309874</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7EF4E2F6B738437EA9D81D14</key>
+		<key>6C5C1ACB0A4EE3E8D43A30E9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C080DE0AF2F345B58942AF07</key>
+		<key>76BE8BF2CFD095E3DCC18BA9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C95E3B8260E0421C927733D4</key>
+		<key>A02D170C00695EE637C24FA5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CF3594768457B97D651E0752</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E69C275EE83EC6B0BFF1F910</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EC8B70D40F3751BA77447E9A</key>
 		<dict>
 			<key>primary</key>
 			<true/>

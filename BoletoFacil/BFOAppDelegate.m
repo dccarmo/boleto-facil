@@ -19,6 +19,10 @@
 
 //Pods
 #import <GAI.h>
+#import <RMStore.h>
+#import <RMAppReceipt.h>
+#import <RMStoreAppReceiptVerificator.h>
+#import <iRate.h>
 
 NSString *const BFONumeroBoletosLidosKey = @"NumeroBoletosLidos";
 NSString *const BFOAplicativoDesbloqueadoKey = @"AplicativoDesbloqueado";
@@ -70,6 +74,26 @@ NSString *const BFOPagoCategoryIdentifier = @"PagoCategoryIdentifier";
     }
     
     [[GAI sharedInstance] trackerWithTrackingId:@"UA-9367655-6"];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    if (![defaults boolForKey:BFOAplicativoDesbloqueadoKey]) {
+        [[RMStore defaultStore] refreshReceiptOnSuccess:^{
+            RMAppReceipt *receipt = [RMAppReceipt bundleReceipt];
+            
+            CGFloat originalAppVersion = [receipt.originalAppVersion floatValue];
+            
+            if (originalAppVersion < 1.2) {
+                [defaults setObject:@(YES) forKey:BFOAplicativoDesbloqueadoKey];
+                [defaults synchronize];
+            }
+            
+        } failure:^(NSError *error) {
+            
+        }];
+    }
+    
+    [iRate sharedInstance].eventsUntilPrompt = 5;
     
     return YES;
 }

@@ -54,7 +54,8 @@
 
 /* Begin PBXFileReference section */
 		307233CA551D4CC58922B0B0 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		46B23A6EF2A64E91B016FB47 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		3D0C6C7562EFE92028B58A7E /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		CA169DB350A572C4FEF4F09C /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		D9186BDE190D84CD008B03BB /* Zebra.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zebra.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9186BE1190D84CD008B03BB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D9186BE3190D84CD008B03BB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -147,13 +148,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D6990CE91BF3058080AA77AC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CA169DB350A572C4FEF4F09C /* Pods.debug.xcconfig */,
+				3D0C6C7562EFE92028B58A7E /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		D9186BD5190D84CD008B03BB = {
 			isa = PBXGroup;
 			children = (
 				D9186BE7190D84CD008B03BB /* BoletoFacil */,
 				D9186BE0190D84CD008B03BB /* Frameworks */,
 				D9186BDF190D84CD008B03BB /* Products */,
-				46B23A6EF2A64E91B016FB47 /* Pods.xcconfig */,
+				D6990CE91BF3058080AA77AC /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -411,7 +421,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -537,7 +547,7 @@
 		};
 		D9186C0B190D84CE008B03BB /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 46B23A6EF2A64E91B016FB47 /* Pods.xcconfig */;
+			baseConfigurationReference = CA169DB350A572C4FEF4F09C /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -548,14 +558,14 @@
 				INFOPLIST_FILE = "BoletoFacil/BoletoFacil-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = Zebra;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "4f5476ef-050b-4222-b6af-6d23ea1d3645";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
 		};
 		D9186C0C190D84CE008B03BB /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 46B23A6EF2A64E91B016FB47 /* Pods.xcconfig */;
+			baseConfigurationReference = 3D0C6C7562EFE92028B58A7E /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -566,7 +576,7 @@
 				INFOPLIST_FILE = "BoletoFacil/BoletoFacil-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = Zebra;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "4f5476ef-050b-4222-b6af-6d23ea1d3645";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

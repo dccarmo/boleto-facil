@@ -79,7 +79,7 @@ typedef NS_ENUM(NSUInteger, BFOConfiguracoesViewControllerSecao)
 }
 
 - (void)desbloquearAplicativo
-{    
+{
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:@(YES) forKey:BFOAplicativoDesbloqueadoKey];
     [defaults synchronize];
@@ -109,7 +109,7 @@ typedef NS_ENUM(NSUInteger, BFOConfiguracoesViewControllerSecao)
 }
 
 - (IBAction)comprarButtonAction:(id)sender {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Desbloquear" message:@"Obrigado pelo seu interesse no Zebra! Caso já tenha comprado o aplicativo antes, escolha 'Restaurar'. Ou toque em 'Comprar' para desbloquear o número de leituras de boletos." delegate:self cancelButtonTitle:@"Cancelar" otherButtonTitles:@"Comprar", @"Restaurar", nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Desbloquear" message:@"Obrigado pelo seu interesse no Zebra! Caso já tenha comprado o aplicativo antes, escolha 'Restaurar'. Ou toque em 'Comprar' para desbloquear a leituras de boletos." delegate:self cancelButtonTitle:@"Cancelar" otherButtonTitles:@"Comprar", @"Restaurar", nil];
     [alertView show];
 }
 
@@ -206,6 +206,9 @@ typedef NS_ENUM(NSUInteger, BFOConfiguracoesViewControllerSecao)
         if (transaction.transactionState == SKPaymentTransactionStateRestored || transaction.transactionState == SKPaymentTransactionStatePurchased) {
             [self desbloquearAplicativo];
             [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+            
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Sucesso!" message:@"Obrigado por ter comprado o Zebra! :)" delegate:nil cancelButtonTitle:@"Fechar" otherButtonTitles:nil];
+            [alertView show];
             
             return;
         }
