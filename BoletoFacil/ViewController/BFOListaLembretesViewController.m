@@ -22,15 +22,6 @@
 
 @implementation BFOListaLembretesViewController
 
-//- (instancetype)init
-//{
-//    self = [super initWithStyle:UITableViewStyleGrouped];
-//    if (self) {
-//        self.navigationItem.title = @"Lembretes agendados";
-//    }
-//    return self;
-//}
-
 #pragma mark - UIViewController
 
 - (void)viewDidLoad

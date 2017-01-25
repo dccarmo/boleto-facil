@@ -56,13 +56,6 @@ NSString *const BFOPagoCategoryIdentifier = @"PagoCategoryIdentifier";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-//    BFONavegacaoPrincipalViewController *navegacaoPrincipal = [BFONavegacaoPrincipalViewController new];
-//
-//    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-//    self.window.rootViewController = navegacaoPrincipal;
-//    self.window.backgroundColor = [UIColor whiteColor];
-//    [self.window makeKeyAndVisible];
-    
     [self setApplicationStyle];
     
     if (launchOptions[UIApplicationLaunchOptionsLocalNotificationKey]) {

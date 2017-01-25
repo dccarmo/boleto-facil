@@ -31,38 +31,11 @@
 
 @implementation BFOMostrarBoletoViewController
 
-//- (instancetype)initWithBoleto:(BFOBoleto *)boleto
-//{
-//    self = [super initWithNibName:@"BFOMostrarBoletoView" bundle:nil];
-//    if (self) {
-//        UIBarButtonItem *botaoCompartilhar = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(compartilharBoleto)];
-//        
-//        self.navigationItem.title = @"Detalhe";
-//        self.navigationItem.rightBarButtonItem = botaoCompartilhar;
-//        
-//        self.boleto = boleto;
-//    }
-//    return self;
-//}
-
-//- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-//{
-//    self = [self initWithBoleto:nil];
-//    return self;
-//}
-
 #pragma mark - UIViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-//    BFOMostrarBoletoView *view = (BFOMostrarBoletoView *) self.view;
-//    
-//    [view configurarViewComBoleto:self.boleto];
-//    [view alterarEstadoCriacaoServidor:BFOEstadoCriacaoServidorIniciando mensagem:@"Carregando servidor..."];
-//    
-//    self.dataVencimentoRelativa = YES;
     
     self.title = @"Detalhe";
 }

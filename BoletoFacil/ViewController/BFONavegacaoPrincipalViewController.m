@@ -28,23 +28,6 @@
     self.navigationBar.translucent = NO;
 }
 
-//- (instancetype)init
-//{
-//    BFOListaBoletosViewController *listaBoletos = [BFOListaBoletosViewController new];
-//    
-//    self = [super initWithRootViewController:listaBoletos];
-//    if (self) {
-//        self.navigationBar.translucent = NO;
-//    }
-//    return self;
-//}
-//
-//- (instancetype)initWithRootViewController:(UIViewController *)rootViewController
-//{
-//    self = [self init];
-//    return self;
-//}
-
 #pragma mark - UIViewController
 
 - (void)viewDidLoad

@@ -78,10 +78,6 @@
             [alertView show];
         }
     }
-    
-    BFOEscanearBoletoView *view = (BFOEscanearBoletoView *) self.view;
-   
-    [view mostrarBotoes];
 }
 
 - (BOOL)prefersStatusBarHidden

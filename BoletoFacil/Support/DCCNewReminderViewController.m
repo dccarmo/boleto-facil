@@ -174,7 +174,7 @@ typedef NS_ENUM(NSUInteger, DCCNewReminderRow)
         _datePicker.datePickerMode = UIDatePickerModeDateAndTime;
         
         if (self.boleto.dataVencimento) {
-            dateComponents = [[NSCalendar currentCalendar] components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit fromDate:self.boleto.dataVencimento];
+            dateComponents = [[NSCalendar currentCalendar] components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:self.boleto.dataVencimento];
             [dateComponents setHour:8];
             [dateComponents setMinute:0];
             

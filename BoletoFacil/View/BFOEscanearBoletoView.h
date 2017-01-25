@@ -14,6 +14,5 @@
 
 - (void)setupCameraPreviewView:(ZBarReaderView *)readerView;
 - (void)alterarBotaoFecharParaBotaoSucesso;
-- (void)mostrarBotoes;
 
 @end

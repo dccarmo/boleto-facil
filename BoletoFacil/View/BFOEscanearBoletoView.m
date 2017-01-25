@@ -37,18 +37,7 @@
 
 - (void)awakeFromNib
 {
-//    self.frame = [UIScreen mainScreen].bounds;
-//    
-//    self.botaoFechar.hidden = YES;
-//    self.botaoFlash.hidden = YES;
-//    
-//    self.botaoFechar.center = CGPointMake(self.center.x, self.frame.size.height - self.botaoFechar.frame.size.height/2 - 20); //para se adaptar a tela menor
-//    
-//    self.linhaEsquerda.hidden = YES;
-//    self.linhaDireita.hidden = YES;
-//    
-//    [self rotacionarBotoes];
-//    [self adicionarEfeitoMovimentoBotoes];
+    [super awakeFromNib];
     
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rotacionarBotoes) name:UIDeviceOrientationDidChangeNotification object:nil];
@@ -66,34 +55,6 @@
 {
     self.botaoFechar.userInteractionEnabled = NO;
     self.botaoFechar.selected = YES;
-}
-
-- (void)mostrarBotoes
-{
-//    UISnapBehavior *snapBehavior;
-//    
-//    self.animador = [[UIDynamicAnimator alloc] initWithReferenceView:self];
-//    
-//    //Botao Fechar
-//    self.botaoFechar.center = CGPointMake(self.botaoFechar.center.x, self.botaoFechar.center.y + self.botaoFechar.frame.size.height + 20);
-//    self.botaoFechar.hidden = NO;
-//    
-//    snapBehavior = [[UISnapBehavior alloc] initWithItem:self.botaoFechar snapToPoint:CGPointMake(self.botaoFechar.center.x,
-//                                                                                                 self.botaoFechar.center.y - (self.botaoFechar.frame.size.height + 20))];
-//    [self.animador addBehavior:snapBehavior];
-//    
-//    //Botao Flash
-//    self.botaoFlash.center = CGPointMake(self.botaoFlash.center.x, self.botaoFlash.center.y - (self.botaoFlash.frame.size.height + 20));
-//    self.botaoFlash.hidden = NO;
-//    
-//    snapBehavior = [[UISnapBehavior alloc] initWithItem:self.botaoFlash snapToPoint:CGPointMake(self.botaoFlash.center.x,
-//                                                                                                 self.botaoFlash.center.y + (self.botaoFlash.frame.size.height + 20))];
-//
-//    [self.animador addBehavior:snapBehavior];
-//    
-//    [self mostrarLinhas];
-//    
-//    [self performSelector:@selector(rotacionarBotoes) withObject:nil afterDelay:1.2]; //Hack muito feio
 }
 
 - (void)rotacionarBotoes

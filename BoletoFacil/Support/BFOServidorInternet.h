@@ -17,7 +17,6 @@
 
 + (id)sharedServidorInternet;
 
-//- (void)iniciarServidor;
 - (NSString *)URLServidor;
 - (BOOL)mostrarBoleto:(BFOBoleto *)boleto mensagemErro:(NSString **)mensagemErro;
 

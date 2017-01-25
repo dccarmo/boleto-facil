@@ -214,7 +214,7 @@ static const NSUInteger alturaInicialEstadoServidorFundo = 30;
         }
         
         deslocamentoTextoSequencia = textoSequencia.center.x - self.containerLinhaDigitavel.contentOffset.x;
-        distanciaDoCentro = abs(deslocamentoTextoSequencia - self.center.x);
+        distanciaDoCentro = fabs(deslocamentoTextoSequencia - self.center.x);
         
         transparenciaTextoSequencia = distanciaDoCentro/self.center.x;
         

@@ -24,15 +24,6 @@ NSString * const BFOOrdenacaoTelaPrincipalBancoTexto = @"Banco";
 
 @implementation BFOOrdenacaoListaBoletoViewController
 
-//- (instancetype)init
-//{
-//    self = [super initWithStyle:UITableViewStyleGrouped];
-//    if (self) {
-//        self.navigationItem.title = @"Ordenar por";
-//    }
-//    return self;
-//}
-
 #pragma mark - UIViewController
 
 - (void)viewDidLoad

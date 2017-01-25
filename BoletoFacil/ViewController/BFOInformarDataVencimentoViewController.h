@@ -15,6 +15,4 @@
 
 @property (nonatomic) BFOBoleto *boleto;
 
-//- (instancetype)initWithBoleto:(BFOBoleto *)boleto;
-
 @end

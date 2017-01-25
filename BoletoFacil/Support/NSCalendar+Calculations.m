@@ -12,10 +12,10 @@
 
 - (NSInteger)daysWithinEraFromDate:(NSDate *) startDate toDate:(NSDate *) endDate
 {
-    NSInteger startDay=[self ordinalityOfUnit:NSDayCalendarUnit
-                                       inUnit: NSEraCalendarUnit forDate:startDate];
-    NSInteger endDay=[self ordinalityOfUnit:NSDayCalendarUnit
-                                     inUnit: NSEraCalendarUnit forDate:endDate];
+    NSInteger startDay=[self ordinalityOfUnit:NSCalendarUnitDay
+                                       inUnit: NSCalendarUnitEra forDate:startDate];
+    NSInteger endDay=[self ordinalityOfUnit:NSCalendarUnitDay
+                                     inUnit: NSCalendarUnitEra forDate:endDate];
     return endDay-startDay;
 }
 

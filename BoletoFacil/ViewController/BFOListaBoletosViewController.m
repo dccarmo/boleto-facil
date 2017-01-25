@@ -46,14 +46,6 @@ static NSString * const BFOBoletoActionSheetInformarDataVencimento = @"Informar 
 {
     [super awakeFromNib];
     
-//    UIImage *imagemEscanear = [UIImage imageNamed:@"botao_config_navbar"];
-//    UIBarButtonItem *config = [[UIBarButtonItem alloc] initWithImage:imagemEscanear style:UIBarButtonItemStylePlain target:self action:@selector(abrirConfiguracao)];
-//    UIBarButtonItem *adicionar = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(escanearCodigo)];
-//    
-//    self.navigationItem.title = @"Boletos";
-//    self.navigationItem.leftBarButtonItem = config;
-//    self.navigationItem.rightBarButtonItem = adicionar;
-    
     self.navigationController.navigationBar.translucent = NO;
 }
 

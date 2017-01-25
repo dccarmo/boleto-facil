@@ -24,24 +24,13 @@
 
 @implementation BFOInformarDataVencimentoViewController
 
-//- (instancetype)initWithBoleto:(BFOBoleto *)boleto
-//{
-//    UIStoryboard* dataVencimentoStoryboard = [UIStoryboard storyboardWithName:@"BFOInformarDataVencimento" bundle:nil];
-//    
-//    self = [dataVencimentoStoryboard instantiateInitialViewController];
-//    if (self) {
-//        self.boleto = boleto;
-//    }
-//    return self;
-//}
-
 #pragma mark - UIViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    NSDateComponents *componentesData = [[NSCalendar currentCalendar] components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit fromDate:[NSDate date]];
+    NSDateComponents *componentesData = [[NSCalendar currentCalendar] components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:[NSDate date]];
     
     [componentesData setYear:[componentesData year] + 1];
     self.datePicker.maximumDate = [[NSCalendar currentCalendar] dateFromComponents:componentesData];
