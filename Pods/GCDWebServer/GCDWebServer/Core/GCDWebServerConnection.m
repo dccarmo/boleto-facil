@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2012-2014, Pierre-Olivier Latour
+ Copyright (c) 2012-2015, Pierre-Olivier Latour
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without
@@ -88,7 +88,7 @@ static int32_t _connectionCounter = 0;
 @implementation GCDWebServerConnection (Read)
 
 - (void)_readData:(NSMutableData*)data withLength:(NSUInteger)length completionBlock:(ReadDataCompletionBlock)block {
-  dispatch_read(_socket, length, kGCDWebServerGCDQueue, ^(dispatch_data_t buffer, int error) {
+  dispatch_read(_socket, length, dispatch_get_global_queue(_server.dispatchQueuePriority, 0), ^(dispatch_data_t buffer, int error) {
     
     @autoreleasepool {
       if (error == 0) {
@@ -247,10 +247,10 @@ static inline NSUInteger _ScanHexNumber(const void* bytes, NSUInteger size) {
 @implementation GCDWebServerConnection (Write)
 
 - (void)_writeData:(NSData*)data withCompletionBlock:(WriteDataCompletionBlock)block {
-  dispatch_data_t buffer = dispatch_data_create(data.bytes, data.length, kGCDWebServerGCDQueue, ^{
+  dispatch_data_t buffer = dispatch_data_create(data.bytes, data.length, dispatch_get_global_queue(_server.dispatchQueuePriority, 0), ^{
     [data self];  // Keeps ARC from releasing data too early
   });
-  dispatch_write(_socket, buffer, kGCDWebServerGCDQueue, ^(dispatch_data_t remainingData, int error) {
+  dispatch_write(_socket, buffer, dispatch_get_global_queue(_server.dispatchQueuePriority, 0), ^(dispatch_data_t remainingData, int error) {
     
     @autoreleasepool {
       if (error == 0) {
@@ -548,6 +548,8 @@ static inline NSUInteger _ScanHexNumber(const void* bytes, NSUInteger size) {
           }
         }
         if (_request) {
+          _request.localAddressData = self.localAddressData;
+          _request.remoteAddressData = self.remoteAddressData;
           if ([_request hasBody]) {
             [_request prepareForWriting];
             if (_request.usesChunkedTransferEncoding || (extraData.length <= _request.contentLength)) {
@@ -756,23 +758,22 @@ static inline NSUInteger _ScanHexNumber(const void* bytes, NSUInteger size) {
 
 - (void)processRequest:(GCDWebServerRequest*)request completion:(GCDWebServerCompletionBlock)completion {
   GWS_LOG_DEBUG(@"Connection on socket %i processing request \"%@ %@\" with %lu bytes body", _socket, _virtualHEAD ? @"HEAD" : _request.method, _request.path, (unsigned long)_bytesRead);
-  @try {
-    _handler.asyncProcessBlock(request, completion);
-  }
-  @catch (NSException* exception) {
-    GWS_LOG_EXCEPTION(exception);
-  }
+  _handler.asyncProcessBlock(request, [completion copy]);
 }
 
+// http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.25
 // http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.26
 static inline BOOL _CompareResources(NSString* responseETag, NSString* requestETag, NSDate* responseLastModified, NSDate* requestLastModified) {
-  if ([requestETag isEqualToString:@"*"] && (!responseLastModified || !requestLastModified || ([responseLastModified compare:requestLastModified] != NSOrderedDescending))) {
-    return YES;
-  } else {
-    if ([responseETag isEqualToString:requestETag]) {
+  if (requestLastModified && responseLastModified) {
+    if ([responseLastModified compare:requestLastModified] != NSOrderedDescending) {
       return YES;
     }
-    if (responseLastModified && requestLastModified && ([responseLastModified compare:requestLastModified] != NSOrderedDescending)) {
+  }
+  if (requestETag && responseETag) {  // Per the specs "If-None-Match" must be checked after "If-Modified-Since"
+    if ([requestETag isEqualToString:@"*"]) {
+      return YES;
+    }
+    if ([responseETag isEqualToString:requestETag]) {
       return YES;
     }
   }

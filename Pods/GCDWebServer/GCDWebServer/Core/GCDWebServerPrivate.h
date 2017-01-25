@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2012-2014, Pierre-Olivier Latour
+ Copyright (c) 2012-2015, Pierre-Olivier Latour
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without
@@ -77,7 +77,6 @@
 #define GWS_LOG_INFO(...) XLOG_INFO(__VA_ARGS__)
 #define GWS_LOG_WARNING(...) XLOG_WARNING(__VA_ARGS__)
 #define GWS_LOG_ERROR(...) XLOG_ERROR(__VA_ARGS__)
-#define GWS_LOG_EXCEPTION(__EXCEPTION__) XLOG_EXCEPTION(__EXCEPTION__)
 
 #define GWS_DCHECK(__CONDITION__) XLOG_DEBUG_CHECK(__CONDITION__)
 #define GWS_DNOT_REACHED() XLOG_DEBUG_UNREACHABLE()
@@ -87,22 +86,21 @@
  *  it as a logging facility.
  */
 
-#elif defined(__has_include) && __has_include("DDLogMacros.h")
+#elif defined(__has_include) && __has_include("CocoaLumberjack/CocoaLumberjack.h")
 
-#import "DDLogMacros.h"
+#import <CocoaLumberjack/CocoaLumberjack.h>
 
 #define __GCDWEBSERVER_LOGGING_FACILITY_COCOALUMBERJACK__
 
 #undef LOG_LEVEL_DEF
 #define LOG_LEVEL_DEF GCDWebServerLogLevel
-extern int GCDWebServerLogLevel;
+extern DDLogLevel GCDWebServerLogLevel;
 
 #define GWS_LOG_DEBUG(...) DDLogDebug(__VA_ARGS__)
 #define GWS_LOG_VERBOSE(...) DDLogVerbose(__VA_ARGS__)
 #define GWS_LOG_INFO(...) DDLogInfo(__VA_ARGS__)
 #define GWS_LOG_WARNING(...) DDLogWarn(__VA_ARGS__)
 #define GWS_LOG_ERROR(...) DDLogError(__VA_ARGS__)
-#define GWS_LOG_EXCEPTION(__EXCEPTION__) DDLogError(@"%@", __EXCEPTION__)
 
 /**
  *  If all of the above fail, then use GCDWebServer built-in
@@ -118,8 +116,7 @@ typedef NS_ENUM(int, GCDWebServerLoggingLevel) {
   kGCDWebServerLoggingLevel_Verbose,
   kGCDWebServerLoggingLevel_Info,
   kGCDWebServerLoggingLevel_Warning,
-  kGCDWebServerLoggingLevel_Error,
-  kGCDWebServerLoggingLevel_Exception
+  kGCDWebServerLoggingLevel_Error
 };
 
 extern GCDWebServerLoggingLevel GCDWebServerLogLevel;
@@ -134,7 +131,6 @@ extern void GCDWebServerLogMessage(GCDWebServerLoggingLevel level, NSString* for
 #define GWS_LOG_INFO(...) do { if (GCDWebServerLogLevel <= kGCDWebServerLoggingLevel_Info) GCDWebServerLogMessage(kGCDWebServerLoggingLevel_Info, __VA_ARGS__); } while (0)
 #define GWS_LOG_WARNING(...) do { if (GCDWebServerLogLevel <= kGCDWebServerLoggingLevel_Warning) GCDWebServerLogMessage(kGCDWebServerLoggingLevel_Warning, __VA_ARGS__); } while (0)
 #define GWS_LOG_ERROR(...) do { if (GCDWebServerLogLevel <= kGCDWebServerLoggingLevel_Error) GCDWebServerLogMessage(kGCDWebServerLoggingLevel_Error, __VA_ARGS__); } while (0)
-#define GWS_LOG_EXCEPTION(__EXCEPTION__) do { if (GCDWebServerLogLevel <= kGCDWebServerLoggingLevel_Exception) GCDWebServerLogMessage(kGCDWebServerLoggingLevel_Exception, @"%@", __EXCEPTION__); } while (0)
 
 #endif
 
@@ -168,7 +164,6 @@ extern void GCDWebServerLogMessage(GCDWebServerLoggingLevel level, NSString* for
  */
 
 #define kGCDWebServerDefaultMimeType @"application/octet-stream"
-#define kGCDWebServerGCDQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
 #define kGCDWebServerErrorDomain @"GCDWebServerErrorDomain"
 
 static inline BOOL GCDWebServerIsValidByteRange(NSRange range) {
@@ -200,6 +195,7 @@ extern NSString* GCDWebServerStringFromSockAddr(const struct sockaddr* addr, BOO
 @property(nonatomic, readonly) NSDictionary* authenticationBasicAccounts;
 @property(nonatomic, readonly) NSDictionary* authenticationDigestAccounts;
 @property(nonatomic, readonly) BOOL shouldAutomaticallyMapHEADToGET;
+@property(nonatomic, readonly) dispatch_queue_priority_t dispatchQueuePriority;
 - (void)willStartConnection:(GCDWebServerConnection*)connection;
 - (void)didEndConnection:(GCDWebServerConnection*)connection;
 @end
@@ -211,6 +207,8 @@ extern NSString* GCDWebServerStringFromSockAddr(const struct sockaddr* addr, BOO
 
 @interface GCDWebServerRequest ()
 @property(nonatomic, readonly) BOOL usesChunkedTransferEncoding;
+@property(nonatomic, readwrite) NSData* localAddressData;
+@property(nonatomic, readwrite) NSData* remoteAddressData;
 - (void)prepareForWriting;
 - (BOOL)performOpen:(NSError**)error;
 - (BOOL)performWriteData:(NSData*)data error:(NSError**)error;

@@ -24,6 +24,7 @@ Extra built-in features:
 * [Basic](https://en.wikipedia.org/wiki/Basic_access_authentication) and [Digest Access](https://en.wikipedia.org/wiki/Digest_access_authentication) authentications for password protection
 * Automatically handle transitions between foreground, background and suspended modes in iOS apps
 * Full support for both IPv4 and IPv6
+* NAT port mapping (IPv4 only)
 
 Included extensions:
 * [GCDWebUploader](GCDWebUploader/GCDWebUploader.h): subclass of ```GCDWebServer``` that implements an interface for uploading and downloading files using a web browser
@@ -43,7 +44,9 @@ Getting Started
 
 Download or check out the [latest release](https://github.com/swisspol/GCDWebServer/releases) of GCDWebServer then add the entire "GCDWebServer" subfolder to your Xcode project. If you intend to use one of the extensions like GCDWebDAVServer or GCDWebUploader, add these subfolders as well.
 
-Alternatively, you can install GCDWebServer using [CocoaPods](http://cocoapods.org/) by simply adding this line to your Xcode project's Podfile:
+If you add the files directly then (1) link to `libz` (via Target > Build Phases > Link Binary With Libraries) and (2) add `$(SDKROOT)/usr/include/libxml2` to your header search paths (via Target > Build Settings > HEADER_SEARCH_PATHS).
+
+Alternatively, you can install GCDWebServer using [CocoaPods](http://cocoapods.org/) by simply adding this line to your Podfile:
 ```
 pod "GCDWebServer", "~> 3.0"
 ```
@@ -56,10 +59,28 @@ Or this line for GCDWebDAVServer:
 pod "GCDWebServer/WebDAV", "~> 3.0"
 ```
 
+And finally run `$ pod install`.
+
+You can also use [Carthage](https://github.com/Carthage/Carthage) by adding this line to your Cartfile (3.2.5 is the first release with Carthage support):
+```
+github "swisspol/GCDWebServer" ~> 3.2.5
+```
+
+Then run `$ carthage update` and add the generated frameworks to your Xcode projects (see [Carthage instructions](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application)).
+
+Help & Support
+==============
+
+For help with using GCDWebServer, it's best to ask your question on Stack Overflow with the [`gcdwebserver`](http://stackoverflow.com/questions/tagged/gcdwebserver) tag.
+
+Be sure to read this entire README first though!
+
 Hello World
 ===========
 
 These code snippets show how to implement a custom HTTP server that runs on port 8080 and returns a "Hello World" HTML page to any request. Since GCDWebServer uses GCD blocks to handle requests, no subclassing or delegates are needed, which results in very clean code.
+
+**IMPORTANT:** If not using CocoaPods, be sure to add the `libz` shared system library to the Xcode target for your app.
 
 **OS X version (command line tool):**
 ```objectivec
@@ -132,83 +153,28 @@ int main(int argc, const char* argv[]) {
 ***webServer.swift***
 ```swift
 import Foundation
+import GCDWebServer
 
-let webServer = GCDWebServer()
+func initWebServer() {
 
-webServer.addDefaultHandlerForMethod("GET", requestClass: GCDWebServerRequest.self, processBlock: {request in
+    let webServer = GCDWebServer()
+
+    webServer.addDefaultHandlerForMethod("GET", requestClass: GCDWebServerRequest.self, processBlock: {request in
     return GCDWebServerDataResponse(HTML:"<html><body><p>Hello World</p></body></html>")
+        
+    })
+    
+    webServer.runWithPort(8080, bonjourName: "GCD Web Server")
+    
+    print("Visit \(webServer.serverURL) in your web browser")
 }
-
-webServer.runWithPort(8080, bonjourName: nil)
-
-println("Visit \(webServer.serverURL) in your web browser")
 ```
 
 ***WebServer-Bridging-Header.h***
 ```objectivec
-#import "GCDWebServer.h"
-#import "GCDWebServerDataResponse.h"
+#import <GCDWebServer/GCDWebServer.h>
+#import <GCDWebServer/GCDWebServerDataResponse.h>
 ```
-
-Asynchronous HTTP Responses
-===========================
-
-New in GCDWebServer 3.0 is the ability to process HTTP requests aysnchronously i.e. add handlers to the server which generate their ```GCDWebServerResponse``` asynchronously. This is achieved by adding handlers that use a ```GCDWebServerAsyncProcessBlock``` instead of a ```GCDWebServerProcessBlock```. Here's an example:
-
-**(Synchronous version)** The handler blocks while generating the HTTP response:
-```objectivec
-[webServer addDefaultHandlerForMethod:@"GET"
-                         requestClass:[GCDWebServerRequest class]
-                         processBlock:^GCDWebServerResponse *(GCDWebServerRequest* request) {
-  
-  GCDWebServerDataResponse* response = [GCDWebServerDataResponse responseWithHTML:@"<html><body><p>Hello World</p></body></html>"];
-  return response;
-  
-}];
-```
-
-**(Asynchronous version)** The handler returns immediately and calls back GCDWebServer later with the generated HTTP response:
-```objectivec
-[webServer addDefaultHandlerForMethod:@"GET"
-                         requestClass:[GCDWebServerRequest class]
-                    asyncProcessBlock:^(GCDWebServerRequest* request, GCDWebServerCompletionBlock completionBlock) {
-  
-  // Do some async operation like network access or file I/O (simulated here using dispatch_after())
-  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-    GCDWebServerDataResponse* response = [GCDWebServerDataResponse responseWithHTML:@"<html><body><p>Hello World</p></body></html>"];
-    completionBlock(response);
-  });
-
-}];
-```
-
-**(Advanced asynchronous version)** The handler returns immediately a streamed HTTP response which itself generates its contents asynchronously:
-```objectivec
-[webServer addDefaultHandlerForMethod:@"GET"
-                         requestClass:[GCDWebServerRequest class]
-                         processBlock:^GCDWebServerResponse *(GCDWebServerRequest* request) {
-  
-  NSMutableArray* contents = [NSMutableArray arrayWithObjects:@"<html><body><p>\n", @"Hello World!\n", @"</p></body></html>\n", nil];  // Fake data source we are reading from
-  GCDWebServerStreamedResponse* response = [GCDWebServerStreamedResponse responseWithContentType:@"text/html" asyncStreamBlock:^(GCDWebServerBodyReaderCompletionBlock completionBlock) {
-    
-    // Simulate a delay reading from the fake data source
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-      NSString* string = contents.firstObject;
-      if (string) {
-        [contents removeObjectAtIndex:0];
-        completionBlock([string dataUsingEncoding:NSUTF8StringEncoding], nil);  // Generate the 2nd part of the stream data
-      } else {
-        completionBlock([NSData data], nil);  // Must pass an empty NSData to signal the end of the stream
-      }
-    });
-    
-  }];
-  return response;
-  
-}];
-```
-
-*Note that you can even combine both the asynchronous and advanced asynchronous versions to return asynchronously an asynchronous HTTP response!*
 
 Web Based Uploads in iOS Apps
 =============================
@@ -273,6 +239,7 @@ Serving a Static Website
 
 GCDWebServer includes a built-in handler that can recursively serve a directory (it also lets you control how the ["Cache-Control"](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9) header should be set):
 
+**OS X version (command line tool):**
 ```objectivec
 #import "GCDWebServer.h"
 
@@ -309,13 +276,73 @@ GCDWebServer's architecture consists of only 4 core classes:
 Implementing Handlers
 =====================
 
-GCDWebServer relies on "handlers" to process incoming web requests and generating responses. Handlers are implemented with GCD blocks which makes it very easy to provide your owns. However, they are executed on arbitrary threads within GCD so __special attention must be paid to thread-safety and re-entrancy__.
+GCDWebServer relies on "handlers" to process incoming web requests and generating responses. Handlers are implemented with GCD blocks which makes it very easy to provide your own. However, they are executed on arbitrary threads within GCD so __special attention must be paid to thread-safety and re-entrancy__.
 
 Handlers require 2 GCD blocks:
 * The ```GCDWebServerMatchBlock``` is called on every handler added to the ```GCDWebServer``` instance whenever a web request has started (i.e. HTTP headers have been received). It is passed the basic info for the web request (HTTP method, URL, headers...) and must decide if it wants to handle it or not. If yes, it must return a new ```GCDWebServerRequest``` instance (see above) created with this info. Otherwise, it simply returns nil.
 * The ```GCDWebServerProcessBlock``` or ```GCDWebServerAsyncProcessBlock``` is called after the web request has been fully received and is passed the ```GCDWebServerRequest``` instance created at the previous step. It must return synchronously (if using ```GCDWebServerProcessBlock```) or asynchronously (if using ```GCDWebServerAsyncProcessBlock```) a ```GCDWebServerResponse``` instance (see above) or nil on error, which will result in a 500 HTTP status code returned to the client. It's however recommended to return an instance of [GCDWebServerErrorResponse](GCDWebServer/Responses/GCDWebServerErrorResponse.h) on error so more useful information can be returned to the client.
 
 Note that most methods on ```GCDWebServer``` to add handlers only require the ```GCDWebServerProcessBlock``` or ```GCDWebServerAsyncProcessBlock``` as they already provide a built-in ```GCDWebServerMatchBlock``` e.g. to match a URL path with a Regex.
+
+Asynchronous HTTP Responses
+===========================
+
+New in GCDWebServer 3.0 is the ability to process HTTP requests asynchronously i.e. add handlers to the server which generate their ```GCDWebServerResponse``` asynchronously. This is achieved by adding handlers that use a ```GCDWebServerAsyncProcessBlock``` instead of a ```GCDWebServerProcessBlock```. Here's an example:
+
+**(Synchronous version)** The handler blocks while generating the HTTP response:
+```objectivec
+[webServer addDefaultHandlerForMethod:@"GET"
+                         requestClass:[GCDWebServerRequest class]
+                         processBlock:^GCDWebServerResponse *(GCDWebServerRequest* request) {
+  
+  GCDWebServerDataResponse* response = [GCDWebServerDataResponse responseWithHTML:@"<html><body><p>Hello World</p></body></html>"];
+  return response;
+  
+}];
+```
+
+**(Asynchronous version)** The handler returns immediately and calls back GCDWebServer later with the generated HTTP response:
+```objectivec
+[webServer addDefaultHandlerForMethod:@"GET"
+                         requestClass:[GCDWebServerRequest class]
+                    asyncProcessBlock:^(GCDWebServerRequest* request, GCDWebServerCompletionBlock completionBlock) {
+  
+  // Do some async operation like network access or file I/O (simulated here using dispatch_after())
+  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    GCDWebServerDataResponse* response = [GCDWebServerDataResponse responseWithHTML:@"<html><body><p>Hello World</p></body></html>"];
+    completionBlock(response);
+  });
+
+}];
+```
+
+**(Advanced asynchronous version)** The handler returns immediately a streamed HTTP response which itself generates its contents asynchronously:
+```objectivec
+[webServer addDefaultHandlerForMethod:@"GET"
+                         requestClass:[GCDWebServerRequest class]
+                         processBlock:^GCDWebServerResponse *(GCDWebServerRequest* request) {
+  
+  NSMutableArray* contents = [NSMutableArray arrayWithObjects:@"<html><body><p>\n", @"Hello World!\n", @"</p></body></html>\n", nil];  // Fake data source we are reading from
+  GCDWebServerStreamedResponse* response = [GCDWebServerStreamedResponse responseWithContentType:@"text/html" asyncStreamBlock:^(GCDWebServerBodyReaderCompletionBlock completionBlock) {
+    
+    // Simulate a delay reading from the fake data source
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+      NSString* string = contents.firstObject;
+      if (string) {
+        [contents removeObjectAtIndex:0];
+        completionBlock([string dataUsingEncoding:NSUTF8StringEncoding], nil);  // Generate the 2nd part of the stream data
+      } else {
+        completionBlock([NSData data], nil);  // Must pass an empty NSData to signal the end of the stream
+      }
+    });
+    
+  }];
+  return response;
+  
+}];
+```
+
+*Note that you can even combine both the asynchronous and advanced asynchronous versions to return asynchronously an asynchronous HTTP response!*
 
 GCDWebServer & Background Mode for iOS Apps
 ===========================================

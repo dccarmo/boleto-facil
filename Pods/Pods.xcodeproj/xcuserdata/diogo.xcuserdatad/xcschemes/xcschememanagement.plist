@@ -4,37 +4,27 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Pods-GCDWebServer.xcscheme</key>
+		<key>GCDWebServer.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-GoogleAnalytics-iOS-SDK.xcscheme</key>
+		<key>Pods-BoletoFacil.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-OpenSSL.xcscheme</key>
+		<key>RMStore.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-RMStore.xcscheme</key>
+		<key>ZBarSDK.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-ZBarSDK.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-iRate.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods.xcscheme</key>
+		<key>iRate.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -42,37 +32,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>2CD3ECDA21FAC4E1D2309874</key>
+		<key>0E32A5AF691E3792FDE5F005D1F7A27D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6C5C1ACB0A4EE3E8D43A30E9</key>
+		<key>20A501FA1BB2F267B828095022532E88</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>76BE8BF2CFD095E3DCC18BA9</key>
+		<key>43BB5067C4DA1DAC40F651B15704CB6D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A02D170C00695EE637C24FA5</key>
+		<key>8D4650815198EE08D21989F306CF9BF8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CF3594768457B97D651E0752</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E69C275EE83EC6B0BFF1F910</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>EC8B70D40F3751BA77447E9A</key>
+		<key>E998595DE39E28C562D6DAA4E8A9AE9E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
