@@ -176,19 +176,6 @@ static NSString * const BFOBoletoActionSheetInformarDataVencimento = @"Informar 
     }
 }
 
-//- (void)abrirConfiguracao
-//{
-//    BFOConfiguracoesViewController *configuracoes = [BFOConfiguracoesViewController new];
-//    UINavigationController *navegacao = [[UINavigationController alloc] initWithRootViewController:configuracoes];
-//    
-//    [self presentViewController:navegacao animated:YES completion:nil];
-//}
-//
-//- (void)escanearCodigo
-//{
-//    [self presentViewController:[BFOEscanearBoletoViewController new] animated:YES completion:nil];
-//}
-
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

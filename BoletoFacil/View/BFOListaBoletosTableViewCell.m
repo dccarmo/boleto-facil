@@ -33,7 +33,9 @@
     [formatoData setDoesRelativeDateFormatting:YES];
     [formatoData setDateStyle:NSDateFormatterShortStyle];
     
-    if (boleto.tipo == BFOTipoBoletoBancario) {
+    if (boleto.titulo && [boleto.titulo length] > 0) {
+        self.titulo.text = boleto.titulo;
+    } else if (boleto.tipo == BFOTipoBoletoBancario) {
         self.titulo.text = boleto.banco;
     } else {
         self.titulo.text = boleto.categoria;

@@ -50,6 +50,7 @@ static const NSUInteger diaBase = 07;
 {
     self = [super init];
     if (self) {
+        _titulo = [coder decodeObjectForKey:@"titulo"];
         _codigoBarras = [coder decodeObjectForKey:@"codigoBarras"];
         _data = [coder decodeObjectForKey:@"data"];
         _codigoBanco = [coder decodeObjectForKey:@"codigoBanco"];
@@ -63,6 +64,7 @@ static const NSUInteger diaBase = 07;
 
 - (void)encodeWithCoder:(NSCoder *)coder
 {
+    [coder encodeObject:self.titulo forKey:@"titulo"];
     [coder encodeObject:self.codigoBarras forKey:@"codigoBarras"];
     [coder encodeObject:self.data forKey:@"data"];
     [coder encodeObject:self.codigoBanco forKey:@"codigoBanco"];
@@ -333,6 +335,11 @@ static const NSUInteger diaBase = 07;
 - (void)alternaPago
 {
     _pago = @(![_pago boolValue]);
+}
+
+- (void)alteraTitulo:(NSString *)titulo
+{
+    _titulo = titulo;
 }
 
 - (void)agendarLembrete:(NSString *)titulo data:(NSDate *)dataLembrete

@@ -17,15 +17,15 @@
 
 static const NSUInteger margemNumerosLinhaDigitavel = 15;
 static const NSUInteger margemLateralView = 20;
-static const NSUInteger alturaInicialEstadoServidorFundo = 30;
 
-@interface BFOMostrarBoletoView () <UIScrollViewDelegate>
+@interface BFOMostrarBoletoView () <UIScrollViewDelegate, UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *estadoServidorFundo;
 @property (weak, nonatomic) IBOutlet UILabel *estadoServidorMensagem;
 @property (weak, nonatomic) IBOutlet UILabel *estadoServidorEndereco;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *estadoServidorAltura;
 
+@property (weak, nonatomic) IBOutlet UITextField *titulo;
 @property (weak, nonatomic) IBOutlet UIView *corCategoria;
 @property (weak, nonatomic) IBOutlet UILabel *categoria;
 @property (weak, nonatomic) IBOutlet UILabel *banco;
@@ -74,10 +74,10 @@ static const NSUInteger alturaInicialEstadoServidorFundo = 30;
         
         mensagem = @"Acesse o boleto a partir deste endereço:";
         
-        self.estadoServidorAltura.constant = 1.7f * self.estadoServidorAltura.constant;
+        //self.estadoServidorAltura.constant = 1.7f * self.estadoServidorAltura.constant;
         [self.estadoServidorFundo setNeedsUpdateConstraints];
     } else {
-        self.estadoServidorAltura.constant = alturaInicialEstadoServidorFundo;
+        //self.estadoServidorAltura.constant = alturaInicialEstadoServidorFundo;
         [self.estadoServidorFundo setNeedsUpdateConstraints];
     }
     
@@ -91,7 +91,7 @@ static const NSUInteger alturaInicialEstadoServidorFundo = 30;
             self.estadoServidorEndereco.alpha = 0;
         }
         
-        [self layoutIfNeeded];
+//        [self layoutIfNeeded];
     }];
 }
 
@@ -110,6 +110,10 @@ static const NSUInteger alturaInicialEstadoServidorFundo = 30;
         self.dataVencimento.text = [formatoData stringFromDate:boleto.dataVencimento];
     } else {
         self.dataVencimento.text = @"-";
+    }
+    
+    if (boleto.titulo) {
+        self.titulo.text = boleto.titulo;
     }
     
     self.valor.text = boleto.valorExtenso;
@@ -249,6 +253,15 @@ static const NSUInteger alturaInicialEstadoServidorFundo = 30;
     if ([scrollView isEqual:self.containerLinhaDigitavel]) {
         [self calcularTransparenciaContainerLinhaDigitavel];
     }
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [self.titulo resignFirstResponder];
+    
+    return true;
 }
 
 @end

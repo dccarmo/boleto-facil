@@ -22,10 +22,12 @@
 
 //Support
 #import "BFOServidorInternet.h"
+#import "BFOArmazenamentoBoleto.h"
 
 @interface BFOMostrarBoletoViewController ()
 
 @property (nonatomic) BOOL dataVencimentoRelativa;
+@property (weak, nonatomic) IBOutlet UITextField *titulo;
 
 @end
 
@@ -114,6 +116,11 @@
     [formatoData setDoesRelativeDateFormatting:self.dataVencimentoRelativa];
     
     dataVencimento.text = [formatoData stringFromDate:self.boleto.dataVencimento];
+}
+
+- (IBAction)mudouTitulo:(id)sender {
+    [self.boleto alteraTitulo:self.titulo.text];
+    [[BFOArmazenamentoBoleto sharedArmazenamentoBoleto] salvar];
 }
 
 @end

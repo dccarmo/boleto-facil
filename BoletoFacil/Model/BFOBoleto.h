@@ -16,15 +16,16 @@ typedef NS_ENUM(NSUInteger, BFOTipoBoleto)
 
 @interface BFOBoleto : NSObject <NSCoding, UIActivityItemSource>
 
+@property (nonatomic, readonly) NSString *titulo;
 @property (nonatomic, readonly) NSString *codigoBarras;
 @property (nonatomic, readonly) NSDate *data;
-@property (nonatomic ,readonly) BFOTipoBoleto tipo;
+@property (nonatomic, readonly) BFOTipoBoleto tipo;
 @property (nonatomic, readonly) NSString *linhaDigitavel;
 @property (nonatomic, readonly) NSString *banco;
 @property (nonatomic, readonly) NSString *categoria;
 @property (nonatomic, readonly) UIColor *corCategoria;
 @property (nonatomic, readonly) NSDate *dataVencimento;
-@property (nonatomic ,readonly) NSInteger diasAteVencimento;
+@property (nonatomic, readonly) NSInteger diasAteVencimento;
 @property (nonatomic, readonly) NSString *valorExtenso;
 @property (nonatomic, readonly) NSArray *lembretes;
 @property (nonatomic, readonly) NSNumber *pago;
@@ -39,5 +40,6 @@ typedef NS_ENUM(NSUInteger, BFOTipoBoleto)
 
 - (void)informarDataVencimento:(NSDate *)data;
 - (void)alternaPago;
+- (void)alteraTitulo:(NSString *)titulo;
 
 @end
