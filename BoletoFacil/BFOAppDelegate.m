@@ -122,6 +122,9 @@ NSString *const BFOPagoCategoryIdentifier = @"PagoCategoryIdentifier";
     UIColor *navigationBarBackgroundColor = [UIColor colorWithWhite:0.97f alpha:1.0f];
     UIColor *preto = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1];
     
+    //UIView
+    [UIView appearance].tintColor = tintColor;
+    
     //UINavigationBar
     [UINavigationBar appearance].backgroundColor = navigationBarBackgroundColor;
     [UINavigationBar appearance].titleTextAttributes = @{NSForegroundColorAttributeName:preto};
