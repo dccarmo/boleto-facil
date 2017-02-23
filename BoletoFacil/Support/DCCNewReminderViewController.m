@@ -80,8 +80,6 @@ typedef NS_ENUM(NSUInteger, DCCNewReminderRow)
                                                                                                  categories:[NSSet setWithArray:@[pagoCategory]]];
         [[UIApplication sharedApplication] registerUserNotificationSettings:userNotificationSettings];
         
-        [self verificaConfiguracaoNotificacao:[UIApplication sharedApplication].currentUserNotificationSettings];
-        
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(configuracaoNotificacaoAlterada:) name:BFOConfiguracoesDeNotificacoesAlteradaNotification object:nil];
     }
 }
@@ -98,20 +96,21 @@ typedef NS_ENUM(NSUInteger, DCCNewReminderRow)
     NSNotification *notification = sender;
     UIUserNotificationSettings *userNotificationSettings = notification.object;
     
-    [self verificaConfiguracaoNotificacao:userNotificationSettings];
+    [self apresentaMensagemSobreNotificacao:userNotificationSettings];
 }
 
-- (void)verificaConfiguracaoNotificacao:(UIUserNotificationSettings *)userNotificationSettings
+- (void)apresentaMensagemSobreNotificacao:(UIUserNotificationSettings *)userNotificationSettings
 {
     if (userNotificationSettings.types == UIUserNotificationTypeNone) {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Aviso"
                                                                                  message:@"Notificações para o Zebra estão desabilitadas. Você pode alterar esta opção em Configurações."
                                                                           preferredStyle:UIAlertControllerStyleAlert];
-        [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
         
-        [self presentViewController:alertController animated:YES completion:^{
+        [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
-        }];
+        }]];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
     }
     
     if (userNotificationSettings.types != (UIUserNotificationTypeSound | UIUserNotificationTypeBadge | UIUserNotificationTypeAlert)) {
