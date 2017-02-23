@@ -146,6 +146,11 @@ typedef NS_ENUM(NSUInteger, DCCNewReminderRow)
     if (!_titleField) {
         _titleField = [[UITextField alloc] initWithFrame:CGRectMake(self.tableView.separatorInset.left, 0, self.tableView.frame.size.width, 44.0f)];
         _titleField.placeholder = @"Pagar boleto...";
+        
+        if (self.boleto.titulo && [self.boleto.titulo length] > 0) {
+            _titleField.text = [NSString stringWithFormat:@"Pagar %@", self.boleto.titulo];
+        }
+        
         _titleField.textColor = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1];
     }
     

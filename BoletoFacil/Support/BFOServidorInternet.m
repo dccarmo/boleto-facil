@@ -109,6 +109,12 @@ static NSString * const erroSemConexaoWifi = @"Você não está conectado à wi-
     
     html = [html stringByReplacingOccurrencesOfString:@"%@TITULO@%" withString:@"Zebra"];
     
+    if (boleto.titulo && [boleto.titulo length] > 0) {
+        html = [html stringByReplacingOccurrencesOfString:@"%@TITULO-BOLETO@%" withString:boleto.titulo];
+    } else {
+        html = [html stringByReplacingOccurrencesOfString:@"%@TITULO-BOLETO@%" withString:@"Sem título"];
+    }
+    
     html = [html stringByReplacingOccurrencesOfString:@"%@CATEGORIA@%" withString:boleto.categoria];
     html = [html stringByReplacingOccurrencesOfString:@"%@BANCO@%" withString:boleto.banco];
     
