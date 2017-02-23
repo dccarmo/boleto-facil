@@ -217,7 +217,6 @@ static NSString * const BFOBoletoActionSheetInformarDataVencimento = @"Informar 
 {
     return @"Mais";
 }
-
 //Private API
 - (void)tableView:(UITableView *)tableView swipeAccessoryButtonPushedForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -289,7 +288,6 @@ static NSString * const BFOBoletoActionSheetInformarDataVencimento = @"Informar 
     }
     
     if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:BFOBoletoActionSheetInformarDataVencimento]) {
-//        [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[[BFOInformarDataVencimentoViewController alloc] initWithBoleto:self.boletoSendoEditado]] animated:YES completion:nil];
         [self performSegueWithIdentifier:@"informarDataVencimentoSegue" sender:self];
     }
     

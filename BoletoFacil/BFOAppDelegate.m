@@ -19,9 +19,6 @@
 
 //Pods
 #import <GAI.h>
-#import <RMStore.h>
-#import <RMAppReceipt.h>
-#import <RMStoreAppReceiptVerificator.h>
 #import <iRate.h>
 
 NSString *const BFONumeroBoletosLidosKey = @"NumeroBoletosLidos";
@@ -67,24 +64,6 @@ NSString *const BFOPagoCategoryIdentifier = @"PagoCategoryIdentifier";
     }
     
     [[GAI sharedInstance] trackerWithTrackingId:@"UA-9367655-6"];
-    
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    if (![defaults boolForKey:BFOAplicativoDesbloqueadoKey]) {
-        [[RMStore defaultStore] refreshReceiptOnSuccess:^{
-            RMAppReceipt *receipt = [RMAppReceipt bundleReceipt];
-            
-            CGFloat originalAppVersion = [receipt.originalAppVersion floatValue];
-            
-            if (originalAppVersion < 1.2) {
-                [defaults setObject:@(YES) forKey:BFOAplicativoDesbloqueadoKey];
-                [defaults synchronize];
-            }
-            
-        } failure:^(NSError *error) {
-            
-        }];
-    }
     
     [iRate sharedInstance].eventsUntilPrompt = 5;
     
@@ -142,9 +121,6 @@ NSString *const BFOPagoCategoryIdentifier = @"PagoCategoryIdentifier";
     UIColor *tintColor = [UIColor colorWithRed:1 green:0.27 blue:0.317 alpha:1];
     UIColor *navigationBarBackgroundColor = [UIColor colorWithWhite:0.97f alpha:1.0f];
     UIColor *preto = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1];
-    
-    //UIView
-    [UIView appearance].tintColor = tintColor;
     
     //UINavigationBar
     [UINavigationBar appearance].backgroundColor = navigationBarBackgroundColor;
