@@ -38,6 +38,16 @@
                ReferencedContainer = "container:BoletoFacil.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D9EF2B1E1E6735A800581BA6"
+               BuildableName = "ZebraUITests.xctest"
+               BlueprintName = "ZebraUITests"
+               ReferencedContainer = "container:BoletoFacil.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

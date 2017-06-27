@@ -23,9 +23,13 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>080220151439</string>
+	<string>010320171357</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>O aplicativo usa a câmera para poder ler o código de barras do boleto.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>O aplicativo usa suas fotos para poder ler o código de barras do boleto.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

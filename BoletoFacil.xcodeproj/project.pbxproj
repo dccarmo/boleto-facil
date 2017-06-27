@@ -52,6 +52,16 @@
 		D9EA68F019356C1200FDFBB8 /* NSCalendar+Calculations.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EA68EF19356C1200FDFBB8 /* NSCalendar+Calculations.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		D9EF2B241E6735A800581BA6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D9186BD6190D84CD008B03BB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D9186BDD190D84CD008B03BB;
+			remoteInfo = BoletoFacil;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		7569AAA79700B038CEA73BDE /* Pods-BoletoFacil.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoletoFacil.release.xcconfig"; path = "Pods/Target Support Files/Pods-BoletoFacil/Pods-BoletoFacil.release.xcconfig"; sourceTree = "<group>"; };
 		8BB9D30171151111C427D123 /* libPods-BoletoFacil.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BoletoFacil.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -126,6 +136,7 @@
 		D9EA68E41932BB1600FDFBB8 /* BFOInformarDataVencimentoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFOInformarDataVencimentoViewController.m; sourceTree = "<group>"; };
 		D9EA68EE19356C1200FDFBB8 /* NSCalendar+Calculations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCalendar+Calculations.h"; sourceTree = "<group>"; };
 		D9EA68EF19356C1200FDFBB8 /* NSCalendar+Calculations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCalendar+Calculations.m"; sourceTree = "<group>"; };
+		D9EF2B1F1E6735A800581BA6 /* ZebraUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZebraUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +153,13 @@
 				D9186BE6190D84CD008B03BB /* UIKit.framework in Frameworks */,
 				D9186BE2190D84CD008B03BB /* Foundation.framework in Frameworks */,
 				D746A81A207C302F65D7F8B2 /* libPods-BoletoFacil.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9EF2B1C1E6735A800581BA6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -171,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				D9186BDE190D84CD008B03BB /* Zebra.app */,
+				D9EF2B1F1E6735A800581BA6 /* ZebraUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -338,6 +357,24 @@
 			productReference = D9186BDE190D84CD008B03BB /* Zebra.app */;
 			productType = "com.apple.product-type.application";
 		};
+		D9EF2B1E1E6735A800581BA6 /* ZebraUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D9EF2B261E6735A800581BA6 /* Build configuration list for PBXNativeTarget "ZebraUITests" */;
+			buildPhases = (
+				D9EF2B1B1E6735A800581BA6 /* Sources */,
+				D9EF2B1C1E6735A800581BA6 /* Frameworks */,
+				D9EF2B1D1E6735A800581BA6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D9EF2B251E6735A800581BA6 /* PBXTargetDependency */,
+			);
+			name = ZebraUITests;
+			productName = ZebraUITests;
+			productReference = D9EF2B1F1E6735A800581BA6 /* ZebraUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -345,16 +382,24 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = BFO;
+				LastSwiftUpdateCheck = 0820;
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Diogo do Carmo";
 				TargetAttributes = {
 					D9186BDD190D84CD008B03BB = {
 						DevelopmentTeam = NGYV2XXS3X;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.InterAppAudio = {
 								enabled = 0;
 							};
 						};
+					};
+					D9EF2B1E1E6735A800581BA6 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = NGYV2XXS3X;
+						ProvisioningStyle = Automatic;
+						TestTargetID = D9186BDD190D84CD008B03BB;
 					};
 				};
 			};
@@ -371,6 +416,7 @@
 			projectRoot = "";
 			targets = (
 				D9186BDD190D84CD008B03BB /* BoletoFacil */,
+				D9EF2B1E1E6735A800581BA6 /* ZebraUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -389,6 +435,13 @@
 				D9186BEC190D84CD008B03BB /* InfoPlist.strings in Resources */,
 				D9B5634A192982E500C53A05 /* BFOBoletoHTML.html in Resources */,
 				D9186BF4190D84CD008B03BB /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9EF2B1D1E6735A800581BA6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -475,7 +528,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D9EF2B1B1E6735A800581BA6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D9EF2B251E6735A800581BA6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D9186BDD190D84CD008B03BB /* BoletoFacil */;
+			targetProxy = D9EF2B241E6735A800581BA6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		D9186BEA190D84CD008B03BB /* InfoPlist.strings */ = {
@@ -580,13 +648,16 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = NGYV2XXS3X;
+				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BoletoFacil/BoletoFacil-Prefix.pch";
 				INFOPLIST_FILE = "BoletoFacil/BoletoFacil-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "me.dcarmo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = Zebra;
-				PROVISIONING_PROFILE = "4f5476ef-050b-4222-b6af-6d23ea1d3645";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -599,14 +670,58 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = NGYV2XXS3X;
+				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BoletoFacil/BoletoFacil-Prefix.pch";
 				INFOPLIST_FILE = "BoletoFacil/BoletoFacil-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "me.dcarmo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = Zebra;
-				PROVISIONING_PROFILE = "4f5476ef-050b-4222-b6af-6d23ea1d3645";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		D9EF2B271E6735A800581BA6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = NGYV2XXS3X;
+				INFOPLIST_FILE = ZebraUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = me.dcarmo.ZebraUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = BoletoFacil;
+			};
+			name = Debug;
+		};
+		D9EF2B281E6735A800581BA6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = NGYV2XXS3X;
+				INFOPLIST_FILE = ZebraUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = me.dcarmo.ZebraUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = BoletoFacil;
 			};
 			name = Release;
 		};
@@ -627,6 +742,15 @@
 			buildConfigurations = (
 				D9186C0B190D84CE008B03BB /* Debug */,
 				D9186C0C190D84CE008B03BB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D9EF2B261E6735A800581BA6 /* Build configuration list for PBXNativeTarget "ZebraUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D9EF2B271E6735A800581BA6 /* Debug */,
+				D9EF2B281E6735A800581BA6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
