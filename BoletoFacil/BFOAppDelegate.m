@@ -21,8 +21,10 @@
 #import <GAI.h>
 #import <iRate.h>
 
+NSString *const IAPUnlockProductIdentifier = @"me.dcarmo.zebra.unlock";
+
 NSString *const BFONumeroBoletosLidosKey = @"NumeroBoletosLidos";
-NSString *const BFOAplicativoDesbloqueadoKey = @"AplicativoDesbloqueado";
+NSString *const AlreadyPurchasedKey = @"AlreadyPurchased";
 NSString *const BFOOrdenacaoTelaPrincipalKey = @"OrdenacaoTelaPrincipal";
 NSString *const BFOMostrarBoletosVencidosKey = @"MostrarBoletosVencidos";
 NSString *const BFOMostrarBoletosPagosKey = @"MostrarBoletosPagos";
@@ -44,7 +46,7 @@ NSString *const BFOPagoCategoryIdentifier = @"PagoCategoryIdentifier";
     
     [defaults registerDefaults:@{BFONumeroBoletosLidosKey: @0,
                                  BFOOrdenacaoTelaPrincipalKey: @0,
-                                 BFOAplicativoDesbloqueadoKey: @NO,
+                                 AlreadyPurchasedKey: @NO,
                                  BFOMostrarBoletosVencidosKey: @YES,
                                  BFOMostrarBoletosPagosKey: @YES,
                                  BFONenhumBoletoLidoKey: @YES,

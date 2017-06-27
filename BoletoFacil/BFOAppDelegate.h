@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+extern NSString *const IAPUnlockProductIdentifier;
+
 extern NSString *const BFONumeroBoletosLidosKey;
-extern NSString *const BFOAplicativoDesbloqueadoKey;
+extern NSString *const AlreadyPurchasedKey;
 extern NSString *const BFOOrdenacaoTelaPrincipalKey;
 extern NSString *const BFOMostrarBoletosVencidosKey;
 extern NSString *const BFOMostrarBoletosPagosKey;

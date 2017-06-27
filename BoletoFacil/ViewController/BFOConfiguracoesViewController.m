@@ -20,8 +20,6 @@
 #import <RMAppReceipt.h>
 #import <RMStoreAppReceiptVerificator.h>
 
-#define kRemoveAdsProductIdentifier @"me.dcarmo.zebra.unlock"
-
 typedef NS_ENUM(NSUInteger, BFOConfiguracoesViewControllerSecao)
 {
     BFOConfiguracoesViewControllerSecaoTelaPrincipal,
@@ -58,7 +56,7 @@ typedef NS_ENUM(NSUInteger, BFOConfiguracoesViewControllerSecao)
     [self configurarInterruptores];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if ([defaults boolForKey:BFOAplicativoDesbloqueadoKey]) {
+    if ([defaults boolForKey:AlreadyPurchasedKey]) {
         self.navigationItem.rightBarButtonItem = nil;
     }
     
@@ -85,7 +83,7 @@ typedef NS_ENUM(NSUInteger, BFOConfiguracoesViewControllerSecao)
 - (void)desbloquearAplicativo
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:@(YES) forKey:BFOAplicativoDesbloqueadoKey];
+    [defaults setObject:@(YES) forKey:AlreadyPurchasedKey];
     [defaults synchronize];
     
     self.navigationItem.rightBarButtonItem = nil;
@@ -157,11 +155,16 @@ typedef NS_ENUM(NSUInteger, BFOConfiguracoesViewControllerSecao)
     }
     
     if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Comprar"]) {
-        [[RMStore defaultStore] requestProducts:[NSSet setWithObject:kRemoveAdsProductIdentifier] success:^(NSArray *products, NSArray *invalidProductIdentifiers) {
-            [self desbloquearAplicativo];
-            
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Sucesso!" message:@"Obrigado por ter comprado o Zebra! :)" delegate:nil cancelButtonTitle:@"Fechar" otherButtonTitles:nil];
-            [alertView show];
+        [[RMStore defaultStore] requestProducts:[NSSet setWithArray:@[IAPUnlockProductIdentifier]] success:^(NSArray *products, NSArray *invalidProductIdentifiers) {
+            [[RMStore defaultStore] addPayment:IAPUnlockProductIdentifier success:^(SKPaymentTransaction *transaction) {
+                [self desbloquearAplicativo];
+                
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Sucesso!" message:@"Obrigado por ter comprado o Zebra! :)" delegate:nil cancelButtonTitle:@"Fechar" otherButtonTitles:nil];
+                [alertView show];
+            } failure:^(SKPaymentTransaction *transaction, NSError *error) {
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Erro" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [alertView show];
+            }];
         } failure:^(NSError *error) {
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Erro" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alertView show];
@@ -169,21 +172,26 @@ typedef NS_ENUM(NSUInteger, BFOConfiguracoesViewControllerSecao)
     }
     
     if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Restaurar"]) {
-        [[RMStore defaultStore] refreshReceiptOnSuccess:^{
-            [self desbloquearAplicativo];
-            
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Sucesso!" message:@"Obrigado por ter comprado o Zebra! :)" delegate:nil cancelButtonTitle:@"Fechar" otherButtonTitles:nil];
-            [alertView show];
-        } failure:^(NSError *error) {
-            [[RMStore defaultStore] restoreTransactionsOnSuccess:^(NSArray *transactions){
+        [[RMStore defaultStore] requestProducts:[NSSet setWithArray:@[IAPUnlockProductIdentifier]] success:^(NSArray *products, NSArray *invalidProductIdentifiers) {
+            [[RMStore defaultStore] refreshReceiptOnSuccess:^{
                 [self desbloquearAplicativo];
                 
                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Sucesso!" message:@"Obrigado por ter comprado o Zebra! :)" delegate:nil cancelButtonTitle:@"Fechar" otherButtonTitles:nil];
                 [alertView show];
             } failure:^(NSError *error) {
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Erro" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                [alertView show];
+                [[RMStore defaultStore] restoreTransactionsOnSuccess:^(NSArray *transactions){
+                    [self desbloquearAplicativo];
+                    
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Sucesso!" message:@"Obrigado por ter comprado o Zebra! :)" delegate:nil cancelButtonTitle:@"Fechar" otherButtonTitles:nil];
+                    [alertView show];
+                } failure:^(NSError *error) {
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Erro" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                    [alertView show];
+                }];
             }];
+        } failure:^(NSError *error) {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Erro" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alertView show];
         }];
     }
 }

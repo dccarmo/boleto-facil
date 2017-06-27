@@ -22,7 +22,6 @@
 		D9186C2C190F1787008B03BB /* BFOMostrarBoletoView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9186C2B190F1787008B03BB /* BFOMostrarBoletoView.m */; };
 		D9186C2F19129C87008B03BB /* BFOArmazenamentoBoleto.m in Sources */ = {isa = PBXBuildFile; fileRef = D9186C2E19129C87008B03BB /* BFOArmazenamentoBoleto.m */; };
 		D9186C321913C6C2008B03BB /* BFONavegacaoPrincipalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9186C311913C6C2008B03BB /* BFONavegacaoPrincipalViewController.m */; };
-		D9186C371913CF48008B03BB /* BFOListaBoletosView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9186C361913CF48008B03BB /* BFOListaBoletosView.m */; };
 		D9186C3C1913FEE1008B03BB /* BFOListaBoletosTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9186C3B1913FEE1008B03BB /* BFOListaBoletosTableViewCell.m */; };
 		D9186C3E19141111008B03BB /* BFOListaBolestosVaziaView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9186C3D19141111008B03BB /* BFOListaBolestosVaziaView.xib */; };
 		D9186C4919156FE8008B03BB /* BFOListaBancos.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9186C4819156FE8008B03BB /* BFOListaBancos.plist */; };
@@ -92,8 +91,6 @@
 		D9186C2E19129C87008B03BB /* BFOArmazenamentoBoleto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFOArmazenamentoBoleto.m; sourceTree = "<group>"; };
 		D9186C301913C6C2008B03BB /* BFONavegacaoPrincipalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFONavegacaoPrincipalViewController.h; sourceTree = "<group>"; };
 		D9186C311913C6C2008B03BB /* BFONavegacaoPrincipalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFONavegacaoPrincipalViewController.m; sourceTree = "<group>"; };
-		D9186C351913CF48008B03BB /* BFOListaBoletosView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFOListaBoletosView.h; sourceTree = "<group>"; };
-		D9186C361913CF48008B03BB /* BFOListaBoletosView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFOListaBoletosView.m; sourceTree = "<group>"; };
 		D9186C3A1913FEE1008B03BB /* BFOListaBoletosTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFOListaBoletosTableViewCell.h; sourceTree = "<group>"; };
 		D9186C3B1913FEE1008B03BB /* BFOListaBoletosTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFOListaBoletosTableViewCell.m; sourceTree = "<group>"; };
 		D9186C3D19141111008B03BB /* BFOListaBolestosVaziaView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BFOListaBolestosVaziaView.xib; sourceTree = "<group>"; };
@@ -279,8 +276,6 @@
 				D9DB075B1A87871400DF2E6B /* BFOLinhaDigitavelScrollView.m */,
 				D9186C2A190F1787008B03BB /* BFOMostrarBoletoView.h */,
 				D9186C2B190F1787008B03BB /* BFOMostrarBoletoView.m */,
-				D9186C351913CF48008B03BB /* BFOListaBoletosView.h */,
-				D9186C361913CF48008B03BB /* BFOListaBoletosView.m */,
 				D9186C3D19141111008B03BB /* BFOListaBolestosVaziaView.xib */,
 				D9186C3A1913FEE1008B03BB /* BFOListaBoletosTableViewCell.h */,
 				D9186C3B1913FEE1008B03BB /* BFOListaBoletosTableViewCell.m */,
@@ -518,7 +513,6 @@
 				D9B5633C1926568000C53A05 /* DCCBoletoFormatter.m in Sources */,
 				D9186C321913C6C2008B03BB /* BFONavegacaoPrincipalViewController.m in Sources */,
 				D9186C2F19129C87008B03BB /* BFOArmazenamentoBoleto.m in Sources */,
-				D9186C371913CF48008B03BB /* BFOListaBoletosView.m in Sources */,
 				D9B563431928452500C53A05 /* BFOListaLembretesViewController.m in Sources */,
 				D9D1CF21191AC7120015C8EB /* DCCNewReminderViewController.m in Sources */,
 				D9EA68F019356C1200FDFBB8 /* NSCalendar+Calculations.m in Sources */,
